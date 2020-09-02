@@ -1,16 +1,28 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 
 import {
-  Text
-} from 'react-native'
+  StyleSheet,
+  Text,
+  SafeAreaView
+} from 'react-native';
 
 class Home extends Component{
 
   render(){
-    return (
-      <Text>The home</Text>
+    return(
+      <SafeAreaView style={style.Header}>
+        <Text>The homes</Text>
+      </SafeAreaView>
     )
   }
 }
+
+const style = StyleSheet.create({
+  Header: {
+    borderColor: "red",
+    borderWidth: 1,
+    borderStyle: "solid"
+  }
+})
 
 export default Home
