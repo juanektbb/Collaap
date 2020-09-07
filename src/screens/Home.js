@@ -10,11 +10,11 @@ import {
 import helpers from '../helpers.js'
 
 import CalendarPrimary from '../components/CalendarPrimary.js'
-import CalendarSubsection from '../components/CalendarSubsection.js'
+
 import Separator from '../components/Separator.js'
 
 import elements from '../data/elements.js'
-import CalendarSubItem from '../components/CalendarSubItem'
+import ElementItem from '../components/ElementItem'
 
 class Home extends Component{
 
@@ -53,7 +53,7 @@ class Home extends Component{
         ItemSeparatorComponent={() =>
           <View style={styles.Separator}></View>}
         renderItem={({item}) =>
-          <CalendarSubItem key={item.key} item={item} />
+          <ElementItem key={item.key} item={item} />
         }
       />)
   }
@@ -61,10 +61,6 @@ class Home extends Component{
 
 const styles = StyleSheet.create({
   FlatList: {
-    borderWidth: 1,
-    borderColor: 'blue',
-    // height: 300,
-    // overflow: 'scroll'
     marginBottom: 80
   },
   Separator: {

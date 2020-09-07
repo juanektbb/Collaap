@@ -9,7 +9,7 @@ import {
 
 import helpers from '../helpers.js'
 
-class CalendarPrimItem extends Component{
+class CalendarItem extends Component{
 
   constructor(props){
     super(props)
@@ -142,4 +142,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default CalendarPrimItem
+export default CalendarItem

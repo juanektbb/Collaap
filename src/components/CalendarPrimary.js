@@ -12,7 +12,7 @@ import calendar from '../data/calendar.js'
 
 import helpers from '../helpers.js'
 
-import CalendarPrimItem from './CalendarPrimItem'
+import CalendarItem from './CalendarItem'
 
 
 
@@ -42,12 +42,12 @@ class CalendarPrimary extends Component{
         ItemSeparatorComponent={() =>
           <View style={styles.Separator}/>}
         renderItem={({item}) =>
-          <CalendarPrimItem
+          <CalendarItem
             item={item}
             elements={elements}
             isToday={this.checkItToday(item.final)}
             clickOnCalendarCell={this.props.clickOnCalendarCell}
-          
+
           />
         }
       />)

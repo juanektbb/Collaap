@@ -18,7 +18,7 @@ const elements = [
   {
     "id": "3",
     "title": "MyTitle3",
-    "date": "2020-09-07",
+    "date": "2020-09-09",
     "time": "23:00",
     "collaborators": [],
     "category": "food"
@@ -26,7 +26,7 @@ const elements = [
   {
     "id": "4",
     "title": "MyTitle4",
-    "date": "2020-09-07",
+    "date": "2020-09-08",
     "time": "14:00",
     "collaborators": [],
     "category": "fun"
@@ -35,14 +35,14 @@ const elements = [
     "id": "5",
     "title": "MyTitle5",
     "date": "2020-09-07",
-    "time": "14:00",
+    "time": "04:00",
     "collaborators": [],
     "category": "fun"
   },
   {
     "id": "6",
     "title": "MyTitle6",
-    "date": "2020-09-07",
+    "date": "2020-09-06",
     "time": "14:00",
     "collaborators": [],
     "category": "fun"

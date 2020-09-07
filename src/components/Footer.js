@@ -21,9 +21,9 @@ const Footer = (props) => {
 const styles = StyleSheet.create({
   Footer:{
     flex: 1,
-    color: "pink",
     height: 80,
-
+    position: 'absolute',
+    bottom: 0
   }
 })
 

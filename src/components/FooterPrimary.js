@@ -31,7 +31,6 @@ const styles = StyleSheet.create({
     flexBasis: '33.33%',
     height: 80,
     textAlign: 'center',
-    borderColor: 'blue',
     borderWidth: 1
   }
 })

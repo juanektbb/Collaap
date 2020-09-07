@@ -5,7 +5,7 @@ import {
   StyleSheet
 } from 'react-native'
 
-class CalendarSubItem extends Component{
+class ElementItem extends Component{
 
   constructor(props){
     super(props)
@@ -56,7 +56,6 @@ const styles = StyleSheet.create({
     height: 48
   },
   Main: {
-    backgroundColor: 'lightblue',
     flexBasis: '60%',
     marginHorizontal: 10
   },
@@ -70,7 +69,8 @@ const styles = StyleSheet.create({
   },
   Time: {
     fontSize: 13,
+    marginTop: 4
   }
 })
 
-export default CalendarSubItem
+export default ElementItem
