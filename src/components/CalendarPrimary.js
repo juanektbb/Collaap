@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 
 import {
   Text,
@@ -7,48 +7,61 @@ import {
   FlatList
 } from 'react-native'
 
-// import elements from '../data/elements.js'
+import elements from '../data/elements.js'
+import calendar from '../data/calendar.js'
 
-import CalendarSubItem from './CalendarSubItem'
+import helpers from '../helpers.js'
+
+import CalendarPrimItem from './CalendarPrimItem'
 
 
-const CalendarSubsection = () => {
-  const elements2 = [{}]
-  return (
-    <FlatList
-      data={elements2}
-      style={styles.FlatList}
-      ListEmptyComponent={() =>
-        <View>
-          <Text style={styles.EmptyComponent}>Empty</Text>
-          <Text style={styles.EmptyComponentPlus}>+</Text>
-        </View>}
-      ItemSeparatorComponent={() =>
-        <View style={styles.Separator}></View>}
-      renderItem={({item}) =>
-        <CalendarSubItem item={item} />
-      }
-    />)
+
+class CalendarPrimary extends Component{
+
+  constructor(props){
+    super(props)
+    this.state = {
+      onThisDate: this.props.onThisDate
+    }
+  }
+
+  checkItToday = (date) => {
+    if(this.state.onThisDate == date){
+      return true
+    }
+    return false
+  }
+
+  render(){
+    return (
+      <FlatList
+        horizontal
+        keyExtractor={item =>item.key}
+        data={calendar}
+        style={styles.FlatList}
+        ItemSeparatorComponent={() =>
+          <View style={styles.Separator}/>}
+        renderItem={({item}) =>
+          <CalendarPrimItem
+            item={item}
+            elements={elements}
+            isToday={this.checkItToday(item.final)}
+            clickOnCalendarCell={this.props.clickOnCalendarCell}
+          
+          />
+        }
+      />)
+  }
 }
 
 const styles = StyleSheet.create({
   FlatList: {
-    marginTop: 30
+    height: 110,
   },
   Separator: {
-    borderBottomWidth: 1,
-    borderBottomColor: '#e4e4e4'
-  },
-  EmptyComponent: {
-    textAlign: 'center',
-    color: '#333',
-    fontSize: 26
-  },
-  EmptyComponentPlus: {
-    textAlign: 'center',
-    color: '#333',
-    fontSize: 26,
+    borderRightWidth: 1,
+    borderRightColor: '#ccc'
   }
 })
 
-export default CalendarSubsection
+export default CalendarPrimary

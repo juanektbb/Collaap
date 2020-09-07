@@ -16,6 +16,7 @@ const CalendarSubsection = () => {
   const elements2 = []
   return (
     <FlatList
+      keyExtractor={item =>item.id}
       data={elements}
       style={styles.FlatList}
       ListEmptyComponent={() =>
@@ -26,14 +27,17 @@ const CalendarSubsection = () => {
       ItemSeparatorComponent={() =>
         <View style={styles.Separator}></View>}
       renderItem={({item}) =>
-        <CalendarSubItem item={item} />
+        <CalendarSubItem key={item.key} item={item} />
       }
     />)
 }
 
 const styles = StyleSheet.create({
   FlatList: {
-    marginTop: 30
+    borderWidth: 1,
+    borderColor: 'blue',
+    // height: 300,
+    // overflow: 'scroll'
   },
   Separator: {
     borderBottomWidth: 1,

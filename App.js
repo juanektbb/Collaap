@@ -2,43 +2,57 @@
 import React, {Component} from 'react';
 import {
   Text,
+  View,
   StyleSheet,
-  SafeAreaView
+  SafeAreaView,
+  ScrollView,
+  Dimensions
 } from 'react-native';
 
 import Header from './src/components/Header.js'
-import Home from './src/screens/Home.js'
-
-import CalendarPrimary from './src/components/CalendarPrimary.js'
-import CalendarSubsection from './src/components/CalendarSubsection.js'
-
 import Footer from './src/components/Footer.js'
 
+import Home from './src/screens/Home.js'
+
 class App extends Component<Props>{
+
+
+
   render(){
     return(
-      <SafeAreaView style={styles.SafeAreaView}>
+      <SafeAreaView style={styles.SafeAreaView, {flex: 1}}>
+
         <Header />
 
 
-        <CalendarPrimary />
-        <CalendarSubsection />
 
-        <Footer type="primary"/>
+        <Home />
+
+
+        <View style={styles.Footer}>
+          <Footer type="primary"/>
+        </View>
+
+
       </SafeAreaView>
       )
   }
 }
 
+const contentHeight = Dimensions.get('window').height - 80 - 60 - 24
+
 const styles = StyleSheet.create({
   SafeAreaView: {
     position: 'relative',
-    borderColor: 'green',
-    borderWidth: 2
+  },
+  Content: {
+    // height: contentHeight
   },
   Footer: {
+    borderWidth: 2,
     position: 'absolute',
     bottom: 0
+
   }
 })
 

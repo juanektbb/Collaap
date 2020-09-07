@@ -26,10 +26,9 @@ class FooterPrimary extends Component{
 const styles = StyleSheet.create({
   FooterBar: {
     flexDirection: 'row',
-
   },
   FooterOption: {
-    flexBasis: '33%',
+    flexBasis: '33.33%',
     height: 80,
     textAlign: 'center',
     borderColor: 'blue',

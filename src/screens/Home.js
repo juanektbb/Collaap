@@ -1,27 +1,85 @@
 import React, { Component } from 'react';
-
 import {
   StyleSheet,
   Text,
-  SafeAreaView
+  View,
+  SafeAreaView,
+  FlatList
 } from 'react-native';
+
+import helpers from '../helpers.js'
+
+import CalendarPrimary from '../components/CalendarPrimary.js'
+import CalendarSubsection from '../components/CalendarSubsection.js'
+import Separator from '../components/Separator.js'
+
+import elements from '../data/elements.js'
+import CalendarSubItem from '../components/CalendarSubItem'
 
 class Home extends Component{
 
+  constructor(props){
+    super(props)
+    this.state = {
+      on_this_date: helpers.getToday()
+    }
+  }
+
+  clickOnCalendarCell = (yyyymmdd) => {
+    console.log(yyyymmdd)
+    // this.setState({
+    //   on_this_date: yyyymmdd
+    // })
+  }
+
   render(){
-    return(
-      <SafeAreaView style={style.Header}>
-        <Text>The homes</Text>
-      </SafeAreaView>
-    )
+    return (
+      <FlatList
+        keyExtractor={item =>item.id}
+        data={elements}
+        style={styles.FlatList}
+        ListHeaderComponent={<>
+          <CalendarPrimary
+            onThisDate={this.state.on_this_date}
+            clickOnCalendarCell={this.clickOnCalendarCell}
+          />
+          <Separator />
+        </>}
+        ListEmptyComponent={() =>
+          <View>
+            <Text style={styles.EmptyComponent}>Empty</Text>
+            <Text style={styles.EmptyComponentPlus}>+</Text>
+          </View>}
+        ItemSeparatorComponent={() =>
+          <View style={styles.Separator}></View>}
+        renderItem={({item}) =>
+          <CalendarSubItem key={item.key} item={item} />
+        }
+      />)
   }
 }
 
-const style = StyleSheet.create({
-  Header: {
-    borderColor: "red",
+const styles = StyleSheet.create({
+  FlatList: {
     borderWidth: 1,
-    borderStyle: "solid"
+    borderColor: 'blue',
+    // height: 300,
+    // overflow: 'scroll'
+    marginBottom: 80
+  },
+  Separator: {
+    borderBottomWidth: 1,
+    borderBottomColor: '#e4e4e4'
+  },
+  EmptyComponent: {
+    textAlign: 'center',
+    color: '#333',
+    fontSize: 26
+  },
+  EmptyComponentPlus: {
+    textAlign: 'center',
+    color: '#333',
+    fontSize: 26,
   }
 })
 

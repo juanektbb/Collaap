@@ -20,10 +20,8 @@ const Footer = (props) => {
 
 const styles = StyleSheet.create({
   Footer:{
-    borderColor: "red",
-    borderWidth: 1,
-    color: "blue",
-    marginTop: 100,
+    flex: 1,
+    color: "pink",
     height: 80,
 
   }

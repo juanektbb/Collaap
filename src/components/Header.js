@@ -9,30 +9,49 @@ import {
 class Header extends Component{
   render(){
     return(
-      <SafeAreaView style={style.Header}>
-        <Text>This is my headerp</Text>
-        <View style={style.Plus}>
-          <Text>+</Text>
+      <SafeAreaView style={styles.Header}>
+        <View style={styles.Logo}>
+          <Text>Logo</Text>
+        </View>
+        <View style={styles.Middle}>
+          <Text style={styles.MiddleText}>This is my headerp</Text>
+        </View>
+        <View style={styles.Plus}>
+          <Text style={styles.PlusText}>+</Text>
         </View>
       </SafeAreaView>
     )
   }
 }
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
   Header: {
     paddingVertical: 5,
     paddingHorizontal: 5,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    borderColor: 'green',
+    height: 60,
+    backgroundColor: "#ee6f57",
+    borderBottomWidth: 1
+  },
+  Logo: {
     borderWidth: 1,
-    height: 60
+    width: 90
+  },
+  Middle: {
+    flex: 1,
+    marginHorizontal: 5
+  },
+  MiddleText: {
+    textAlign: "center",
   },
   Plus: {
-    borderColor: 'blue',
-    borderWidth: 1,
     width: 50,
+  },
+  PlusText: {
+    fontSize: 50,
+    lineHeight: 52,
+    textAlign: 'center'
   }
 })
 
