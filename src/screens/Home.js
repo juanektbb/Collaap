@@ -27,9 +27,14 @@ class Home extends Component{
 
   clickOnCalendarCell = (yyyymmdd) => {
     console.log(yyyymmdd)
-    // this.setState({
-    //   on_this_date: yyyymmdd
-    // })
+    this.setState({
+      on_this_date: yyyymmdd
+    })
+  }
+
+  componentDidUpdate(){
+    // alert(this.state.on_this_date)
+    // alert("ettoo")
   }
 
   render(){

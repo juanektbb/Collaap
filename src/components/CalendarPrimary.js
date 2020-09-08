@@ -20,17 +20,9 @@ class CalendarPrimary extends Component{
 
   constructor(props){
     super(props)
-    this.state = {
-      onThisDate: this.props.onThisDate
-    }
   }
 
-  checkItToday = (date) => {
-    if(this.state.onThisDate == date){
-      return true
-    }
-    return false
-  }
+
 
   render(){
     return (
@@ -45,9 +37,8 @@ class CalendarPrimary extends Component{
           <CalendarItem
             item={item}
             elements={elements}
-            isToday={this.checkItToday(item.final)}
             clickOnCalendarCell={this.props.clickOnCalendarCell}
-
+            onThisDate={this.props.onThisDate}
           />
         }
       />)

@@ -20,20 +20,21 @@ const calendar = () => {
   for(let i = -2; i <= 31; i++){
     let dt = new Date(new Date().getTime() + i * 24 * 60 * 60 * 1000)
     let day = dt.getDate()
-    let day2 = (dt.getDate() < 10) ? "0" + dt.getDate() : dt.getDate()
-    let month1 = dt.getMonth() + 1
-    let month2 = (month1 < 10) ? "0" + month1 : month1
+    let dayZero = (day < 10) ? "0" + day : day
+    let month = dt.getMonth() + 1
+    let monthZero = (month < 10) ? "0" + month : month
     let year = dt.getFullYear()
-    let final = year + "-" + month2 + "-" + day2
 
+    let key = year + "-" + monthZero + "-" + dayZero
     let extension = findExtension(day)
 
     calendar_array.push({
-      'key': final,
+      'key': key,
       'day': day,
+      // 'month': month,
+      // 'year': year,
       'extension': extension,
-      'month': monthNames[dt.getMonth()],
-      'final': final
+      'monthName': monthNames[dt.getMonth()]
     })
   }
 

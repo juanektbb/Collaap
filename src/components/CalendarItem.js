@@ -4,7 +4,8 @@ import {
   View,
   StyleSheet,
   Dimensions,
-  FlatList
+  FlatList,
+  TouchableHighlight
 } from 'react-native'
 
 import helpers from '../helpers.js'
@@ -15,7 +16,8 @@ class CalendarItem extends Component{
     super(props)
     this.state = {
       data: {},
-      elements: {}
+      elements: {},
+      isActive: false
     }
   }
 
@@ -25,6 +27,16 @@ class CalendarItem extends Component{
     }else{
       return "31%"
     }
+  }
+
+  checkItActive = (thisdate, onThisDate) => {
+
+    // console.log(thisdate, onThisDate, thisdate == onThisDate)
+
+    if(thisdate == onThisDate){
+      return true
+    }
+    return false
   }
 
   calculateLeftElementInCalendar = (date, time) => {
@@ -37,17 +49,24 @@ class CalendarItem extends Component{
     }
   }
 
+  componentDidUpdate(){
+    // console.log("updated")
+  }
+
   componentDidMount(){
     let elementsDate = []
     let elementsEveryday = []
 
+
+
     this.setState({
       data: this.props.item,
+      isActive: this.checkItActive(this.props.item.key, this.props.onThisDate)
     })
 
     //Loop and find remiders of this date and applicatable
     this.props.elements.forEach((item) => {
-      if(this.props.item.final == item.date){
+      if(this.props.item.key == item.date){
         item.width = this.calculateWidthElementInCalendar(item.date)
         item.Left = this.calculateLeftElementInCalendar(item.date, item.time)
         item.catColor = helpers.getColorByCategory(item.category)
@@ -68,19 +87,35 @@ class CalendarItem extends Component{
     })
   }
 
+
+  thisClick = () => {
+    console.log("click")
+  }
+
+  componentDidUpdate(){
+
+  }
+
   render(){
+
+    // console.log('')
+
     return(
+      <TouchableHighlight
+        onPress={() => this.props.clickOnCalendarCell(this.props.item.key)}>
+
       <View style={[styles.CalendarPrimItem,
-        (this.props.isToday) ? styles.IsToday : null
-      ]}
-        onPress={() => this.props.clickOnCalendarCell("20")}
-      >
+        (this.props.item.key == this.props.onThisDate) ? styles.IsToday : null
+      ]}>
+
+
+
         <View style={styles.Number}>
           <Text style={styles.NumberText}>{this.state.data.day}</Text>
           <Text style={styles.NumberExtension}>{this.state.data.extension}</Text>
         </View>
         <View>
-          <Text style={styles.Month}>{this.state.data.month}</Text>
+          <Text style={styles.Month}>{this.state.data.monthName}</Text>
         </View>
         <View style={styles.ElementsInCalendar}>
           <FlatList
@@ -94,7 +129,9 @@ class CalendarItem extends Component{
                 }]} />
             }/>
         </View>
+
       </View>
+      </TouchableHighlight>
     )
   }
 }
