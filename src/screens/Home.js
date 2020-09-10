@@ -9,6 +9,8 @@ import {
 
 import helpers from '../helpers.js'
 
+import Header from '../components/Header.js'
+
 import CalendarPrimary from '../components/CalendarPrimary.js'
 
 import Separator from '../components/Separator.js'
@@ -21,7 +23,8 @@ class Home extends Component{
   constructor(props){
     super(props)
     this.state = {
-      on_this_date: helpers.getToday()
+      on_this_date: helpers.getToday(),
+      data_display: []
     }
   }
 
@@ -30,24 +33,44 @@ class Home extends Component{
     this.setState({
       on_this_date: yyyymmdd
     })
+
+    this.filterElements(yyyymmdd)
+  }
+
+  filterElements = (yyyymmdd) => {
+
+    let temp_elements = []
+    elements.forEach((item, i) => {
+      if(item.date === yyyymmdd || item.date === 'Everyday'){
+        temp_elements.push(item)
+      }
+    })
+
+    this.setState({
+      data_display: temp_elements
+    })
+
+  }
+
+  componentDidMount(){
+    this.filterElements(this.state.on_this_date)
   }
 
   componentDidUpdate(){
-    // alert(this.state.on_this_date)
-    // alert("ettoo")
+
   }
 
   render(){
     return (
       <FlatList
         keyExtractor={item =>item.id}
-        data={elements}
+        data={this.state.data_display}
         style={styles.FlatList}
         ListHeaderComponent={<>
+          <Header />
           <CalendarPrimary
             onThisDate={this.state.on_this_date}
-            clickOnCalendarCell={this.clickOnCalendarCell}
-          />
+            clickOnCalendarCell={this.clickOnCalendarCell}/>
           <Separator />
         </>}
         ListEmptyComponent={() =>
@@ -66,7 +89,7 @@ class Home extends Component{
 
 const styles = StyleSheet.create({
   FlatList: {
-    marginBottom: 80
+    marginBottom: 50
   },
   Separator: {
     borderBottomWidth: 1,
@@ -74,13 +97,15 @@ const styles = StyleSheet.create({
   },
   EmptyComponent: {
     textAlign: 'center',
-    color: '#333',
-    fontSize: 26
+    marginTop: 30,
+    color: '#bbb',
+    fontSize: 24
   },
   EmptyComponentPlus: {
     textAlign: 'center',
-    color: '#333',
-    fontSize: 26,
+    color: '#bbb',
+    marginTop: -8,
+    fontSize: 36
   }
 })
 

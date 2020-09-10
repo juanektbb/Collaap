@@ -11,14 +11,16 @@ import Header from './src/components/Header.js'
 import Footer from './src/components/Footer.js'
 
 import Home from './src/screens/Home.js'
+import Add from './src/screens/Add.js'
+import Note from './src/screens/Note.js'
 
 class App extends Component<Props>{
 
   render(){
     return(
       <SafeAreaView style={styles.SafeAreaView}>
-        <Header />
-        <Home />
+
+        <Note />
 
         <Footer type="primary"/>
       </SafeAreaView>

@@ -2,7 +2,7 @@ const elements = [
   {
     "id": "1",
     "title": "MyTitle1MyTitle1 MyTi",
-    "date": "Everyday",
+    "date": "2020-09-09",
     "time": "15:00",
     "collaborators": [],
     "category": "food"
@@ -30,7 +30,28 @@ const elements = [
     "time": "14:00",
     "collaborators": [],
     "category": "fun"
-  },
+  },  {
+      "id": "43",
+      "title": "MyTitle4",
+      "date": "2020-09-08",
+      "time": "14:00",
+      "collaborators": [],
+      "category": "fun"
+    },  {
+        "id": "42",
+        "title": "MyTitle4",
+        "date": "2020-09-08",
+        "time": "14:00",
+        "collaborators": [],
+        "category": "fun"
+      },  {
+          "id": "41",
+          "title": "MyTitle4",
+          "date": "2020-09-08",
+          "time": "14:00",
+          "collaborators": [],
+          "category": "fun"
+        },
   {
     "id": "5",
     "title": "MyTitle5",

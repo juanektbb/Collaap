@@ -17,7 +17,7 @@ const calendar = () => {
   const monthNames = ["January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"]
 
-  for(let i = -2; i <= 31; i++){
+  for(let i = -2; i <= 3; i++){
     let dt = new Date(new Date().getTime() + i * 24 * 60 * 60 * 1000)
     let day = dt.getDate()
     let dayZero = (day < 10) ? "0" + day : day

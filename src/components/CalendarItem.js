@@ -49,9 +49,7 @@ class CalendarItem extends Component{
     }
   }
 
-  componentDidUpdate(){
-    // console.log("updated")
-  }
+
 
   componentDidMount(){
     let elementsDate = []
@@ -61,7 +59,7 @@ class CalendarItem extends Component{
 
     this.setState({
       data: this.props.item,
-      isActive: this.checkItActive(this.props.item.key, this.props.onThisDate)
+      isActive: this.props.isActive
     })
 
     //Loop and find remiders of this date and applicatable
@@ -87,13 +85,9 @@ class CalendarItem extends Component{
     })
   }
 
-
-  thisClick = () => {
-    console.log("click")
-  }
-
   componentDidUpdate(){
-
+    if(this.props.isActive !== this.state.isActive)
+      this.setState({isActive: !this.state.isActive})
   }
 
   render(){
@@ -104,19 +98,18 @@ class CalendarItem extends Component{
       <TouchableHighlight
         onPress={() => this.props.clickOnCalendarCell(this.props.item.key)}>
 
-      <View style={[styles.CalendarPrimItem,
-        (this.props.item.key == this.props.onThisDate) ? styles.IsToday : null
-      ]}>
-
-
+        <View style={[styles.CalendarPrimItem,
+          (this.state.isActive) ? styles.IsToday : null]}>
 
         <View style={styles.Number}>
           <Text style={styles.NumberText}>{this.state.data.day}</Text>
           <Text style={styles.NumberExtension}>{this.state.data.extension}</Text>
         </View>
+
         <View>
           <Text style={styles.Month}>{this.state.data.monthName}</Text>
         </View>
+
         <View style={styles.ElementsInCalendar}>
           <FlatList
             keyExtractor={item =>item.id}

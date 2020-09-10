@@ -12,9 +12,9 @@ class Separator extends Component{
 
 const styles = StyleSheet.create({
   Separator: {
-
-    height: 20,
-    backgroundColor: '#ee6f57'
+    height: 15,
+    backgroundColor: '#ee6f57',
+    elevation: 2
   }
 })
 

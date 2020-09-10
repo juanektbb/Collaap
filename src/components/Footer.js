@@ -21,7 +21,7 @@ const Footer = (props) => {
 const styles = StyleSheet.create({
   Footer:{
     flex: 1,
-    height: 80,
+    height: 50,
     position: 'absolute',
     bottom: 0
   }

@@ -2,21 +2,24 @@ import React, { Component } from 'react'
 import {
   Text,
   View,
+  Image,
   StyleSheet
 } from 'react-native'
+
+import IconCalendar from '../images/icon-calendar.png'
 
 class FooterPrimary extends Component{
   render(){
     return(
       <View style={styles.FooterBar}>
         <View style={styles.FooterOption}>
-          <Text>A</Text>
+          <Image style={styles.Icon} source={require('../images/icon-all.png')} />
         </View>
         <View style={styles.FooterOption}>
-          <Text>B</Text>
+          <Image style={styles.Icon} source={require('../images/icon-calendar.png')} />
         </View>
         <View style={styles.FooterOption}>
-          <Text>C</Text>
+          <Image style={styles.Icon} source={require('../images/icon-listing.png')} />
         </View>
       </View>
     )
@@ -26,12 +29,20 @@ class FooterPrimary extends Component{
 const styles = StyleSheet.create({
   FooterBar: {
     flexDirection: 'row',
+    borderTopWidth: 1,
+    borderTopColor: "#ddd"
   },
   FooterOption: {
     flexBasis: '33.33%',
-    height: 80,
+    height: 50,
     textAlign: 'center',
-    borderWidth: 1
+    justifyContent: "center",
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  Icon: {
+    height: 48,
+    marginHorizontal: "auto"
   }
 })
 

@@ -22,8 +22,6 @@ class CalendarPrimary extends Component{
     super(props)
   }
 
-
-
   render(){
     return (
       <FlatList
@@ -38,7 +36,7 @@ class CalendarPrimary extends Component{
             item={item}
             elements={elements}
             clickOnCalendarCell={this.props.clickOnCalendarCell}
-            onThisDate={this.props.onThisDate}
+            isActive={item.key === this.props.onThisDate}
           />
         }
       />)
