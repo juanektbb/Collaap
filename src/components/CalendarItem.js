@@ -5,7 +5,7 @@ import {
   StyleSheet,
   Dimensions,
   FlatList,
-  TouchableHighlight
+  Pressable
 } from 'react-native'
 
 import helpers from '../helpers.js'
@@ -53,7 +53,6 @@ class CalendarItem extends Component{
 
   componentDidMount(){
     let elementsDate = []
-    let elementsEveryday = []
 
 
 
@@ -63,40 +62,30 @@ class CalendarItem extends Component{
     })
 
     //Loop and find remiders of this date and applicatable
-    this.props.elements.forEach((item) => {
-      if(this.props.item.key == item.date){
+    this.props.item.elements.forEach((item) => {
         item.width = this.calculateWidthElementInCalendar(item.date)
         item.Left = this.calculateLeftElementInCalendar(item.date, item.time)
         item.catColor = helpers.getColorByCategory(item.category)
         elementsDate.push(item)
-
-      }else if(item.date == 'Everyday'){
-        item.width = this.calculateWidthElementInCalendar(item.date)
-        item.Left = this.calculateLeftElementInCalendar(item.date, item.time)
-        item.catColor = helpers.getColorByCategory(item.category)
-        elementsEveryday.push(item)
-      }
     })
 
-    let elements = elementsDate.concat(elementsEveryday)
+    let elements = elementsDate
 
     this.setState({
       elements: elements
     })
   }
 
-  componentDidUpdate(){
+  componentDidUpdate(prevProps, prevState){
     if(this.props.isActive !== this.state.isActive)
       this.setState({isActive: !this.state.isActive})
   }
 
   render(){
 
-    // console.log('')
 
     return(
-      <TouchableHighlight
-        onPress={() => this.props.clickOnCalendarCell(this.props.item.key)}>
+      <Pressable onPress={() => this.props.clickOnCalendarCell(this.state.data.key)}>
 
         <View style={[styles.CalendarPrimItem,
           (this.state.isActive) ? styles.IsToday : null]}>
@@ -124,7 +113,7 @@ class CalendarItem extends Component{
         </View>
 
       </View>
-      </TouchableHighlight>
+      </Pressable>
     )
   }
 }

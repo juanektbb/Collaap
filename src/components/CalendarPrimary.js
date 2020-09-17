@@ -7,7 +7,6 @@ import {
   FlatList
 } from 'react-native'
 
-import elements from '../data/elements.js'
 import calendar from '../data/calendar.js'
 
 import helpers from '../helpers.js'
@@ -22,21 +21,24 @@ class CalendarPrimary extends Component{
     super(props)
   }
 
+  componentDidMount(){
+    // console.log(calendar)
+  }
+
   render(){
     return (
       <FlatList
         horizontal
-        keyExtractor={item =>item.key}
-        data={calendar}
+        keyExtractor={item => calendar[item].key}
+        data={Object.keys(calendar)}
         style={styles.FlatList}
         ItemSeparatorComponent={() =>
-          <View style={styles.Separator}/>}
+          <View style={styles.Separator} />}
         renderItem={({item}) =>
           <CalendarItem
-            item={item}
-            elements={elements}
+            item={calendar[item]}
             clickOnCalendarCell={this.props.clickOnCalendarCell}
-            isActive={item.key === this.props.onThisDate}
+            isActive={calendar[item].key === this.props.onThisDate}
           />
         }
       />)

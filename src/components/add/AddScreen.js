@@ -4,22 +4,29 @@ import {
   Text,
   View,
   StyleSheet,
-  Image
+  Image,
+  Pressable
 } from 'react-native'
 
-class Add extends Component{
+class AddScreen extends Component{
+
+  openNoteScreen = () => {
+    this.props.navigation.navigate("NoteScreen")
+  }
 
   render(){
     return (
-      <View style={styles.Add}>
+      <View style={styles.AddScreen}>
+        <Pressable onPress={this.openNoteScreen}>
         <View style={styles.Option}>
-          <Image style={styles.Icon} source={require("../images/add-note.png")} />
+          <Image style={styles.Icon} source={require("Collaap/src/images/add-note.png")} />
           <Text style={styles.Text}>
             Notes
           </Text>
         </View>
+        </Pressable>
         <View style={styles.Option}>
-          <Image style={styles.Icon} source={require("../images/add-note.png")} />
+          <Image style={styles.Icon} source={require("Collaap/src/images/add-note.png")} />
           <Text style={styles.Text}>
             List
           </Text>
@@ -30,7 +37,7 @@ class Add extends Component{
 }
 
 const styles = StyleSheet.create({
-  Add: {
+  AddScreen: {
     marginBottom: 50,
     flex: 1,
     flexDirection: "column",
@@ -56,4 +63,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default Add
+export default AddScreen

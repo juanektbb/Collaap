@@ -1,5 +1,7 @@
 import React from 'react'
 
+import elements from './elements2'
+
 let findExtension = (day) => {
   if(day == 1 || day == 21 || day == 31)
     return "st"
@@ -13,7 +15,7 @@ let findExtension = (day) => {
 
 const calendar = () => {
 
-  var calendar_array = []
+  var calendar_array = {}
   const monthNames = ["January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"]
 
@@ -28,14 +30,21 @@ const calendar = () => {
     let key = year + "-" + monthZero + "-" + dayZero
     let extension = findExtension(day)
 
-    calendar_array.push({
+
+    let ielements = []
+    if(elements[key] !== undefined){
+      ielements = elements[key]
+    }
+
+    calendar_array[key] = {
       'key': key,
       'day': day,
       // 'month': month,
       // 'year': year,
       'extension': extension,
-      'monthName': monthNames[dt.getMonth()]
-    })
+      'monthName': monthNames[dt.getMonth()],
+      'elements': ielements
+    }
   }
 
   return calendar_array

@@ -3,20 +3,19 @@ import {
   StyleSheet,
   Text,
   View,
-  SafeAreaView,
-  FlatList
+  FlatList,
+  Pressable
 } from 'react-native';
 
-import helpers from '../helpers.js'
+import helpers from 'Collaap/src/helpers.js'
 
-import Header from '../components/Header.js'
+import builder from '../../data/builder'
 
-import CalendarPrimary from '../components/CalendarPrimary.js'
+import CalendarPrimary from 'Collaap/src/components/CalendarPrimary.js'
+import Separator from 'Collaap/src/components/Separator.js'
 
-import Separator from '../components/Separator.js'
-
-import elements from '../data/elements.js'
-import ElementItem from '../components/ElementItem'
+import elements from 'Collaap/src/data/elements.js'
+import ElementItem from 'Collaap/src/components/ElementItem'
 
 class Home extends Component{
 
@@ -28,13 +27,15 @@ class Home extends Component{
     }
   }
 
+  openAddScreen = () => {
+    this.props.navigation.navigate('AddScreen')
+  }
+
+
   clickOnCalendarCell = (yyyymmdd) => {
-    console.log(yyyymmdd)
     this.setState({
       on_this_date: yyyymmdd
     })
-
-    this.filterElements(yyyymmdd)
   }
 
   filterElements = (yyyymmdd) => {
@@ -67,17 +68,18 @@ class Home extends Component{
         data={this.state.data_display}
         style={styles.FlatList}
         ListHeaderComponent={<>
-          <Header />
           <CalendarPrimary
             onThisDate={this.state.on_this_date}
             clickOnCalendarCell={this.clickOnCalendarCell}/>
           <Separator />
         </>}
         ListEmptyComponent={() =>
-          <View>
-            <Text style={styles.EmptyComponent}>Empty</Text>
-            <Text style={styles.EmptyComponentPlus}>+</Text>
-          </View>}
+          <Pressable onPress={this.openAddScreen}>
+            <View>
+              <Text style={styles.EmptyComponent}>Empty</Text>
+              <Text style={styles.EmptyComponentPlus}>+</Text>
+            </View>
+          </Pressable>}
         ItemSeparatorComponent={() =>
           <View style={styles.Separator}></View>}
         renderItem={({item}) =>

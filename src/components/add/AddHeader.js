@@ -17,7 +17,7 @@ class AddHeader extends Component{
   constructor(props){
     super(props)
     this.state = {
-      modal_open: true
+      modal_open: false
     }
   }
 
@@ -39,7 +39,7 @@ class AddHeader extends Component{
 
         <TouchableHighlight onPress={this.func_open_modal}>
           <View style={styles.ColorPicker}>
-            <Image style={styles.ColorPickerImage} source={require('../images/category.png')} />
+            <Image style={styles.ColorPickerImage} source={require('Collaap/src/images/category.png')} />
           </View>
         </TouchableHighlight>
 

@@ -8,14 +8,14 @@ import {
   StyleSheet
 } from 'react-native'
 
-import AddHeader from '../components/AddHeader.js'
-import AddOptions from '../components/AddOptions.js'
+import AddHeader from './AddHeader.js'
+import AddOptions from './AddOptions.js'
 
-class Note extends Component{
+class NoteScreen extends Component{
 
   render(){
     return(
-      <View style={styles.Note}>
+      <View style={styles.NoteScreen}>
         <AddHeader />
         <View style={styles.MainBody}>
           <TextInput
@@ -30,7 +30,7 @@ class Note extends Component{
 }
 
 const styles = StyleSheet.create({
-  Note: {
+  NoteScreen: {
     flex: 1,
     flexDirection: "column",
     marginBottom: 50
@@ -48,4 +48,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default Note
+export default NoteScreen

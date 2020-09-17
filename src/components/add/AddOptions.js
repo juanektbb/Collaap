@@ -13,10 +13,10 @@ class AddOptions extends Component{
     return(
       <View style={styles.AddOptions}>
         <View style={styles.OptionsBox}>
-          <Image style={styles.OptionsImage} source={require('../images/star.png')}/>
+          <Image style={styles.OptionsImage} source={require('Collaap/src/images/star.png')}/>
         </View>
         <View style={styles.OptionsBox}>
-          <Image style={styles.OptionsImage} source={require('../images/star.png')}/>
+          <Image style={styles.OptionsImage} source={require('Collaap/src/images/star.png')}/>
         </View>
       </View>
     )
