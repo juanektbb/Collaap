@@ -9,6 +9,7 @@ import {
 } from 'react-native'
 
 import helpers from 'Collaap/src/helpers.js'
+import colors from 'Collaap/src/data/colors.js'
 
 class PrimaryCalendarItem extends Component{
 
@@ -82,37 +83,34 @@ class PrimaryCalendarItem extends Component{
   }
 
   render(){
-
-
     return(
       <Pressable onPress={() => this.props.clickOnCalendarCell(this.state.data.key)}>
 
-        <View style={[styles.CalendarPrimItem,
-          (this.state.isActive) ? styles.IsToday : null]}>
+        <View style={[styles.CalendarPrimItem, (this.state.isActive) ? styles.IsSelected : null]}>
 
-        <View style={styles.Number}>
-          <Text style={styles.NumberText}>{this.state.data.day}</Text>
-          <Text style={styles.NumberExtension}>{this.state.data.extension}</Text>
+          <View style={styles.Number}>
+            <Text style={styles.NumberText}>{this.state.data.day}</Text>
+            <Text style={styles.NumberExtension}>{this.state.data.extension}</Text>
+          </View>
+
+          <View>
+            <Text style={styles.Month}>{this.state.data.monthName}</Text>
+          </View>
+
+          <View style={styles.ElementsInCalendar}>
+            <FlatList
+              keyExtractor={item =>item.id}
+              data={this.state.elements}
+              renderItem={({item}) =>
+                <View style={[styles.ElementInCalendar, {
+                    marginLeft: item.Left,
+                    width: item.width,
+                    borderColor: item.catColor
+                  }]} />
+              }/>
+          </View>
+
         </View>
-
-        <View>
-          <Text style={styles.Month}>{this.state.data.monthName}</Text>
-        </View>
-
-        <View style={styles.ElementsInCalendar}>
-          <FlatList
-            keyExtractor={item =>item.id}
-            data={this.state.elements}
-            renderItem={({item}) =>
-              <View style={[styles.ElementInCalendar, {
-                  marginLeft: item.Left,
-                  width: item.width,
-                  borderColor: item.catColor
-                }]} />
-            }/>
-        </View>
-
-      </View>
       </Pressable>
     )
   }
@@ -122,12 +120,12 @@ const styles = StyleSheet.create({
   CalendarPrimItem: {
     height: 110,
     width: Math.round(Dimensions.get('window').width) / 5 - 1,
-    backgroundColor: '#eee'
+    backgroundColor: colors.softwhite
   },
-  IsToday: {
+  IsSelected: {
     borderWidth: 1,
-    borderColor: '#5b8bc7',
-    backgroundColor: '#e6f1ff'
+    borderColor: "#097216",
+    backgroundColor: '#eefff0'
   },
   Number: {
     flexDirection: 'row',
@@ -135,7 +133,8 @@ const styles = StyleSheet.create({
   },
   NumberText: {
     fontSize: 40,
-    textAlign: 'center'
+    textAlign: 'center',
+    color: colors.softdark
   },
   NumberExtension: {
     fontSize: 10,

@@ -13,6 +13,7 @@ import {
 
 import CustomModal from './CustomModal'
 
+import colors from 'Collaap/src/data/colors.js'
 import categories from 'Collaap/src/data/categories.js'
 
 class AddHeader extends Component{
@@ -20,9 +21,7 @@ class AddHeader extends Component{
   constructor(props){
     super(props)
     this.state = {
-      is_open: true,
-      on_category: null,
-      on_category_image: require("Collaap/src/images/categories/shopping.png")
+      is_open: false
     }
   }
 
@@ -36,39 +35,42 @@ class AddHeader extends Component{
     this.props.onChangeCategory(category_name, backgroundColor)
     this.setState({
       is_open: false,
-      on_category: category_name,
-      on_category_image: category_image
     })
   }
 
+  componentDidMount(){
+  }
+
   render(){
+    console.log("here", this.props.item.category)
     return(
       <View style={styles.AddHeader}>
         <TextInput
           onChangeText={this.props.onChangeTitle}
           placeholder="Title"
+          value={this.props.item.title}
           style={styles.Title}
         />
 
         <Pressable onPress={this.toggle_modal}>
           <View style={styles.CategoryPicker}>
-            <Image style={styles.CategoryPickerImage} source={this.state.on_category_image} />
+            <Image source={categories[this.props.item.category].icon} style={styles.CategoryPickerImage}/>
           </View>
         </Pressable>
 
         <CustomModal is_open={this.state.is_open} toggle_modal={this.toggle_modal}>
           <FlatList
             numColumns={3}
-            keyExtractor={item => item.name}
-            data={categories}
+            keyExtractor={item => categories[item].name}
+            data={Object.keys(categories)}
             style={styles.Categories}
             renderItem={({item}) =>
-              <Pressable onPress={() => this.onSelectCategory(item.name, item.icon, item.backgroundColor)}>
-                <View style={(item.name === this.state.on_category) ? [styles.CategoryBox, styles.On_category] : styles.CategoryBox}>
+              <Pressable onPress={() => this.onSelectCategory(categories[item].name, categories[item].backgroundColor)}>
+                <View style={(categories[item].name === this.props.item.category) ? [styles.CategoryBox, styles.OnCategory] : styles.CategoryBox}>
                   <Image
-                    source={item.icon}
+                    source={categories[item].icon}
                     style={styles.CategoryImage} />
-                    <Text style={styles.CategoryText}>{item.title}</Text>
+                    <Text style={styles.CategoryText}>{categories[item].title}</Text>
                 </View>
               </Pressable>}
           />
@@ -96,29 +98,24 @@ const styles = StyleSheet.create({
     height: 50,
     marginRight: 15,
     marginTop: 15,
-    // borderWidth: 1
   },
   CategoryPickerImage: {
     width: 50,
     height: 50,
   },
-
-
   Categories: {
-    // borderWidth: 1,
-    borderColor: "red",
     width: 272,
     flexDirection: 'column',
   },
   CategoryBox: {
-    height: 95,
+    height: 90,
     width: 80,
     margin: 5,
-    marginBottom: 15,
+    marginBottom: 10,
     alignItems: "center"
   },
-  On_category: {
-    borderColor: "red"
+  OnCategory: {
+    opacity: 0.1
   },
   CategoryImage: {
     width: 72,
@@ -127,7 +124,8 @@ const styles = StyleSheet.create({
   CategoryText: {
     marginTop: 2,
     fontSize: 11,
-    textAlign: "center"
+    textAlign: "center",
+    color: colors.softdark
   }
 })
 

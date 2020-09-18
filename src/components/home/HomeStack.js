@@ -30,8 +30,11 @@ const HomeStack = () => {
       />
 
       <Stack.Screen
-        name="NoteScreen"
+        name="NewItemScreen"
         component={NoteScreen}
+        options={{
+          title: "Untitled Item"
+        }}
       />
     </Stack.Navigator>
   )

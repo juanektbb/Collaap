@@ -13,7 +13,7 @@ const elements = [
     "date": "2020-09-08",
     "time": "17:00",
     "collaborators": [],
-    "category": "party"
+    "category": "bills"
   },
   {
     "id": "3",
@@ -29,28 +29,28 @@ const elements = [
     "date": "2020-09-08",
     "time": "14:00",
     "collaborators": [],
-    "category": "fun"
+    "category": "entertainment"
   },  {
       "id": "43",
       "title": "MyTitle4",
       "date": "2020-09-08",
       "time": "14:00",
       "collaborators": [],
-      "category": "fun"
+      "category": "entertainment"
     },  {
         "id": "42",
         "title": "MyTitle4",
         "date": "2020-09-08",
         "time": "14:00",
         "collaborators": [],
-        "category": "fun"
+        "category": "entertainment"
       },  {
           "id": "41",
           "title": "MyTitle4",
           "date": "2020-09-08",
           "time": "14:00",
           "collaborators": [],
-          "category": "fun"
+          "category": "entertainment"
         },
   {
     "id": "5",
@@ -58,7 +58,7 @@ const elements = [
     "date": "2020-09-07",
     "time": "04:00",
     "collaborators": [],
-    "category": "fun"
+    "category": "entertainment"
   },
   {
     "id": "6",
@@ -66,7 +66,7 @@ const elements = [
     "date": "2020-09-06",
     "time": "14:00",
     "collaborators": [],
-    "category": "fun"
+    "category": "entertainment"
   },
   {
     "id": "7",
@@ -74,7 +74,7 @@ const elements = [
     "date": "2020-09-07",
     "time": "14:00",
     "collaborators": [],
-    "category": "fun"
+    "category": "entertainment"
   },
 ]
 

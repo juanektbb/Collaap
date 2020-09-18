@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 
 import helpers from 'Collaap/src/helpers.js'
+import categories from 'Collaap/src/data/categories.js'
 
 // import builder from '../../data/builder'
 
@@ -30,6 +31,10 @@ class Home extends Component{
 
   openAddScreen = () => {
     this.props.navigation.navigate('AddScreen')
+  }
+
+  loadNewItemScreen = (item) => {
+    this.props.navigation.navigate('NewItemScreen', { item })
   }
 
 
@@ -71,7 +76,11 @@ class Home extends Component{
         ItemSeparatorComponent={() =>
           <View style={styles.Separator}></View>}
         renderItem={({item}) =>
-          <ElementItem key={item.key} item={item} />
+          <ElementItem
+            item={item}
+            icon={categories[item.category].icon}
+            loadNewItemScreen={this.loadNewItemScreen}
+          />
         }
       />)
   }

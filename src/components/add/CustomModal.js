@@ -27,7 +27,7 @@ class CustomModal extends Component{
         <View style={styles.Modal}>
           <View style={styles.Content}>
             <TouchableOpacity style={styles.CloseBar} onPress={this.props.toggle_modal}>
-              <Text style={styles.CloseX}>&#10005;</Text>
+              <Text style={styles.CloseX}>Cancel</Text>
             </TouchableOpacity>
             {this.props.children}
           </View>
@@ -54,18 +54,15 @@ const styles = StyleSheet.create({
     flex: 1
   },
   CloseBar: {
-    // position: "absolute",
-    // right: 0,
-
     borderWidth: 1,
-    width: 50,
-    height: 50,
-
+    borderColor: 'red',
+    borderRadius: 5,
+    marginBottom: 20,
   },
   CloseX: {
-    fontSize: 36,
+    fontSize: 16,
+    padding: 5,
     textAlign: "center",
-    lineHeight: 45,
     color: 'red'
   }
 })

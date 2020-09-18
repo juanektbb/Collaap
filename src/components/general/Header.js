@@ -37,9 +37,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     height: 56,
-    backgroundColor: colors.sexyred,
+    backgroundColor: colors.maintone,
     borderBottomWidth: 1,
-    borderColor: colors.wine,
+    borderColor: colors.softdark,
     marginLeft: -16,
     marginRight: -16
   },

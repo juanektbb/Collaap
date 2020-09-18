@@ -22,7 +22,7 @@ class NoteScreen extends Component{
     this.state = {
       item: {
         type: undefined,
-        category: null,
+        category: "shopping",
         title: "",
         note: "",
         list_stuff: [],
@@ -34,21 +34,71 @@ class NoteScreen extends Component{
   }
 
   onChangeTitle = (text) => {
-    this.setState({ title: text })
+    this.setState({
+      ...this.state,
+      item: {
+        ...this.state.item,
+        title: text
+      }
+    })
+
+    if(text !== "")
+      this.props.navigation.setOptions({ title: text })
+    else
+      this.props.navigation.setOptions({ title: "Untitled Item" })
   }
 
   onChangeCategory = (category, backgroundColor) => {
     this.setState({
-      item: { category: category },
+      ...this.state,
+      item: {
+        ...this.state.item,
+        category: category
+      },
       backgroundColor: backgroundColor
     })
+  }
+
+  submitItem = () => {
+    console.log(this.state.item)
+  }
+
+  componentDidMount(){
+
+
+    if(this.props.route.params !== undefined){
+      const { item } = this.props.route.params
+
+        console.log("bbb", item.category)
+
+        this.setState({
+          item: {
+            ...this.state.item,
+            title: item.title,
+            category: item.category,
+          }
+        })
+
+        this.props.navigation.setOptions({
+          title: item.title
+        })
+    }
+
+
+
+
   }
 
   render(){
     return(
       <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={{flex: 1}}>
           <View style={[styles.NoteScreen, {backgroundColor: this.state.backgroundColor}]}>
-          <AddHeader onChangeTitle={this.onChangeTitle} onChangeCategory={this.onChangeCategory} />
+          <AddHeader
+            item={this.state.item}
+            onChangeTitle={this.onChangeTitle}
+            onChangeCategory={this.onChangeCategory}
+          />
+
           <View style={styles.MainBody}>
             <TextInput
               placeholder="What is happening?"
@@ -57,7 +107,7 @@ class NoteScreen extends Component{
             />
           </View>
           <AddOptions />
-          <TouchableOpacity style={styles.SubmitButton}>
+          <TouchableOpacity onPress={this.submitItem} style={styles.SubmitButton}>
             <Text style={styles.SubmitButtonText}>Save this</Text>
           </TouchableOpacity>
         </View>
@@ -84,7 +134,7 @@ const styles = StyleSheet.create({
     fontSize: 20
   },
   SubmitButton: {
-    backgroundColor: colors.sweetpeach,
+    backgroundColor: colors.calltoaction,
     padding: 10,
     marginHorizontal: 10,
     marginBottom: 10,

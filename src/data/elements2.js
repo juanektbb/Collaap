@@ -15,7 +15,7 @@ const elements = {
       "date": "2020-09-18",
       "time": "17:00",
       "collaborators": [],
-      "category": "party"
+      "category": "holidays"
     },
     {
       "id": "3",
@@ -23,7 +23,7 @@ const elements = {
       "date": "2020-09-18",
       "time": "23:00",
       "collaborators": [],
-      "category": "food"
+      "category": "finance"
     }
   ],
 
@@ -34,7 +34,7 @@ const elements = {
       "date": "2020-09-08",
       "time": "14:00",
       "collaborators": [],
-      "category": "fun"
+      "category": "finance"
     },
     {
       "id": "5",
@@ -42,7 +42,7 @@ const elements = {
       "date": "2020-09-07",
       "time": "04:00",
       "collaborators": [],
-      "category": "fun"
+      "category": "holidays"
     },
     {
       "id": "6",
@@ -50,7 +50,7 @@ const elements = {
       "date": "2020-09-06",
       "time": "14:00",
       "collaborators": [],
-      "category": "fun"
+      "category": "holidays"
     },
     {
       "id": "7",
@@ -58,7 +58,7 @@ const elements = {
       "date": "Everyday",
       "time": "14:00",
       "collaborators": [],
-      "category": "fun"
+      "category": "bills"
     }
   ]
 

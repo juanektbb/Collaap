@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import {
   Text,
   View,
+  Image,
+  Pressable,
   StyleSheet
 } from 'react-native'
 
@@ -22,23 +24,27 @@ class ElementItem extends Component{
 
   render(){
     return(
-      <View style={styles.SubItem}>
-        <View style={styles.CategoryBox}></View>
+      <Pressable onPress={() => this.props.loadNewItemScreen(this.state.data)}>
+        <View style={styles.SubItem}>
+          <View style={styles.CategoryBox}>
+            <Image source={this.props.icon} style={styles.CategoryIcon} />
+          </View>
 
-        <View style={styles.Main}>
-          <Text style={styles.Title}>
-            {this.state.data.title}
-          </Text>
-          <Text style={styles.Time}>
-            {this.state.data.time}
-          </Text>
+          <View style={styles.Main}>
+            <Text style={styles.Title}>
+              {this.state.data.title}
+            </Text>
+            <Text style={styles.Time}>
+              {this.state.data.time}
+            </Text>
+          </View>
+
+          <View style={styles.Collaborators}>
+            <Text>One</Text>
+          </View>
+
         </View>
-
-        <View style={styles.Collaborators}>
-          <Text>One</Text>
-        </View>
-
-      </View>
+      </Pressable>
     )
   }
 }
@@ -50,10 +56,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row'
   },
   CategoryBox: {
-    backgroundColor: 'orange',
-    borderWidth: 1,
     width: 48,
     height: 48
+  },
+  CategoryIcon: {
+    width: 48,
+    height: 48,
   },
   Main: {
     flexBasis: '60%',

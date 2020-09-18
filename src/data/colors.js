@@ -1,8 +1,8 @@
 const colors = {
-  "sexyred": "#7d0633",
-  "wine": "#31112c",
-  "sweetpeach": "#f2a07b",
-  "skintone": "#fbdcc4",
+  "maintone": "#07689f",
+  "secondtone": "#00416d",
+  "calltoaction": "#e94560",
+  "softdark": "#080031",
   "softwhite": "#f9f9f9"
 }
 

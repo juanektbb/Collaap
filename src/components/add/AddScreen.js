@@ -11,7 +11,7 @@ import {
 class AddScreen extends Component{
 
   openNoteScreen = () => {
-    this.props.navigation.navigate("NoteScreen")
+    this.props.navigation.navigate("NewItemScreen")
   }
 
   render(){
