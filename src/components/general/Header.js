@@ -7,6 +7,8 @@ import {
   Pressable
 } from 'react-native';
 
+import colors from 'Collaap/src/data/colors.js'
+
 class Header extends Component{
 
   openAddScreen = () => {
@@ -35,8 +37,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     height: 56,
-    backgroundColor: "#ee6f57",
+    backgroundColor: colors.sexyred,
     borderBottomWidth: 1,
+    borderColor: colors.wine,
     marginLeft: -16,
     marginRight: -16
   },
@@ -53,7 +56,8 @@ const styles = StyleSheet.create({
   PlusText: {
     fontSize: 36,
     lineHeight: 50,
-    textAlign: 'center'
+    textAlign: 'center',
+    color: colors.softwhite
   }
 })
 

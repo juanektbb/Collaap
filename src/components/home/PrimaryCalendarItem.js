@@ -8,9 +8,9 @@ import {
   Pressable
 } from 'react-native'
 
-import helpers from '../helpers.js'
+import helpers from 'Collaap/src/helpers.js'
 
-class CalendarItem extends Component{
+class PrimaryCalendarItem extends Component{
 
   constructor(props){
     super(props)
@@ -161,4 +161,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default CalendarItem
+export default PrimaryCalendarItem

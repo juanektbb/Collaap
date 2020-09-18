@@ -18,12 +18,12 @@ class AddScreen extends Component{
     return (
       <View style={styles.AddScreen}>
         <Pressable onPress={this.openNoteScreen}>
-        <View style={styles.Option}>
-          <Image style={styles.Icon} source={require("Collaap/src/images/add-note.png")} />
-          <Text style={styles.Text}>
-            Notes
-          </Text>
-        </View>
+          <View style={styles.Option}>
+            <Image style={styles.Icon} source={require("Collaap/src/images/add-note.png")} />
+            <Text style={styles.Text}>
+              Note
+            </Text>
+          </View>
         </Pressable>
         <View style={styles.Option}>
           <Image style={styles.Icon} source={require("Collaap/src/images/add-note.png")} />

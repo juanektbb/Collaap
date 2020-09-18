@@ -9,12 +9,12 @@ import {
 
 import helpers from 'Collaap/src/helpers.js'
 
-import builder from '../../data/builder'
+// import builder from '../../data/builder'
 
-import CalendarPrimary from 'Collaap/src/components/CalendarPrimary.js'
-import Separator from 'Collaap/src/components/Separator.js'
+import calendar from 'Collaap/src/data/calendar.js'
 
-import elements from 'Collaap/src/data/elements.js'
+import PrimaryCalendar from './PrimaryCalendar'
+import Separator from 'Collaap/src/components/general/Separator'
 import ElementItem from 'Collaap/src/components/ElementItem'
 
 class Home extends Component{
@@ -23,7 +23,8 @@ class Home extends Component{
     super(props)
     this.state = {
       on_this_date: helpers.getToday(),
-      data_display: []
+      calendar: {},
+      home_elements: []
     }
   }
 
@@ -34,41 +35,28 @@ class Home extends Component{
 
   clickOnCalendarCell = (yyyymmdd) => {
     this.setState({
-      on_this_date: yyyymmdd
+      on_this_date: yyyymmdd,
+      home_elements: this.state.calendar[yyyymmdd].elements
     })
-  }
-
-  filterElements = (yyyymmdd) => {
-
-    let temp_elements = []
-    elements.forEach((item, i) => {
-      if(item.date === yyyymmdd || item.date === 'Everyday'){
-        temp_elements.push(item)
-      }
-    })
-
-    this.setState({
-      data_display: temp_elements
-    })
-
   }
 
   componentDidMount(){
-    this.filterElements(this.state.on_this_date)
+    this.setState({
+      calendar: calendar,
+      home_elements: calendar[this.state.on_this_date].elements
+    })
   }
 
-  componentDidUpdate(){
-
-  }
 
   render(){
     return (
       <FlatList
-        keyExtractor={item =>item.id}
-        data={this.state.data_display}
-        style={styles.FlatList}
+        keyExtractor={item => item.id}
+        data={this.state.home_elements}
+        style={styles.Home}
         ListHeaderComponent={<>
-          <CalendarPrimary
+          <PrimaryCalendar
+            calendar={this.state.calendar}
             onThisDate={this.state.on_this_date}
             clickOnCalendarCell={this.clickOnCalendarCell}/>
           <Separator />
@@ -90,7 +78,7 @@ class Home extends Component{
 }
 
 const styles = StyleSheet.create({
-  FlatList: {
+  Home: {
     marginBottom: 50
   },
   Separator: {

@@ -6,45 +6,72 @@ import {
   TextInput,
   Image,
   Modal,
-  TouchableHighlight,
+  Pressable,
+  FlatList,
   StyleSheet
 } from 'react-native'
 
 import CustomModal from './CustomModal'
+
+import categories from 'Collaap/src/data/categories.js'
 
 class AddHeader extends Component{
 
   constructor(props){
     super(props)
     this.state = {
-      modal_open: false
+      is_open: true,
+      on_category: null,
+      on_category_image: require("Collaap/src/images/categories/shopping.png")
     }
   }
 
-  func_open_modal = () => {
+  toggle_modal = () => {
     this.setState({
-      modal_open: true
+      is_open: !this.state.is_open
     })
   }
-  func_close_modal = () => {
+
+  onSelectCategory = (category_name, category_image, backgroundColor) => {
+    this.props.onChangeCategory(category_name, backgroundColor)
     this.setState({
-      modal_open: false
+      is_open: false,
+      on_category: category_name,
+      on_category_image: category_image
     })
   }
 
   render(){
     return(
       <View style={styles.AddHeader}>
-        <TextInput style={styles.Title} value="Title" />
+        <TextInput
+          onChangeText={this.props.onChangeTitle}
+          placeholder="Title"
+          style={styles.Title}
+        />
 
-        <TouchableHighlight onPress={this.func_open_modal}>
-          <View style={styles.ColorPicker}>
-            <Image style={styles.ColorPickerImage} source={require('Collaap/src/images/category.png')} />
+        <Pressable onPress={this.toggle_modal}>
+          <View style={styles.CategoryPicker}>
+            <Image style={styles.CategoryPickerImage} source={this.state.on_category_image} />
           </View>
-        </TouchableHighlight>
+        </Pressable>
 
-        <CustomModal modal_open={this.state.modal_open} func_close_modal={this.func_close_modal}>
-
+        <CustomModal is_open={this.state.is_open} toggle_modal={this.toggle_modal}>
+          <FlatList
+            numColumns={3}
+            keyExtractor={item => item.name}
+            data={categories}
+            style={styles.Categories}
+            renderItem={({item}) =>
+              <Pressable onPress={() => this.onSelectCategory(item.name, item.icon, item.backgroundColor)}>
+                <View style={(item.name === this.state.on_category) ? [styles.CategoryBox, styles.On_category] : styles.CategoryBox}>
+                  <Image
+                    source={item.icon}
+                    style={styles.CategoryImage} />
+                    <Text style={styles.CategoryText}>{item.title}</Text>
+                </View>
+              </Pressable>}
+          />
         </CustomModal>
       </View>
     )
@@ -64,17 +91,43 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 20
   },
-  ColorPicker: {
+  CategoryPicker: {
     width: 50,
     height: 50,
-    marginRight: 10,
-    marginTop: 10
+    marginRight: 15,
+    marginTop: 15,
+    // borderWidth: 1
   },
-  ColorPickerImage: {
-    width: 40,
-    height: 40,
-    marginLeft: 5,
-    marginTop: 5
+  CategoryPickerImage: {
+    width: 50,
+    height: 50,
+  },
+
+
+  Categories: {
+    // borderWidth: 1,
+    borderColor: "red",
+    width: 272,
+    flexDirection: 'column',
+  },
+  CategoryBox: {
+    height: 95,
+    width: 80,
+    margin: 5,
+    marginBottom: 15,
+    alignItems: "center"
+  },
+  On_category: {
+    borderColor: "red"
+  },
+  CategoryImage: {
+    width: 72,
+    height: 72
+  },
+  CategoryText: {
+    marginTop: 2,
+    fontSize: 11,
+    textAlign: "center"
   }
 })
 

@@ -5,25 +5,30 @@ import {
   View,
   Image,
   Modal,
-  TouchableHighlight,
+  TouchableOpacity,
   StyleSheet
 } from 'react-native'
 
 class CustomModal extends Component{
 
+  constructor(props){
+    super(props)
+    this.state = {
+      selected_category: null
+    }
+  }
+
   render(){
     return(
       <Modal
-        visible={this.props.modal_open}
+        visible={this.props.is_open}
         transparent={true}
         animationType="slide">
         <View style={styles.Modal}>
           <View style={styles.Content}>
-            <TouchableHighlight
-              style={styles.CloseBar}
-              onPress={this.props.func_close_modal}>
-                <Text style={styles.CloseX}>&#10005;</Text>
-            </TouchableHighlight>
+            <TouchableOpacity style={styles.CloseBar} onPress={this.props.toggle_modal}>
+              <Text style={styles.CloseX}>&#10005;</Text>
+            </TouchableOpacity>
             {this.props.children}
           </View>
         </View>
@@ -35,24 +40,33 @@ class CustomModal extends Component{
 const styles = StyleSheet.create({
   Modal: {
     flex: 1,
-    backgroundColor: "#000000aa"
+    backgroundColor: "#000000aa",
+    alignItems: "center"
   },
   Content: {
     borderWidth: 1,
     borderColor: '#ddd',
     borderRadius: 10,
     backgroundColor: '#fff',
-    margin: 40,
-    padding: 20,
+    marginVertical: 50,
+    width: 320,
+    padding: 23,
     flex: 1
   },
   CloseBar: {
-    position: 'absolute',
-    right: 15,
-    top: 10
+    // position: "absolute",
+    // right: 0,
+
+    borderWidth: 1,
+    width: 50,
+    height: 50,
+
   },
   CloseX: {
-    fontSize: 26
+    fontSize: 36,
+    textAlign: "center",
+    lineHeight: 45,
+    color: 'red'
   }
 })
 
