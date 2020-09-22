@@ -26,7 +26,7 @@ class AddScreen extends Component{
           </View>
         </Pressable>
         <View style={styles.Option}>
-          <Image style={styles.Icon} source={require("Collaap/src/images/add-note.png")} />
+          <Image style={styles.Icon} source={require("Collaap/src/images/add-list.png")} />
           <Text style={styles.Text}>
             List
           </Text>
@@ -46,20 +46,23 @@ const styles = StyleSheet.create({
   },
   Option: {
     borderWidth: 1,
+    backgroundColor: "#fff",
     borderColor: "#bbb",
     borderRadius: 10,
-    width: 132,
-    height: 132,
+    width: 140,
+    height: 140,
+
+    justifyContent: "center",
     alignItems: 'center'
   },
   Icon: {
-    width: 90,
-    height: 90,
-    marginTop: 12
+    width: 60,
+    height: 60,
   },
   Text: {
     fontSize: 16,
-    color: "#999",
+    paddingTop: 8,
+    color: "#666",
   }
 })
 

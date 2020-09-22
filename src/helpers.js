@@ -9,6 +9,19 @@ const helpers = {
     return year + "-" + month + "-" + day
   },
 
+  convertToReadableDate: (date) => {
+    // const weekDays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thusday", "Friday", "Saturday"]
+    const weekDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+
+    return weekDays[date.getDay()] + ", " + monthNames[date.getMonth()] + " " + date.getDate() + ", " + date.getFullYear()
+  },
+
+  convertToReadableTime: (time) => {
+    const hours = time.getHours() < 10 ? "0" + time.getHours() : time.getHours()
+    return hours + ":" + time.getMinutes()
+  },
+
   getColorByCategory: (category) => {
     switch(category){
       case "food":

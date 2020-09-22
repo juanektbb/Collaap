@@ -3,7 +3,7 @@ import {
   Text,
   View,
   Image,
-  Pressable,
+  TouchableOpacity,
   StyleSheet
 } from 'react-native'
 
@@ -24,7 +24,7 @@ class ElementItem extends Component{
 
   render(){
     return(
-      <Pressable onPress={() => this.props.loadNewItemScreen(this.state.data)}>
+      <TouchableOpacity onPress={() => this.props.loadNewItemScreen(this.state.data)}>
         <View style={styles.SubItem}>
           <View style={styles.CategoryBox}>
             <Image source={this.props.icon} style={styles.CategoryIcon} />
@@ -42,9 +42,8 @@ class ElementItem extends Component{
           <View style={styles.Collaborators}>
             <Text>One</Text>
           </View>
-
         </View>
-      </Pressable>
+      </TouchableOpacity>
     )
   }
 }

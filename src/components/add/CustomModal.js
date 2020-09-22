@@ -1,40 +1,30 @@
-import React, { Component } from 'react'
-
+import React from 'react'
 import {
   Text,
   View,
-  Image,
   Modal,
   TouchableOpacity,
   StyleSheet
 } from 'react-native'
 
-class CustomModal extends Component{
+import colors from 'Collaap/src/data/colors.js'
 
-  constructor(props){
-    super(props)
-    this.state = {
-      selected_category: null
-    }
-  }
-
-  render(){
-    return(
-      <Modal
-        visible={this.props.is_open}
-        transparent={true}
-        animationType="slide">
-        <View style={styles.Modal}>
-          <View style={styles.Content}>
-            <TouchableOpacity style={styles.CloseBar} onPress={this.props.toggle_modal}>
-              <Text style={styles.CloseX}>Cancel</Text>
-            </TouchableOpacity>
-            {this.props.children}
-          </View>
+const CustomModal = (props) => {
+  return(
+    <Modal
+      visible={props.is_open}
+      transparent={true}
+      animationType="slide">
+      <View style={styles.Modal}>
+        <View style={styles.Content}>
+          <TouchableOpacity style={styles.CloseBar} onPress={props.toggle_modal}>
+            <Text style={styles.CloseText}>Keep these changes</Text>
+          </TouchableOpacity>
+          {props.children}
         </View>
-      </Modal>
-    )
-  }
+      </View>
+    </Modal>
+  )
 }
 
 const styles = StyleSheet.create({
@@ -55,15 +45,15 @@ const styles = StyleSheet.create({
   },
   CloseBar: {
     borderWidth: 1,
-    borderColor: 'red',
+    borderColor: colors.greenaccept,
     borderRadius: 5,
     marginBottom: 20,
   },
-  CloseX: {
+  CloseText: {
     fontSize: 16,
     padding: 5,
     textAlign: "center",
-    color: 'red'
+    color: colors.greenaccept
   }
 })
 

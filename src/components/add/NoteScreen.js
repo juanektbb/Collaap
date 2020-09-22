@@ -26,8 +26,15 @@ class NoteScreen extends Component{
         title: "",
         note: "",
         list_stuff: [],
+        array_collaboratos: [],
         starred: false,
-        reminder: false
+        reminder: false,
+
+        is_everyday: false,
+        start_date: new Date(),
+        end_date: new Date(),
+        time: new Date(),
+
       },
       backgroundColor: colors.softwhite
     }
@@ -35,7 +42,6 @@ class NoteScreen extends Component{
 
   onChangeTitle = (text) => {
     this.setState({
-      ...this.state,
       item: {
         ...this.state.item,
         title: text
@@ -50,7 +56,6 @@ class NoteScreen extends Component{
 
   onChangeCategory = (category, backgroundColor) => {
     this.setState({
-      ...this.state,
       item: {
         ...this.state.item,
         category: category
@@ -59,17 +64,94 @@ class NoteScreen extends Component{
     })
   }
 
+  onChangeEveryday = () => {
+    this.setState({
+      item: {
+        ...this.state.item,
+        is_everyday: !this.state.item.is_everyday
+      }
+    })
+  }
+
+  onChangeReminder = () => {
+
+
+
+  }
+
+
+
+  apply_start_date = (timestamp) => {
+    this.setState({
+      item: {
+        ...this.state.item,
+        start_date: new Date(timestamp)
+      },
+    })
+  }
+
+  apply_end_date = (timestamp) => {
+    this.setState({
+      item: {
+        ...this.state.item,
+        end_date: new Date(timestamp)
+      },
+    })
+  }
+
+  apply_time = (timestamp) => {
+    this.setState({
+      item: {
+        ...this.state.item,
+        time: new Date(timestamp)
+      },
+    })
+  }
+
+
+
+  toggle_array_collaborators = (collaborator) => {
+
+    let array = this.state.item.array_collaboratos
+
+    //It exists in array, remove it
+    if(array.includes(collaborator)){
+      let index = array.indexOf(collaborator)
+      array.splice(index, 1)
+
+    //It does not exists in array, add it
+    }else{
+      array.push(collaborator)
+    }
+
+    this.setState({
+      item: {
+        ...this.state.item,
+        array_collaboratos: array
+      }
+    })
+
+    return;
+  }
+
+
+
+
+
+
+
+
+
+
   submitItem = () => {
     console.log(this.state.item)
   }
 
   componentDidMount(){
 
-
+    //This screen is loading data
     if(this.props.route.params !== undefined){
       const { item } = this.props.route.params
-
-        console.log("bbb", item.category)
 
         this.setState({
           item: {
@@ -98,7 +180,6 @@ class NoteScreen extends Component{
             onChangeTitle={this.onChangeTitle}
             onChangeCategory={this.onChangeCategory}
           />
-
           <View style={styles.MainBody}>
             <TextInput
               placeholder="What is happening?"
@@ -106,7 +187,17 @@ class NoteScreen extends Component{
               style={styles.MainBodyInput}
             />
           </View>
-          <AddOptions />
+          <AddOptions
+            item={this.state.item}
+            toggle_array_collaborators={this.toggle_array_collaborators}
+            apply_start_date={this.apply_start_date}
+            apply_end_date={this.apply_end_date}
+            apply_time={this.apply_time}
+
+            onChangeEveryday={this.onChangeEveryday}
+
+
+          />
           <TouchableOpacity onPress={this.submitItem} style={styles.SubmitButton}>
             <Text style={styles.SubmitButtonText}>Save this</Text>
           </TouchableOpacity>
@@ -122,16 +213,17 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     marginBottom: 50,
   },
-
   MainBody: {
     borderWidth: 1,
     borderColor: "#ddd",
     marginHorizontal: 10,
-    marginTop: 20,
+    marginTop: 10,
     flex: 1
   },
   MainBodyInput: {
-    fontSize: 20
+    fontSize: 16,
+    paddingVertical: 5,
+    paddingHorizontal: 9
   },
   SubmitButton: {
     backgroundColor: colors.calltoaction,

@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-
 import {
   Text,
   View,
@@ -31,7 +30,7 @@ class AddHeader extends Component{
     })
   }
 
-  onSelectCategory = (category_name, category_image, backgroundColor) => {
+  onSelectCategory = (category_name, backgroundColor) => {
     this.props.onChangeCategory(category_name, backgroundColor)
     this.setState({
       is_open: false,
@@ -39,10 +38,10 @@ class AddHeader extends Component{
   }
 
   componentDidMount(){
+
   }
 
   render(){
-    console.log("here", this.props.item.category)
     return(
       <View style={styles.AddHeader}>
         <TextInput
@@ -91,13 +90,13 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     marginRight: 30,
     flex: 1,
-    fontSize: 20
+    fontSize: 16
   },
   CategoryPicker: {
     width: 50,
     height: 50,
     marginRight: 15,
-    marginTop: 15,
+    marginTop: 10,
   },
   CategoryPickerImage: {
     width: 50,

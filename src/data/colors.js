@@ -3,7 +3,8 @@ const colors = {
   "secondtone": "#00416d",
   "calltoaction": "#e94560",
   "softdark": "#080031",
-  "softwhite": "#f9f9f9"
+  "softwhite": "#f9f9f9",
+  "greenaccept": "#21bf73"
 }
 
 export default colors
