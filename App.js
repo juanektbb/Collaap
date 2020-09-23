@@ -17,7 +17,6 @@ import {
 import HomeStack from 'Collaap/src/components/home/HomeStack'
 import ProfileStack from 'Collaap/src/components/profile/ProfileStack'
 
-import Footer from 'Collaap/src/components/general/Footer.js'
 
 const Tabs = createBottomTabNavigator()
 
@@ -31,28 +30,35 @@ class App extends Component<Props>{
             tintColor: "red",
             style: {
               backgroundColor: "#ff0000"
-            }
+            },
+
           }}
+          tabBarOptions = {{
+            showLabel: false
+        }}
         >
+
+        <Tabs.Screen
+          name="Profile"
+          component={ProfileStack}
+          options={{
+            tabBarIcon: ({size, color}) => (
+              <Image style={{width: 30, height: 30}} source={require('Collaap/src/images/icon-profile.png')} />
+            )
+          }}
+        />
+
           <Tabs.Screen
             name="Home"
             component={HomeStack}
             options={{
               tabBarIcon: ({size, color}) => (
-                <Image style={{tintColor: color, width: 50, height: 50}} source={require('Collaap/src/images/icon-all.png')} />
+                <Image style={{width: 30, height: 30}} source={require('Collaap/src/images/icon-calendar.png')} />
               )
             }}
           />
 
-          <Tabs.Screen
-            name="Profile"
-            component={ProfileStack}
-            options={{
-              tabBarIcon: ({size, color}) => (
-                <Image style={{tintColor: color, width: size, height: size}} source={require('Collaap/src/images/icon-calendar.png')} />
-              )
-            }}
-          />
+
         </Tabs.Navigator>
       </NavigationContainer>
       )

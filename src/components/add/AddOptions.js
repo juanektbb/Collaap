@@ -5,14 +5,13 @@ import {
   View,
   TextInput,
   Image,
+  Switch,
   FlatList,
   StyleSheet,
   TouchableOpacity,
 } from 'react-native'
 
-import CheckBox from '@react-native-community/checkbox';
-
-
+// import CheckBox from '@react-native-community/checkbox';
 
 import collaborators from 'Collaap/src/data/collaborators.js'
 import colors from 'Collaap/src/data/colors.js'
@@ -29,7 +28,7 @@ class AddOptions extends Component{
     this.state = {
       collaborators: {},
       is_collaborators_open: false,
-      is_reminder_open: false,
+      is_reminder_open: true,
     }
   }
 
@@ -69,8 +68,10 @@ class AddOptions extends Component{
             data={Object.keys(this.state.collaborators)}
             renderItem={({item}) =>
               <View style={styles.SingleCollaborator}>
-                <CheckBox
-                  value={this.props.item.array_collaboratos.includes(item) ? true : false}
+                <Switch
+                  trackColor={{ false: "#ccc", true: colors.softcalltoaction }}
+                  thumbColor={this.props.item.array_collaboratos.includes(item) ? colors.calltoaction : "#fbfbfb"}
+                  value={this.props.item.array_collaboratos.includes(item)}
                   onValueChange={() => this.props.toggle_array_collaborators(item)}
                 />
                 <Image source={this.state.collaborators[item].image} style={styles.CollaboratorImage}/>
@@ -99,6 +100,8 @@ class AddOptions extends Component{
               icon={require('Collaap/src/images/icon-date.png')}
               readable_function={helpers.convertToReadableDate}
               switcher={true}
+              switcher_value={this.props.item.use_secondary === 'date' ? true : false}
+              on_switcher_change={this.props.toggle_use_secondary}
             />
 
             <DateOption
@@ -109,6 +112,8 @@ class AddOptions extends Component{
               icon={require('Collaap/src/images/icon-time.png')}
               readable_function={helpers.convertToReadableTime}
               switcher={true}
+              switcher_value={this.props.item.use_secondary === 'time' ? true : false}
+              on_switcher_change={this.props.toggle_use_secondary}
             />
           </View>
 
@@ -117,7 +122,7 @@ class AddOptions extends Component{
           </View>
 
           <View style={styles.EverydayContainer}>
-            <CheckBox
+            <Switch
               value={this.props.item.is_everyday ? true : false}
               onValueChange={() => this.props.onChangeEveryday()}
             />
@@ -152,11 +157,10 @@ const styles = StyleSheet.create({
     color: "#aaa",
     marginLeft: 5
   },
-
   SingleCollaborator: {
     flexDirection: "row",
     marginBottom: 10,
-    paddingHorizontal: 10,
+    paddingHorizontal: 5,
     backgroundColor: "#f8f8f8",
     alignItems: "center",
     height: 60,
@@ -164,7 +168,7 @@ const styles = StyleSheet.create({
   CollaboratorImage: {
     width: 42,
     height: 42,
-    marginLeft: 5,
+    marginLeft: 12,
     marginRight: 8
   },
 

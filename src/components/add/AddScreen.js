@@ -38,7 +38,6 @@ class AddScreen extends Component{
 
 const styles = StyleSheet.create({
   AddScreen: {
-    marginBottom: 50,
     flex: 1,
     flexDirection: "column",
     justifyContent: "space-evenly",

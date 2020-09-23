@@ -88,7 +88,7 @@ class Home extends Component{
 
 const styles = StyleSheet.create({
   Home: {
-    marginBottom: 50
+
   },
   Separator: {
     borderBottomWidth: 1,

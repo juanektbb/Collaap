@@ -34,6 +34,7 @@ class NoteScreen extends Component{
         start_date: new Date(),
         end_date: new Date(),
         time: new Date(),
+        use_secondary: "time",
 
       },
       backgroundColor: colors.softwhite
@@ -104,6 +105,15 @@ class NoteScreen extends Component{
       item: {
         ...this.state.item,
         time: new Date(timestamp)
+      },
+    })
+  }
+
+  toggle_use_secondary = (value) => {
+    this.setState({
+      item: {
+        ...this.state.item,
+        use_secondary: value
       },
     })
   }
@@ -193,6 +203,7 @@ class NoteScreen extends Component{
             apply_start_date={this.apply_start_date}
             apply_end_date={this.apply_end_date}
             apply_time={this.apply_time}
+            toggle_use_secondary={this.toggle_use_secondary}
 
             onChangeEveryday={this.onChangeEveryday}
 
@@ -211,7 +222,6 @@ const styles = StyleSheet.create({
   NoteScreen: {
     flex: 1,
     flexDirection: "column",
-    marginBottom: 50,
   },
   MainBody: {
     borderWidth: 1,

@@ -4,7 +4,8 @@ const colors = {
   "calltoaction": "#e94560",
   "softdark": "#080031",
   "softwhite": "#f9f9f9",
-  "greenaccept": "#21bf73"
+  "greenaccept": "#21bf73",
+  "softcalltoaction": "#fac3cc"
 }
 
 export default colors

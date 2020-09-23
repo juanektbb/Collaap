@@ -45,6 +45,7 @@ class DateOption extends Component{
         <TouchableOpacity onPress={this.toggle_date_option}>
           <Image style={styles.DatesImage} source={this.props.icon} />
         </TouchableOpacity>
+
         <TouchableOpacity style={styles.InsideContent} onPress={this.toggle_date_option}>
           <Text style={styles.DatesTitle}>{this.props.title}</Text>
           <Text style={styles.DatesValue}>{this.props.readable_function(this.props.display_date)}</Text>
@@ -52,6 +53,8 @@ class DateOption extends Component{
 
         {this.props.switcher &&
           <Switch
+            value={this.props.switcher_value}
+            onValueChange={() => this.props.on_switcher_change(this.props.mode)}
             style={styles.Switcher}
           />}
       </View>
