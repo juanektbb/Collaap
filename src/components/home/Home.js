@@ -12,11 +12,19 @@ import categories from 'Collaap/src/data/categories.js'
 
 // import builder from '../../data/builder'
 
-import calendar from 'Collaap/src/data/calendar.js'
+import { connect } from 'react-redux'
+
+
 
 import PrimaryCalendar from './PrimaryCalendar'
 import Separator from 'Collaap/src/components/general/Separator'
 import ElementItem from 'Collaap/src/components/ElementItem'
+
+function mapStateToProps(state){
+  return {
+    calendar: state.calendar
+  }
+}
 
 class Home extends Component{
 
@@ -24,7 +32,6 @@ class Home extends Component{
     super(props)
     this.state = {
       on_this_date: helpers.getToday(),
-      calendar: {},
       home_elements: []
     }
   }
@@ -41,14 +48,13 @@ class Home extends Component{
   clickOnCalendarCell = (yyyymmdd) => {
     this.setState({
       on_this_date: yyyymmdd,
-      home_elements: this.state.calendar[yyyymmdd].elements
+      home_elements: this.props.calendar[yyyymmdd].elements
     })
   }
 
   componentDidMount(){
     this.setState({
-      calendar: calendar,
-      home_elements: calendar[this.state.on_this_date].elements
+      // home_elements: this.props.calendar[this.state.on_this_date].elements
     })
   }
 
@@ -61,7 +67,6 @@ class Home extends Component{
         style={styles.Home}
         ListHeaderComponent={<>
           <PrimaryCalendar
-            calendar={this.state.calendar}
             onThisDate={this.state.on_this_date}
             clickOnCalendarCell={this.clickOnCalendarCell}/>
           <Separator />
@@ -108,4 +113,5 @@ const styles = StyleSheet.create({
   }
 })
 
-export default Home
+
+export default connect(mapStateToProps)(Home)

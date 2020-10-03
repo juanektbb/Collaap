@@ -4,6 +4,9 @@ import { NavigationContainer } from '@react-navigation/native'
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
+import { Provider } from 'react-redux'
+import { PersistGate } from 'redux-persist/integration/react'
+import { store, persistor } from './src/redux/store'
 
 import {
   Text,
@@ -17,13 +20,35 @@ import {
 import HomeStack from 'Collaap/src/components/home/HomeStack'
 import ProfileStack from 'Collaap/src/components/profile/ProfileStack'
 
+import calendar from 'Collaap/src/data/calendar.js'
 
 const Tabs = createBottomTabNavigator()
 
 class App extends Component<Props>{
 
+  componentDidMount(){
+    store.dispatch({
+      type: "SET_CALENDAR",
+      payload: {
+        calendar
+      }
+    })
+
+    store.dispatch({
+      type: "SET_HOME_ELEMENTS",
+      payload: {
+        calendar
+      }
+    })
+  }
+
   render(){
     return(
+      <Provider
+        store={store}
+      >
+      <PersistGate
+loading={<Text>Loading</Text>} persistor={persistor}>
       <NavigationContainer>
         <Tabs.Navigator
           options={{
@@ -59,8 +84,11 @@ class App extends Component<Props>{
           />
 
 
+
         </Tabs.Navigator>
       </NavigationContainer>
+      </PersistGate>
+      </Provider>
       )
   }
 }

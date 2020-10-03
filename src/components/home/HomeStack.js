@@ -17,7 +17,7 @@ const HomeStack = () => {
         name="Home"
         component={Home}
         options={({ navigation, route }) => ({
-          headerTitle: props => <Header {...props} navigation={navigation} />
+          headerTitle: props => <Header {...props} plus={true} navigation={navigation} />
         })}
       />
 

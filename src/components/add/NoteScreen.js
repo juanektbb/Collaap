@@ -34,7 +34,7 @@ class NoteScreen extends Component{
         start_date: new Date(),
         end_date: new Date(),
         time: new Date(),
-        use_secondary: "time",
+        use_secondary: null,
 
       },
       backgroundColor: colors.softwhite
@@ -231,6 +231,7 @@ const styles = StyleSheet.create({
     flex: 1
   },
   MainBodyInput: {
+    flex: 1,
     fontSize: 16,
     paddingVertical: 5,
     paddingHorizontal: 9

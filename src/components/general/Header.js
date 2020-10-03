@@ -21,11 +21,12 @@ class Header extends Component{
         <View style={styles.Logo}>
           <Image style={styles.LogoImage} source={require('Collaap/src/images/logo.png')} />
         </View>
-        <Pressable onPress={this.openAddScreen}>
-          <View style={styles.Plus}>
-            <Text style={styles.PlusText}>+</Text>
-          </View>
-        </Pressable>
+        {this.props.plus &&
+          <Pressable onPress={this.openAddScreen}>
+            <View style={styles.Plus}>
+              <Text style={styles.PlusText}>+</Text>
+            </View>
+          </Pressable>}
       </View>
     )
   }
@@ -44,11 +45,13 @@ const styles = StyleSheet.create({
     marginRight: -16
   },
   Logo: {
-    width: 90
+    width: 300,
+    justifyContent: "center"
   },
   LogoImage: {
-    width: 90,
-    height: 60
+    width: 120,
+    height: 40,
+    borderWidth: 1
   },
   Plus: {
     width: 36,

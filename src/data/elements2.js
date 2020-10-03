@@ -1,10 +1,10 @@
 const elements = {
 
-  "2020-09-18": [
+  "2020-09-26": [
     {
       "id": "1",
       "title": "MyTitle1MyTitle1 MyTi",
-      "date": "2020-09-18",
+      "date": "2020-09-26",
       "time": "15:00",
       "collaborators": [],
       "category": "food"
@@ -12,7 +12,7 @@ const elements = {
     {
       "id": "2",
       "title": "MyTitle2",
-      "date": "2020-09-18",
+      "date": "2020-09-26",
       "time": "17:00",
       "collaborators": [],
       "category": "holidays"
@@ -20,18 +20,18 @@ const elements = {
     {
       "id": "3",
       "title": "MyTitle3",
-      "date": "2020-09-18",
+      "date": "2020-09-26",
       "time": "23:00",
       "collaborators": [],
       "category": "finance"
     }
   ],
 
-  "2020-09-19": [
+  "2020-09-25": [
     {
       "id": "4",
       "title": "MyTitle4",
-      "date": "2020-09-08",
+      "date": "2020-09-25",
       "time": "14:00",
       "collaborators": [],
       "category": "finance"
@@ -39,7 +39,7 @@ const elements = {
     {
       "id": "5",
       "title": "MyTitle5",
-      "date": "2020-09-07",
+      "date": "2020-09-25",
       "time": "04:00",
       "collaborators": [],
       "category": "holidays"
@@ -47,7 +47,7 @@ const elements = {
     {
       "id": "6",
       "title": "MyTitle6",
-      "date": "2020-09-06",
+      "date": "2020-09-25",
       "time": "14:00",
       "collaborators": [],
       "category": "holidays"

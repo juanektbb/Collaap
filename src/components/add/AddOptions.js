@@ -28,7 +28,7 @@ class AddOptions extends Component{
     this.state = {
       collaborators: {},
       is_collaborators_open: false,
-      is_reminder_open: true,
+      is_reminder_open: false,
     }
   }
 
@@ -90,6 +90,7 @@ class AddOptions extends Component{
               icon={require('Collaap/src/images/icon-date.png')}
               readable_function={helpers.convertToReadableDate}
               switcher={false}
+              switcher_value={true}
             />
 
             <DateOption
@@ -163,7 +164,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
     backgroundColor: "#f8f8f8",
     alignItems: "center",
-    height: 60,
+    height: 60
   },
   CollaboratorImage: {
     width: 42,
@@ -171,23 +172,17 @@ const styles = StyleSheet.create({
     marginLeft: 12,
     marginRight: 8
   },
-
-
-
-
-
-  DatesContainer: {
-
-  },
   OrContainer: {
-    height: 80,
+    height: 60,
     alignItems: "center",
     justifyContent: "center",
+    marginTop: 20,
     borderTopWidth: 1,
     borderBottomWidth: 1,
     borderColor: "#eee"
   },
   OrText: {
+    color: "#aaa",
     fontSize: 16
   },
   EverydayContainer: {

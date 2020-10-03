@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-
 import {
   View,
   Text,
@@ -10,7 +9,6 @@ import {
 } from 'react-native'
 
 import colors from 'Collaap/src/data/colors.js'
-
 import DateTimePicker from '@react-native-community/datetimepicker';
 
 class DateOption extends Component{
@@ -23,9 +21,11 @@ class DateOption extends Component{
   }
 
   toggle_date_option = () => {
-    this.setState({
-      is_open: !this.state.is_open
-    })
+    if(this.props.switcher_value){
+      this.setState({
+        is_open: !this.state.is_open
+      })
+    }
   }
 
   double_functionality = (event) => {
@@ -43,18 +43,24 @@ class DateOption extends Component{
       <>
       <View style={styles.DatesElement}>
         <TouchableOpacity onPress={this.toggle_date_option}>
-          <Image style={styles.DatesImage} source={this.props.icon} />
+          <Image style={[styles.DatesImage, !this.props.switcher_value ? styles.OpacityOn: null]} source={this.props.icon}/>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.InsideContent} onPress={this.toggle_date_option}>
-          <Text style={styles.DatesTitle}>{this.props.title}</Text>
-          <Text style={styles.DatesValue}>{this.props.readable_function(this.props.display_date)}</Text>
+          <View style={!this.props.switcher_value ? styles.OpacityOn: null}>
+            <Text style={styles.DatesTitle}>
+              {this.props.title}
+            </Text>
+            <Text style={styles.DatesValue}>
+              {this.props.switcher_value ? this.props.readable_function(this.props.display_date) : "N/A"}
+            </Text>
+          </View>
         </TouchableOpacity>
 
         {this.props.switcher &&
           <Switch
             value={this.props.switcher_value}
-            onValueChange={() => this.props.on_switcher_change(this.props.mode)}
+            onValueChange={() => this.props.on_switcher_change(this.props.switcher_value ? null : this.props.mode)}
             style={styles.Switcher}
           />}
       </View>
@@ -74,6 +80,9 @@ class DateOption extends Component{
 }
 
 const styles = StyleSheet.create({
+  OpacityOn: {
+    opacity: 0.2
+  },
   DatesElement: {
     flexDirection: "row",
     paddingVertical: 15,
@@ -93,11 +102,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     lineHeight: 14,
     color: colors.calltoaction
-  },
-  Switcher: {
-    borderWidth: 1,
-    borderColor: 'red'
-  },
+  }
 })
 
 export default DateOption

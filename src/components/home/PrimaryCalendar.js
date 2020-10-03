@@ -9,42 +9,36 @@ import {
 
 import PrimaryCalendarItem from './PrimaryCalendarItem'
 
+import { connect } from 'react-redux'
 
+function mapStateToProps(state){
+  return{
+    calendar: state.calendar
+  }
+}
 
 class PrimaryCalendar extends Component{
 
   constructor(props){
     super(props)
     this.state = {
-      calendar: {}
     }
-  }
-
-  componentDidMount(){
-    this.setState({
-      calendar: this.props.calendar
-    })
-  }
-
-  componentDidUpdate(prevProps, prevState){
-    if(prevProps.calendar !== this.props.calendar)
-      this.setState({ calendar: this.props.calendar })
   }
 
   render(){
     return (
       <FlatList
         horizontal
-        keyExtractor={item => this.state.calendar[item].key}
-        data={Object.keys(this.state.calendar)}
+        keyExtractor={item => this.props.calendar[item].key}
+        data={Object.keys(this.props.calendar)}
         style={styles.PrimaryCalendar}
         ItemSeparatorComponent={() =>
           <View style={styles.Separator} />}
         renderItem={({item}) =>
           <PrimaryCalendarItem
-            item={this.state.calendar[item]}
+            item={this.props.calendar[item]}
             clickOnCalendarCell={this.props.clickOnCalendarCell}
-            isActive={this.state.calendar[item].key === this.props.onThisDate}
+            isActive={this.props.calendar[item].key === this.props.onThisDate}
           />}
       />)
   }
@@ -60,4 +54,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default PrimaryCalendar
+export default connect(mapStateToProps)(PrimaryCalendar)
