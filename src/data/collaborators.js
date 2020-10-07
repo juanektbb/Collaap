@@ -1,32 +1,4 @@
 
-const fetchLogin = async (username, password) => {
-
-  const content_body = {
-    "username": username,
-    "password": password
-  }
-
-  const settings = {
-      method: 'POST',
-      headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(content_body)
-  }
-
-  const response = await fetch('https://api-collaap.herokuapp.com/api/users/login', settings);
-  const data = await response.json();
-
-  if(response.status !== 200 && data['error']){
-    console.log(data)
-  }else{
-    console.log(data['token'])
-    console.log("hello")
-  }
-
-
-}
 
 
 
@@ -53,7 +25,7 @@ const fetchCollaborators = async () => {
   console.log(response.status)
 }
 
-fetchLogin()
+
 
 const collaborators = {
   "juanektbb": {

@@ -8,6 +8,10 @@ const characters = [
     icon: require('Collaap/src/images/users/user-1.png')
   },
   {
+    name: "mh_1",
+    icon: require('Collaap/src/images/users/user-7.png')
+  },
+  {
     name: "woman_1",
     icon: require('Collaap/src/images/users/user-2.png')
   },

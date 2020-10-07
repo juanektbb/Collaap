@@ -7,7 +7,13 @@ function index(state = {}, action){
     case "SET_MENU": {
       return {...state, ...action.payload}
     }
-
+    case "SET_SESSION_TOKEN": {
+      return {...state, ...action.payload}
+    }
+    case "SET_USER": {
+      return {...state, ...action.payload}
+    }
+    
     default:
       return state
 
