@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-community/async-storage'
 import { store } from 'Collaap/src/redux/store'
 
-import helpers from 'Collaap/src/helpers.js'
+import helpers from 'Collaap/src/utils/helpers.js'
 import auth from 'Collaap/src/handlers/auth.js'
 
 import CollaapsController from './CollaapsController.js'

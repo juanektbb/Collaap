@@ -7,18 +7,14 @@ import {
   Pressable
 } from 'react-native';
 
-import helpers from 'Collaap/src/helpers.js'
-import categories from 'Collaap/src/data/categories.js'
-
-// import builder from '../../data/builder'
-
 import { connect } from 'react-redux'
 
-
+import helpers from 'Collaap/src/utils/helpers.js'
+import categories from 'Collaap/src/data/categories.js'
 
 import PrimaryCalendar from './PrimaryCalendar'
 import Separator from 'Collaap/src/components/general/Separator'
-import ElementItem from 'Collaap/src/components/ElementItem'
+import Element from './Element'
 
 function mapStateToProps(state){
   return {
@@ -28,6 +24,14 @@ function mapStateToProps(state){
 
 class Home extends Component{
 
+  loadNewItemScreen = (item) => {
+    this.props.navigation.navigate('NewItemScreen', { item })
+  }
+
+  openAddScreen = () => {
+    this.props.navigation.navigate('AddScreen')
+  }
+
   constructor(props){
     super(props)
     this.state = {
@@ -35,15 +39,6 @@ class Home extends Component{
       home_elements: []
     }
   }
-
-  openAddScreen = () => {
-    this.props.navigation.navigate('AddScreen')
-  }
-
-  loadNewItemScreen = (item) => {
-    this.props.navigation.navigate('NewItemScreen', { item })
-  }
-
 
   clickOnCalendarCell = (yyyymmdd) => {
     this.setState({
@@ -54,10 +49,9 @@ class Home extends Component{
 
   componentDidMount(){
     this.setState({
-      // home_elements: this.props.calendar[this.state.on_this_date].elements
+      home_elements: this.props.calendar[this.state.on_this_date].elements
     })
   }
-
 
   render(){
     return (
@@ -81,20 +75,16 @@ class Home extends Component{
         ItemSeparatorComponent={() =>
           <View style={styles.Separator}></View>}
         renderItem={({item}) =>
-          <ElementItem
+          <Element
             item={item}
             icon={categories[item.category].icon}
             loadNewItemScreen={this.loadNewItemScreen}
-          />
-        }
+          />}
       />)
   }
 }
 
 const styles = StyleSheet.create({
-  Home: {
-
-  },
   Separator: {
     borderBottomWidth: 1,
     borderBottomColor: '#e4e4e4'
@@ -112,6 +102,5 @@ const styles = StyleSheet.create({
     fontSize: 36
   }
 })
-
 
 export default connect(mapStateToProps)(Home)

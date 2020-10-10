@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-
 import {
   Text,
   View,
@@ -7,9 +6,9 @@ import {
   FlatList
 } from 'react-native'
 
-import PrimaryCalendarItem from './PrimaryCalendarItem'
-
 import { connect } from 'react-redux'
+
+import PrimaryCalendarItem from './PrimaryCalendarItem'
 
 function mapStateToProps(state){
   return{
@@ -17,31 +16,22 @@ function mapStateToProps(state){
   }
 }
 
-class PrimaryCalendar extends Component{
-
-  constructor(props){
-    super(props)
-    this.state = {
-    }
-  }
-
-  render(){
-    return (
-      <FlatList
-        horizontal
-        keyExtractor={item => this.props.calendar[item].key}
-        data={Object.keys(this.props.calendar)}
-        style={styles.PrimaryCalendar}
-        ItemSeparatorComponent={() =>
-          <View style={styles.Separator} />}
-        renderItem={({item}) =>
-          <PrimaryCalendarItem
-            item={this.props.calendar[item]}
-            clickOnCalendarCell={this.props.clickOnCalendarCell}
-            isActive={this.props.calendar[item].key === this.props.onThisDate}
-          />}
-      />)
-  }
+const PrimaryCalendar = (props) => {
+  return(
+    <FlatList
+      horizontal
+      keyExtractor={item => props.calendar[item].key}
+      data={Object.keys(props.calendar)}
+      style={styles.PrimaryCalendar}
+      ItemSeparatorComponent={() =>
+        <View style={styles.Separator} />}
+      renderItem={({item}) =>
+        <PrimaryCalendarItem
+          item={props.calendar[item]}
+          clickOnCalendarCell={props.clickOnCalendarCell}
+          isActive={props.calendar[item].key === props.onThisDate}
+        />}
+    />)
 }
 
 const styles = StyleSheet.create({
@@ -50,7 +40,7 @@ const styles = StyleSheet.create({
   },
   Separator: {
     borderRightWidth: 1,
-    borderRightColor: '#ccc'
+    borderRightColor: '#e4e4e4'
   }
 })
 

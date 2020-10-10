@@ -19,8 +19,6 @@ class CollaapsController{
     const response = await fetch(`${settings['API_URL']}/users/collaaps`, details)
     const data = await response.json()
 
-    console.log(data)
-
     return data
   }
 
@@ -46,7 +44,6 @@ class CollaapsController{
         }
       })
     }
-
   }
 
 }

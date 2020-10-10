@@ -8,7 +8,7 @@ import {
   Pressable
 } from 'react-native'
 
-import helpers from 'Collaap/src/helpers.js'
+import helpers from 'Collaap/src/utils/helpers.js'
 import colors from 'Collaap/src/data/colors.js'
 
 class PrimaryCalendarItem extends Component{
@@ -23,21 +23,10 @@ class PrimaryCalendarItem extends Component{
   }
 
   calculateWidthElementInCalendar = (date) => {
-    if(date == 'Everyday'){
+    if(date == 'Everyday')
       return "100%"
-    }else{
+    else
       return "31%"
-    }
-  }
-
-  checkItActive = (thisdate, onThisDate) => {
-
-    // console.log(thisdate, onThisDate, thisdate == onThisDate)
-
-    if(thisdate == onThisDate){
-      return true
-    }
-    return false
   }
 
   calculateLeftElementInCalendar = (date, time) => {
@@ -50,29 +39,20 @@ class PrimaryCalendarItem extends Component{
     }
   }
 
-
-
   componentDidMount(){
-    let elementsDate = []
+    let elements = []
 
-
-
-    this.setState({
-      data: this.props.item,
-      isActive: this.props.isActive
-    })
-
-    //Loop and find remiders of this date and applicatable
+    //Loop and find remiders of this date and apply applicables
     this.props.item.elements.forEach((item) => {
         item.width = this.calculateWidthElementInCalendar(item.date)
         item.Left = this.calculateLeftElementInCalendar(item.date, item.time)
         item.catColor = helpers.getColorByCategory(item.category)
-        elementsDate.push(item)
+        elements.push(item)
     })
 
-    let elements = elementsDate
-
     this.setState({
+      data: this.props.item,
+      isActive: this.props.isActive,
       elements: elements
     })
   }
@@ -85,9 +65,7 @@ class PrimaryCalendarItem extends Component{
   render(){
     return(
       <Pressable onPress={() => this.props.clickOnCalendarCell(this.state.data.key)}>
-
         <View style={[styles.CalendarPrimItem, (this.state.isActive) ? styles.IsSelected : null]}>
-
           <View style={styles.Number}>
             <Text style={styles.NumberText}>{this.state.data.day}</Text>
             <Text style={styles.NumberExtension}>{this.state.data.extension}</Text>
@@ -103,13 +81,12 @@ class PrimaryCalendarItem extends Component{
               data={this.state.elements}
               renderItem={({item}) =>
                 <View style={[styles.ElementInCalendar, {
-                    marginLeft: item.Left,
-                    width: item.width,
-                    borderColor: item.catColor
-                  }]} />
+                  marginLeft: item.Left,
+                  width: item.width,
+                  borderColor: item.catColor
+                }]} />
               }/>
           </View>
-
         </View>
       </Pressable>
     )
@@ -123,9 +100,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.softwhite
   },
   IsSelected: {
-    borderWidth: 1,
-    borderColor: "#097216",
-    backgroundColor: '#eefff0'
+    backgroundColor: '#f1f1f1'
   },
   Number: {
     flexDirection: 'row',

@@ -15,7 +15,7 @@ import { connect } from 'react-redux'
 
 import colors from 'Collaap/src/data/colors.js'
 
-import helpers from 'Collaap/src/helpers.js'
+import helpers from 'Collaap/src/utils/helpers.js'
 
 import CustomModal from './CustomModal'
 import DateOption from './DateOption'
