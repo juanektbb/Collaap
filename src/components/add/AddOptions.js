@@ -11,9 +11,8 @@ import {
   TouchableOpacity,
 } from 'react-native'
 
-// import CheckBox from '@react-native-community/checkbox';
+import { connect } from 'react-redux'
 
-import collaborators from 'Collaap/src/data/collaborators.js'
 import colors from 'Collaap/src/data/colors.js'
 
 import helpers from 'Collaap/src/helpers.js'
@@ -21,12 +20,18 @@ import helpers from 'Collaap/src/helpers.js'
 import CustomModal from './CustomModal'
 import DateOption from './DateOption'
 
+
+function mapStateToProps(state){
+  return {
+    collaaps: state.collaaps
+  }
+}
+
 class AddOptions extends Component{
 
   constructor(props){
     super(props)
     this.state = {
-      collaborators: {},
       is_collaborators_open: false,
       is_reminder_open: false,
     }
@@ -45,9 +50,6 @@ class AddOptions extends Component{
   }
 
   componentDidMount(){
-    this.setState({
-      collaborators: collaborators
-    })
   }
 
   render(){
@@ -64,18 +66,18 @@ class AddOptions extends Component{
 
         <CustomModal is_open={this.state.is_collaborators_open} toggle_modal={this.toggle_collaborators}>
           <FlatList
-            keyExtractor={(item) => item}
-            data={Object.keys(this.state.collaborators)}
+            keyExtractor={(item) => item.username}
+            data={this.props.collaaps}
             renderItem={({item}) =>
               <View style={styles.SingleCollaborator}>
                 <Switch
                   trackColor={{ false: "#ccc", true: colors.softcalltoaction }}
-                  thumbColor={this.props.item.array_collaboratos.includes(item) ? colors.calltoaction : "#fbfbfb"}
-                  value={this.props.item.array_collaboratos.includes(item)}
-                  onValueChange={() => this.props.toggle_array_collaborators(item)}
+                  thumbColor={this.props.item.array_collaboratos.includes(item.username) ? colors.calltoaction : "#fbfbfb"}
+                  value={this.props.item.array_collaboratos.includes(item.username)}
+                  onValueChange={() => this.props.toggle_array_collaborators(item.username)}
                 />
-                <Image source={this.state.collaborators[item].image} style={styles.CollaboratorImage}/>
-                <Text>{this.state.collaborators[item].first_name} {this.state.collaborators[item].last_name}</Text>
+                <Image source={helpers.getIconByName(item.icon)} style={styles.CollaboratorImage}/>
+                <Text>{item.first_name} {item.last_name}</Text>
               </View>}
           />
         </CustomModal>
@@ -199,4 +201,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default AddOptions
+export default connect(mapStateToProps)(AddOptions)

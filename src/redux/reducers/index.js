@@ -13,7 +13,10 @@ function index(state = {}, action){
     case "SET_USER": {
       return {...state, ...action.payload}
     }
-    
+    case "SET_COLLAAPS": {
+      return {...state, ...action.payload}
+    }
+
     default:
       return state
 

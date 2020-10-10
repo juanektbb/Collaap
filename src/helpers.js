@@ -1,3 +1,5 @@
+import characters from 'Collaap/src/data/characters.js'
+
 const helpers = {
 
   getToday: () => {
@@ -32,6 +34,13 @@ const helpers = {
         break
       default:
         return "red"
+    }
+  },
+
+  getIconByName: (name) => {
+    for(let i = 0; i < characters.length; i++){
+      if(characters[i].name == name)
+        return characters[i].icon
     }
   }
 
