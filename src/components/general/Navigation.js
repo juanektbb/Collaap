@@ -3,11 +3,16 @@ import React, { Component } from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
-import { Image } from 'react-native';
+import {
+  View,
+  Image,
+  StyleSheet
+} from 'react-native';
 import { connect } from 'react-redux'
 
 import HomeStack from 'Collaap/src/components/home/HomeStack'
 import ProfileStack from 'Collaap/src/components/profile/ProfileStack'
+import NavBarIcon from 'Collaap/src/components/general/NavBarIcon'
 
 const Tabs = createBottomTabNavigator()
 
@@ -22,12 +27,6 @@ const Navigation = props => {
   return(
     <NavigationContainer>
       <Tabs.Navigator
-        options={{
-          tintColor: "red",
-          style: {
-            backgroundColor: 'red'
-          },
-        }}
         tabBarOptions = {{
           showLabel: false
         }}>
@@ -36,8 +35,8 @@ const Navigation = props => {
           name="Profile"
           children={() => <ProfileStack onSaveProfile={props.onSaveProfile}/>}
           options={{
-            tabBarIcon: ({size, color}) => (
-              <Image style={{width: 34, height: 34}} source={props.icon_navigation} />
+            tabBarIcon: ({focused}) => (
+              <NavBarIcon focused={focused} icon_navigation={props.icon_navigation}/>
             )
           }}/>
 
@@ -46,8 +45,8 @@ const Navigation = props => {
             name="Home"
             component={HomeStack}
             options={{
-              tabBarIcon: ({size, color}) => (
-                <Image style={{width: 34, height: 34}} source={require('Collaap/src/images/icon-calendar.png')} />
+              tabBarIcon: ({focused}) => (
+                <NavBarIcon focused={focused} icon_navigation={require('Collaap/src/images/icon-calendar.png')}/>
               )
             }}/>}
       </Tabs.Navigator>

@@ -35,15 +35,13 @@ class Header extends Component{
 
 const styles = StyleSheet.create({
   Header: {
+    height: 56,
+    marginLeft: -16,
+    marginRight: -16,
     paddingHorizontal: 5,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    height: 56,
     backgroundColor: colors.maintone,
-    borderBottomWidth: 1,
-    borderColor: colors.softdark,
-    marginLeft: -16,
-    marginRight: -16
   },
   Logo: {
     alignItems: "center",
@@ -57,7 +55,8 @@ const styles = StyleSheet.create({
   },
   LogoText: {
     color: colors.softwhite,
-    fontSize: 22
+    fontSize: 26,
+    fontFamily: "HKGrotesk-Regular"
   },
   Plus: {
     width: 36,

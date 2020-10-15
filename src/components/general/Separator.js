@@ -10,9 +10,8 @@ const Separator = () => <View style={styles.Separator} />
 
 const styles = StyleSheet.create({
   Separator: {
-    height: 2,
-    backgroundColor: colors.maintone,
-    elevation: 3
+    height: 10,
+    backgroundColor: colors.maintone
   }
 })
 

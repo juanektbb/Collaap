@@ -100,7 +100,9 @@ const styles = StyleSheet.create({
     backgroundColor: colors.softwhite
   },
   IsSelected: {
-    backgroundColor: '#f1f1f1'
+    backgroundColor: '#c4ecfd',
+    borderColor: "#aed7e9",
+    borderWidth: 1
   },
   Number: {
     flexDirection: 'row',
@@ -117,8 +119,9 @@ const styles = StyleSheet.create({
     marginLeft: 1
   },
   Month: {
-    fontSize: 10,
+    fontSize: 12,
     color: '#777',
+    marginTop: -3,
     textAlign: 'center'
   },
   ElementsInCalendar: {

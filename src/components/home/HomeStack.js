@@ -25,7 +25,7 @@ const HomeStack = () => {
         name="AddScreen"
         component={AddScreen}
         options={{
-            title: "Add new item"
+          title: "Add new item"
         }}
       />
 

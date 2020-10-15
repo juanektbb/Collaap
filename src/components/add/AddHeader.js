@@ -45,10 +45,11 @@ class AddHeader extends Component{
     return(
       <View style={styles.AddHeader}>
         <TextInput
-          onChangeText={this.props.onChangeTitle}
+          maxLength={45}
           placeholder="Title"
-          value={this.props.item.title}
           style={styles.Title}
+          value={this.props.item.title}
+          onChangeText={this.props.onChangeTitle}
         />
 
         <Pressable onPress={this.toggle_modal}>

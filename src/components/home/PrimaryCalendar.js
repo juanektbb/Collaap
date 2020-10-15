@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
   },
   Separator: {
     borderRightWidth: 1,
-    borderRightColor: '#e4e4e4'
+    borderRightColor: '#f2f2f2'
   }
 })
 

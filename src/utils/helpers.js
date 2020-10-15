@@ -1,4 +1,5 @@
 import characters from 'Collaap/src/data/characters.js'
+import categories from 'Collaap/src/data/categories.js'
 
 const helpers = {
 
@@ -24,16 +25,7 @@ const helpers = {
   },
 
   getColorByCategory: (category) => {
-    switch(category){
-      case "food":
-        return 'green'
-        break
-      case "party":
-        return "blue"
-        break
-      default:
-        return "red"
-    }
+    return categories[category]['mainColor']
   },
 
   getIconByName: (name) => {

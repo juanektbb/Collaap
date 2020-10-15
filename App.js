@@ -13,11 +13,26 @@ import {
   ActivityIndicator
 } from 'react-native';
 
+import {
+  setCustomText,
+  setCustomTextInput
+} from 'react-native-global-props';
+
 import calendar from 'Collaap/src/data/calendar.js'
 import colors from 'Collaap/src/data/colors.js'
 
 import LoginController from 'Collaap/src/utils/LoginController'
-import Navigation from 'Collaap/src/components/Navigation'
+import Navigation from 'Collaap/src/components/general/Navigation'
+
+const customTextProps = {
+  style: { fontFamily: 'HKGrotesk-Regular' }
+}
+const customTextInputProps = {
+  style: { fontFamily: 'HKGrotesk-Regular' }
+}
+
+setCustomText(customTextProps)
+setCustomTextInput(customTextInputProps)
 
 class App extends Component<Props>{
 

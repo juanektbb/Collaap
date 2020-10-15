@@ -3,6 +3,7 @@ import {
   Text,
   View,
   TextInput,
+  Pressable,
   Image,
   StyleSheet,
   TouchableOpacity,
@@ -12,8 +13,12 @@ import {
 
 import colors from 'Collaap/src/data/colors.js'
 
+
+
 import AddHeader from './AddHeader.js'
 import AddOptions from './AddOptions.js'
+
+import NoteController from 'Collaap/src/utils/NoteController'
 
 class NoteScreen extends Component{
 
@@ -21,21 +26,17 @@ class NoteScreen extends Component{
     super(props)
     this.state = {
       item: {
-        type: undefined,
-        category: "shopping",
+        type: "note",
         title: "",
+        category: "shopping",
         note: "",
         list_stuff: [],
         array_collaboratos: [],
-        starred: false,
-        reminder: false,
-
-        is_everyday: false,
-        start_date: new Date(),
-        end_date: new Date(),
-        time: new Date(),
-        use_secondary: null,
-
+        is_everyday: false,     //Priority 1
+        start_date: new Date(), //Priority 2
+        use_secondary: null,    //Priority 3 (null, date, time)
+        end_date: new Date(),   //Priority 4
+        time: new Date(),       //Priority 4 too
       },
       backgroundColor: colors.softwhite
     }
@@ -49,10 +50,11 @@ class NoteScreen extends Component{
       }
     })
 
-    if(text !== "")
+    if(text !== ""){
       this.props.navigation.setOptions({ title: text })
-    else
+    }else{
       this.props.navigation.setOptions({ title: "Untitled Item" })
+    }
   }
 
   onChangeCategory = (category, backgroundColor) => {
@@ -74,19 +76,20 @@ class NoteScreen extends Component{
     })
   }
 
-  onChangeReminder = () => {
-
-
-
-  }
-
-
-
   apply_start_date = (timestamp) => {
     this.setState({
       item: {
         ...this.state.item,
         start_date: new Date(timestamp)
+      },
+    })
+  }
+
+  change_use_secondary = (value) => {
+    this.setState({
+      item: {
+        ...this.state.item,
+        use_secondary: value
       },
     })
   }
@@ -109,19 +112,7 @@ class NoteScreen extends Component{
     })
   }
 
-  toggle_use_secondary = (value) => {
-    this.setState({
-      item: {
-        ...this.state.item,
-        use_secondary: value
-      },
-    })
-  }
-
-
-
   toggle_array_collaborators = (collaborator) => {
-
     let array = this.state.item.array_collaboratos
 
     //It exists in array, remove it
@@ -140,74 +131,68 @@ class NoteScreen extends Component{
         array_collaboratos: array
       }
     })
-
-    return;
   }
 
-
-
-
-
-
-
-
-
-
   submitItem = () => {
-    console.log(this.state.item)
+    const noteController = new NoteController(this.state.item)
+    noteController.SaveNote()
+    this.props.navigation.navigate('Home')
   }
 
   componentDidMount(){
-
     //This screen is loading data
     if(this.props.route.params !== undefined){
       const { item } = this.props.route.params
 
-        this.setState({
-          item: {
-            ...this.state.item,
-            title: item.title,
-            category: item.category,
-          }
-        })
+      this.setState({
+        item: {
+          ...this.state.item,
+          title: item.title,
+          category: item.category,
+        }
+      })
 
-        this.props.navigation.setOptions({
-          title: item.title
-        })
+      this.props.navigation.setOptions({
+        title: item.title
+      })
     }
+  }
 
-
-
-
+  apply_main_body = (text) => {
+    this.setState({
+      item: {
+        ...this.state.item,
+        note: text
+      }
+    })
   }
 
   render(){
     return(
       <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={{flex: 1}}>
-          <View style={[styles.NoteScreen, {backgroundColor: this.state.backgroundColor}]}>
+        <View style={[styles.NoteScreen, {backgroundColor: this.state.backgroundColor}]}>
           <AddHeader
             item={this.state.item}
             onChangeTitle={this.onChangeTitle}
             onChangeCategory={this.onChangeCategory}
           />
-          <View style={styles.MainBody}>
+          <Pressable style={styles.MainBody} onPress={() => this.mainTextInput.focus()}>
             <TextInput
-              placeholder="What is happening?"
               multiline={true}
               style={styles.MainBodyInput}
+              placeholder="What is happening?"
+              ref={(input) => { this.mainTextInput = input }}
+              onChangeText={(text) => this.apply_main_body(text)}
             />
-          </View>
+          </Pressable>
           <AddOptions
             item={this.state.item}
             toggle_array_collaborators={this.toggle_array_collaborators}
             apply_start_date={this.apply_start_date}
             apply_end_date={this.apply_end_date}
             apply_time={this.apply_time}
-            toggle_use_secondary={this.toggle_use_secondary}
-
+            change_use_secondary={this.change_use_secondary}
             onChangeEveryday={this.onChangeEveryday}
-
-
           />
           <TouchableOpacity onPress={this.submitItem} style={styles.SubmitButton}>
             <Text style={styles.SubmitButtonText}>Save this</Text>
@@ -224,14 +209,13 @@ const styles = StyleSheet.create({
     flexDirection: "column",
   },
   MainBody: {
+    flex: 1,
+    marginTop: 10,
     borderWidth: 1,
     borderColor: "#ddd",
-    marginHorizontal: 10,
-    marginTop: 10,
-    flex: 1
+    marginHorizontal: 10
   },
   MainBodyInput: {
-    flex: 1,
     fontSize: 16,
     paddingVertical: 5,
     paddingHorizontal: 9

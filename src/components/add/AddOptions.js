@@ -104,7 +104,7 @@ class AddOptions extends Component{
               readable_function={helpers.convertToReadableDate}
               switcher={true}
               switcher_value={this.props.item.use_secondary === 'date' ? true : false}
-              on_switcher_change={this.props.toggle_use_secondary}
+              on_switcher_change={this.props.change_use_secondary}
             />
 
             <DateOption
@@ -116,7 +116,7 @@ class AddOptions extends Component{
               readable_function={helpers.convertToReadableTime}
               switcher={true}
               switcher_value={this.props.item.use_secondary === 'time' ? true : false}
-              on_switcher_change={this.props.toggle_use_secondary}
+              on_switcher_change={this.props.change_use_secondary}
             />
           </View>
 

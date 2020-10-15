@@ -4,7 +4,7 @@ import {
   View,
   StyleSheet,
   Image,
-  Pressable
+  TouchableOpacity
 } from 'react-native'
 
 class AddScreen extends Component{
@@ -16,19 +16,13 @@ class AddScreen extends Component{
   render(){
     return (
       <View style={styles.AddScreen}>
-        <Pressable onPress={this.openNoteScreen}>
+        <TouchableOpacity onPress={this.openNoteScreen}>
           <View style={styles.Option}>
             <Image style={styles.Icon} source={require("Collaap/src/images/add-note.png")} />
-            <Text style={styles.Text}>
-              Note
-            </Text>
           </View>
-        </Pressable>
+        </TouchableOpacity>
         <View style={styles.Option}>
           <Image style={styles.Icon} source={require("Collaap/src/images/add-list.png")} />
-          <Text style={styles.Text}>
-            List
-          </Text>
         </View>
       </View>
     )
@@ -43,10 +37,8 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   Option: {
-    borderWidth: 1,
     backgroundColor: "#fff",
-    borderColor: "#bbb",
-    borderRadius: 10,
+    borderRadius: 70,
     width: 140,
     height: 140,
 

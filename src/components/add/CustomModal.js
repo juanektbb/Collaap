@@ -14,6 +14,7 @@ const CustomModal = (props) => {
     <Modal
       visible={props.is_open}
       transparent={true}
+      onRequestClose={() => props.toggle_modal()}
       animationType="slide">
       <View style={styles.Modal}>
         <View style={styles.Content}>

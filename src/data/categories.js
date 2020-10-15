@@ -3,42 +3,42 @@ const categories = {
     name: "shopping",
     title: "Shopping",
     icon: require("Collaap/src/images/categories/shopping.png"),
-    mainColor: "red",
-    backgroundColor: "#ebe7fd"
+    mainColor: "#ea6911",
+    backgroundColor: "#fff3ea"
   },
   "holidays": {
     name: "holidays",
     title: "Holidays",
     icon: require("Collaap/src/images/categories/holidays.png"),
-    mainColor: "blue",
-    backgroundColor: "lightblue"
+    mainColor: "#ffcd2e",
+    backgroundColor: "#fffcf5"
   },
   "bills": {
     name: "bills",
     title: "Bills",
     icon: require("Collaap/src/images/categories/bills.png"),
-    mainColor: "orange",
-    backgroundColor: "yellow"
+    mainColor: "#e22727",
+    backgroundColor: "#fff5f5"
   },
   "entertainment": {
     name: "entertainment",
     title: "Entertainment",
     icon: require("Collaap/src/images/categories/entertainment.png"),
-    mainColor: "#ccc",
-    backgroundColor: "#aaa"
+    mainColor: "#3d9bf9",
+    backgroundColor: "#e9f4ff"
   },
   "food": {
     name: "food",
     title: "Food",
     icon: require("Collaap/src/images/categories/food.png"),
-    mainColor: "#ccc",
+    mainColor: "#9dc333",
     backgroundColor: "#aaa"
   },
   "finance": {
     name: "finance",
     title: "Finance",
     icon: require("Collaap/src/images/categories/finance.png"),
-    mainColor: "#ccc",
+    mainColor: "#00ceba",
     backgroundColor: "#aaa"
   },
 }

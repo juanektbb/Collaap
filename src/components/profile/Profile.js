@@ -89,7 +89,7 @@ class Profile extends Component{
 
             <View style={styles.CharactersSelection}>
               <FlatList
-                horizontal
+                numColumns={5}
                 keyExtractor={item => item.name}
                 data={characters}
                 style={styles.Slide}
@@ -182,7 +182,7 @@ const styles = StyleSheet.create({
     borderRadius: 56
   },
   CharactersSelection: {
-    height: 60
+    height: 124
   },
   Slide: {
     borderWidth: 1,
@@ -195,8 +195,8 @@ const styles = StyleSheet.create({
     height: 57
   },
   Separator: {
-    borderRightWidth: 1,
-    borderRightColor: '#ccc'
+    borderRightWidth: 3,
+    borderRightColor: 'red'
   },
   FormBody: {
     paddingHorizontal: 10,

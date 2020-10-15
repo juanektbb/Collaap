@@ -1,11 +1,12 @@
 const colors = {
-  "maintone": "#07689f",
-  "secondtone": "#00416d",
-  "calltoaction": "#e94560",
+  "maintone": "#437835",
+  "secondtone": "#35342C",
+  "calltoaction": "#E94560",
   "softdark": "#080031",
   "softwhite": "#f9f9f9",
-  "greenaccept": "#21bf73",
-  "softcalltoaction": "#fac3cc"
+  "greenaccept": "#0584DB",
+  "softcalltoaction": "#fac3cc",
+  "lightgrey": "#BABABA"
 }
 
 export default colors
