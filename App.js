@@ -22,6 +22,7 @@ import calendar from 'Collaap/src/data/calendar.js'
 import colors from 'Collaap/src/data/colors.js'
 
 import LoginController from 'Collaap/src/utils/LoginController'
+import ElementsController from 'Collaap/src/utils/ElementsController'
 import Navigation from 'Collaap/src/components/general/Navigation'
 
 const customTextProps = {
@@ -38,16 +39,19 @@ class App extends Component<Props>{
 
   constructor(props){
     super(props)
+
+    this.state = {
+      calendar: null
+    }
+
     this.loginController = new LoginController()
+    this.elementsController = new ElementsController()
   }
 
-  componentDidMount(){
-    store.dispatch({
-      type: "SET_CALENDAR",
-      payload: {
-        calendar
-      }
-    })
+  buildCalendar = async () => {
+  }
+
+  async componentDidMount(){
 
     store.dispatch({
       type: "SET_SESSION_TOKEN",
@@ -58,6 +62,12 @@ class App extends Component<Props>{
     })
 
     this.loginController.ObtainSessionToken()
+    this.elementsController.RetrieveCalendar()
+
+
+
+
+
   }
 
   //TRIGGER WHEN THE USER SAVES HIS PROFILE

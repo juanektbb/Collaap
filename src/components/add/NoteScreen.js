@@ -38,7 +38,9 @@ class NoteScreen extends Component{
         end_date: new Date(),   //Priority 4
         time: new Date(),       //Priority 4 too
       },
-      backgroundColor: colors.softwhite
+      backgroundColor: colors.softwhite,
+      error: false,
+      error_msg: ""
     }
   }
 
@@ -52,6 +54,10 @@ class NoteScreen extends Component{
 
     if(text !== ""){
       this.props.navigation.setOptions({ title: text })
+      this.setState({
+        error: false,
+        error_msg: ""
+      })
     }else{
       this.props.navigation.setOptions({ title: "Untitled Item" })
     }
@@ -133,28 +139,61 @@ class NoteScreen extends Component{
     })
   }
 
-  submitItem = () => {
+  submitItem = async () => {
+
+    if(this.state.item.title === ""){
+      this.setState({
+        error: true,
+        error_msg: "You need to write a title for this note"
+      })
+      return false
+    }
+
     const noteController = new NoteController(this.state.item)
-    noteController.SaveNote()
-    this.props.navigation.navigate('Home')
+    const savenote = await noteController.SaveNote()
+
+    if(savenote['error']){
+      this.setState({
+        error: true,
+        error_msg: savenote['msg']
+      })
+      return false
+
+    }else{
+      this.props.navigation.navigate('Home')
+    }
+
   }
 
   componentDidMount(){
+
     //This screen is loading data
     if(this.props.route.params !== undefined){
+
       const { item } = this.props.route.params
+      if(item!== undefined){
+        this.setState({
+          item: {
+            ...this.state.item,
+            title: item.title,
+            category: item.category,
+          }
+        })
 
-      this.setState({
-        item: {
-          ...this.state.item,
-          title: item.title,
-          category: item.category,
-        }
-      })
+        this.props.navigation.setOptions({
+          title: item.title
+        })
+      }
 
-      this.props.navigation.setOptions({
-        title: item.title
-      })
+      const { open_date } = this.props.route.params
+      if(open_date !== undefined && open_date !== null){
+        this.setState({
+          item: {
+            ...this.state.item,
+            start_date: new Date(open_date)
+          },
+        })
+      }
     }
   }
 
@@ -171,11 +210,18 @@ class NoteScreen extends Component{
     return(
       <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={{flex: 1}}>
         <View style={[styles.NoteScreen, {backgroundColor: this.state.backgroundColor}]}>
+
+          {this.state.error &&
+            <View style={styles.MsgBox}>
+              <Text style={styles.ErrorMsg}>{this.state.error_msg}</Text>
+            </View>}
+
           <AddHeader
             item={this.state.item}
             onChangeTitle={this.onChangeTitle}
             onChangeCategory={this.onChangeCategory}
           />
+
           <Pressable style={styles.MainBody} onPress={() => this.mainTextInput.focus()}>
             <TextInput
               multiline={true}
@@ -185,6 +231,7 @@ class NoteScreen extends Component{
               onChangeText={(text) => this.apply_main_body(text)}
             />
           </Pressable>
+
           <AddOptions
             item={this.state.item}
             toggle_array_collaborators={this.toggle_array_collaborators}
@@ -194,9 +241,11 @@ class NoteScreen extends Component{
             change_use_secondary={this.change_use_secondary}
             onChangeEveryday={this.onChangeEveryday}
           />
+
           <TouchableOpacity onPress={this.submitItem} style={styles.SubmitButton}>
             <Text style={styles.SubmitButtonText}>Save this</Text>
           </TouchableOpacity>
+
         </View>
       </KeyboardAvoidingView>
     )
@@ -219,6 +268,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
     paddingVertical: 5,
     paddingHorizontal: 9
+  },
+  MsgBox: {
+    marginTop: 10,
+    alignItems: "center"
+  },
+  ErrorMsg: {
+    color: colors.calltoaction
   },
   SubmitButton: {
     backgroundColor: colors.calltoaction,

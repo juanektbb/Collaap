@@ -17,6 +17,7 @@ function mapStateToProps(state){
 }
 
 const PrimaryCalendar = (props) => {
+
   return(
     <FlatList
       horizontal

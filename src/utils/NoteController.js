@@ -1,4 +1,7 @@
+import AsyncStorage from '@react-native-community/async-storage'
 import settings from 'Collaap/src/settings.js'
+
+import ElementsController from 'Collaap/src/utils/ElementsController'
 
 class NoteController{
 
@@ -17,7 +20,7 @@ class NoteController{
     this.time = time
   }
 
-  SaveNote = () => {
+  SaveNote = async () => {
 
     const content_body = {
       "type": "note",
@@ -32,20 +35,33 @@ class NoteController{
       "time": this.time
     }
 
+    const session_token = await AsyncStorage.getItem('session_token')
+
+    const headers = settings['REQUEST_HEADERS']
+    headers['x-access-token'] = session_token
+
     const details = {
         method: 'POST',
-        headers: settings['REQUEST_HEADERS'],
+        headers: headers,
         body: JSON.stringify(content_body)
     }
 
-    console.log(JSON.stringify(content_body))
+    const response = await fetch(`${settings['API_URL']}/elements`, details)
+    const data = await response.json()
 
-    // const response = await fetch(`${settings['API_URL']}/users/login`, details)
-    // const data = await response.json()
+    await this.ReloadElements()
 
-    // console.log(data)
+    return data
 
-    return true
+  }
+
+  ReloadElements = async () => {
+
+    console.log("happens")
+
+    const elementsController = new ElementsController()
+    await elementsController.RetrieveCalendar()
+
 
   }
 

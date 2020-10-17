@@ -16,44 +16,37 @@ class PrimaryCalendarItem extends Component{
   constructor(props){
     super(props)
     this.state = {
-      data: {},
-      elements: {},
       isActive: false
     }
   }
 
-  calculateWidthElementInCalendar = (date) => {
-    if(date == 'Everyday')
+  calculateWidth = (date, use_secondary, is_everyday) => {
+    if(is_everyday || use_secondary !== 'time'){
       return "100%"
-    else
+    }else{
       return "31%"
+    }
   }
 
-  calculateLeftElementInCalendar = (date, time) => {
-    if(date == 'Everyday'){
+  calculateLeft = (date, time, use_secondary, is_everyday) => {
+    if(is_everyday || use_secondary !== 'time'){
       return "0%"
+
     }else{
-      let subTime = time.substring(0, 3)
-      let calcLeft = parseInt(subTime) * 3
-      return calcLeft.toString() + "%"
+
+      console.log("time", time)
+
+      // let subTime = time.substring(0, 3)
+      // let calcLeft = parseInt(subTime) * 3
+      // return calcLeft.toString() + "%"
+
+      return "0%"
     }
   }
 
   componentDidMount(){
-    let elements = []
-
-    //Loop and find remiders of this date and apply applicables
-    this.props.item.elements.forEach((item) => {
-        item.width = this.calculateWidthElementInCalendar(item.date)
-        item.Left = this.calculateLeftElementInCalendar(item.date, item.time)
-        item.catColor = helpers.getColorByCategory(item.category)
-        elements.push(item)
-    })
-
     this.setState({
-      data: this.props.item,
-      isActive: this.props.isActive,
-      elements: elements
+      isActive: this.props.isActive
     })
   }
 
@@ -64,26 +57,26 @@ class PrimaryCalendarItem extends Component{
 
   render(){
     return(
-      <Pressable onPress={() => this.props.clickOnCalendarCell(this.state.data.key)}>
+      <Pressable onPress={() => this.props.clickOnCalendarCell(this.props.item.key)}>
         <View style={[styles.CalendarPrimItem, (this.state.isActive) ? styles.IsSelected : null]}>
           <View style={styles.Number}>
-            <Text style={styles.NumberText}>{this.state.data.day}</Text>
-            <Text style={styles.NumberExtension}>{this.state.data.extension}</Text>
+              <Text style={styles.NumberText}>{this.props.item.day}</Text>
+            <Text style={styles.NumberExtension}>{this.props.item.extension}</Text>
           </View>
 
           <View>
-            <Text style={styles.Month}>{this.state.data.monthName}</Text>
+            <Text style={styles.Month}>{this.props.item.monthName}</Text>
           </View>
 
           <View style={styles.ElementsInCalendar}>
             <FlatList
-              keyExtractor={item =>item.id}
-              data={this.state.elements}
+              keyExtractor={item => item._id}
+              data={this.props.item.elements}
               renderItem={({item}) =>
                 <View style={[styles.ElementInCalendar, {
-                  marginLeft: item.Left,
-                  width: item.width,
-                  borderColor: item.catColor
+                  marginLeft: this.calculateLeft(item.date, item.time, item.use_secondary, item.is_everyday),
+                  width: this.calculateWidth(item.date, item.use_secondary, item.is_everyday),
+                  borderColor: helpers.getColorByCategory(item.category)
                 }]} />
               }/>
           </View>

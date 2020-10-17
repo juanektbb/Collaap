@@ -10,7 +10,27 @@ import {
 class AddScreen extends Component{
 
   openNoteScreen = () => {
-    this.props.navigation.navigate("NewItemScreen")
+    this.props.navigation.navigate("NewItemScreen", { open_date: this.state.open_date })
+  }
+
+  constructor(props){
+    super(props)
+    this.state = {
+      open_date: null
+    }
+
+  }
+
+  componentDidMount(){
+
+    if(this.props.route.params !== undefined){
+      const { open_date } = this.props.route.params
+
+      this.setState({
+        open_date: open_date
+      })
+    }
+
   }
 
   render(){

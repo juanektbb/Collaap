@@ -28,36 +28,29 @@ class Home extends Component{
     this.props.navigation.navigate('NewItemScreen', { item })
   }
 
-  openAddScreen = () => {
-    this.props.navigation.navigate('AddScreen')
+  openAddScreen = (date) => {
+    this.props.navigation.navigate('AddScreen', { open_date: date })
   }
 
   constructor(props){
     super(props)
     this.state = {
-      on_this_date: helpers.getToday(),
-      home_elements: []
+      on_this_date: helpers.getToday()
     }
   }
 
   clickOnCalendarCell = (yyyymmdd) => {
     this.setState({
-      on_this_date: yyyymmdd,
-      home_elements: this.props.calendar[yyyymmdd].elements
+      on_this_date: yyyymmdd
     })
   }
 
-  componentDidMount(){
-    this.setState({
-      home_elements: this.props.calendar[this.state.on_this_date].elements
-    })
-  }
 
   render(){
     return (
       <FlatList
-        keyExtractor={item => item.id}
-        data={this.state.home_elements}
+        keyExtractor={item => item._id}
+        data={this.props.calendar[this.state.on_this_date].elements}
         style={styles.Home}
         ListHeaderComponent={<>
           <PrimaryCalendar
@@ -66,7 +59,7 @@ class Home extends Component{
           <Separator />
         </>}
         ListEmptyComponent={() =>
-          <Pressable onPress={this.openAddScreen}>
+          <Pressable onPress={() => this.openAddScreen(this.state.on_this_date)}>
             <View>
               <Text style={styles.EmptyComponent}>Empty</Text>
               <Text style={styles.EmptyComponentPlus}>+</Text>

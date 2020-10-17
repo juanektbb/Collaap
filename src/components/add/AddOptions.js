@@ -72,9 +72,9 @@ class AddOptions extends Component{
               <View style={styles.SingleCollaborator}>
                 <Switch
                   trackColor={{ false: "#ccc", true: colors.softcalltoaction }}
-                  thumbColor={this.props.item.array_collaboratos.includes(item.username) ? colors.calltoaction : "#fbfbfb"}
-                  value={this.props.item.array_collaboratos.includes(item.username)}
-                  onValueChange={() => this.props.toggle_array_collaborators(item.username)}
+                  thumbColor={this.props.item.array_collaboratos.includes(item._id) ? colors.calltoaction : "#fbfbfb"}
+                  value={this.props.item.array_collaboratos.includes(item._id)}
+                  onValueChange={() => this.props.toggle_array_collaborators(item._id)}
                 />
                 <Image source={helpers.getIconByName(item.icon)} style={styles.CollaboratorImage}/>
                 <Text>{item.first_name} {item.last_name}</Text>

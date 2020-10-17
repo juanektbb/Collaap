@@ -43,7 +43,7 @@ const Element = (props) => {
             renderItem={({item}) =>
               <Image
                 style={styles.LittleCollaap}
-                source={helpers.getIconByName(props.collaaps.find(c => c.username === item).icon)}
+                source={helpers.getIconByName(props.collaaps.find(c => c._id === item).icon)}
               />}
           />
         </View>
