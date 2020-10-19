@@ -93,8 +93,6 @@ class Profile extends Component{
                 keyExtractor={item => item.name}
                 data={characters}
                 style={styles.Slide}
-                ItemSeparatorComponent={() =>
-                  <View style={styles.Separator} />}
                 renderItem={({item}) =>
                   <Pressable onPress={() => this.choose_icon(item.name, item.icon)} style={styles.SlideIconOut}>
                     <Image source={item.icon} style={styles.SlideIcon}/>
@@ -193,10 +191,6 @@ const styles = StyleSheet.create({
     marginHorizontal: 3,
     width: 57,
     height: 57
-  },
-  Separator: {
-    borderRightWidth: 3,
-    borderRightColor: 'red'
   },
   FormBody: {
     paddingHorizontal: 10,

@@ -30,8 +30,8 @@ class AddHeader extends Component{
     })
   }
 
-  onSelectCategory = (category_name, backgroundColor) => {
-    this.props.onChangeCategory(category_name, backgroundColor)
+  onSelectCategory = (category_name) => {
+    this.props.onChangeCategory(category_name)
     this.setState({
       is_open: false,
     })
@@ -65,7 +65,7 @@ class AddHeader extends Component{
             data={Object.keys(categories)}
             style={styles.Categories}
             renderItem={({item}) =>
-              <Pressable onPress={() => this.onSelectCategory(categories[item].name, categories[item].backgroundColor)}>
+              <Pressable onPress={() => this.onSelectCategory(categories[item].name)}>
                 <View style={(categories[item].name === this.props.item.category) ? [styles.CategoryBox, styles.OnCategory] : styles.CategoryBox}>
                   <Image
                     source={categories[item].icon}

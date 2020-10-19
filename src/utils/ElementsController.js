@@ -20,8 +20,8 @@ class ElementsController{
     const response = await fetch(`${settings['API_URL']}/elements`, details)
     const data = await response.json()
 
-    // console.log("happens 222")
-    // console.log(data)
+    console.log("happens 222")
+    console.log(data)
 
     if(data['error']){
       console.log("toshaaaaa")

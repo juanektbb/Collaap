@@ -8,8 +8,10 @@ import {
   TouchableOpacity
 } from 'react-native'
 
-import helpers from 'Collaap/src/utils/helpers.js'
 import { connect } from 'react-redux'
+
+import helpers from 'Collaap/src/utils/helpers.js'
+import colors from 'Collaap/src/data/colors.js'
 
 function mapStateToProps(state){
   return {
@@ -17,39 +19,72 @@ function mapStateToProps(state){
   }
 }
 
-const Element = (props) => {
-  return(
-    <TouchableOpacity onPress={() => props.loadNewItemScreen(props.item)}>
-      <View style={styles.SubItem}>
-        <View style={styles.CategoryBox}>
-          <Image source={props.icon} style={styles.CategoryIcon} />
-        </View>
+class Element extends Component{
 
-        <View style={styles.Main}>
-          <Text style={styles.Title}>
-            {props.item.title}
-          </Text>
-          <Text style={styles.Time}>
-            {props.item.time}
-          </Text>
-        </View>
+  state = {
+    on_delete: false
+  }
 
-        <View style={styles.Collaborators}>
-          <FlatList
-            keyExtractor={(item) => item}
-            data={props.item.collaborators}
-            ListEmptyComponent={() =>
-              <Text style={styles.NoCollaaps}>Empty</Text>}
-            renderItem={({item}) =>
-              <Image
-                style={styles.LittleCollaap}
-                source={helpers.getIconByName(props.collaaps.find(c => c._id === item).icon)}
-              />}
-          />
+  //What to show about the time
+  buildTime = (time, use_secondary, is_everyday) => {
+    if(is_everyday === true || use_secondary !== 'time'){
+      return "All day"
+
+    }else{
+      const to_time = new Date(time)
+      return to_time.getUTCHours() + ":" + to_time.getUTCMinutes()
+    }
+  }
+
+  render(){
+    return(<>
+      {this.state.on_delete &&
+      <View style={styles.OnDelete}>
+        <TouchableOpacity
+          style={styles.OnDeleteButton}
+          onPress={() => this.props.deleteThisItem(this.props.item._id)}>
+            <Text style={styles.OnDeleteButtonText}>Delete</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.OnDeleteCancel} onPress={() => this.setState({ on_delete: false })}>
+          <Text style={styles.OnDeleteCancelText}>&#10005;</Text>
+        </TouchableOpacity>
+      </View>}
+
+      {!this.state.on_delete &&
+      <TouchableOpacity
+        onPress={() => this.props.loadNewItemScreen(this.props.item)}
+        onLongPress={() => this.setState({ on_delete: true })}>
+        <View style={styles.SubItem}>
+          <View style={styles.CategoryBox}>
+            <Image source={this.props.icon} style={styles.CategoryIcon} />
+          </View>
+
+          <View style={styles.Main}>
+            <Text style={styles.Title}>
+              {this.props.item.title}
+            </Text>
+            <Text style={styles.Time}>
+              {this.buildTime(this.props.item.time, this.props.item.use_secondary, this.props.item.is_everyday)}
+            </Text>
+          </View>
+
+          <View style={styles.Collaborators}>
+            <FlatList
+              keyExtractor={(item) => item}
+              data={this.props.item.collaborators}
+              ListEmptyComponent={() =>
+                <Text style={styles.NoCollaaps}>Empty</Text>}
+              renderItem={({item}) =>
+                <Image
+                  style={styles.LittleCollaap}
+                  source={helpers.getIconByName(this.props.collaaps.find(c => c._id === item).icon)}
+                />}
+            />
+          </View>
         </View>
-      </View>
-    </TouchableOpacity>
-  )
+      </TouchableOpacity>}
+    </>)
+  }
 }
 
 const styles = StyleSheet.create({
@@ -95,7 +130,30 @@ const styles = StyleSheet.create({
   Time: {
     fontSize: 13,
     marginTop: 4
-  }
+  },
+  OnDelete: {
+    height: 78,
+    flexDirection: "row"
+  },
+  OnDeleteButton: {
+    flex: 1,
+    backgroundColor: colors.calltoaction,
+  },
+  OnDeleteButtonText: {
+    fontSize: 18,
+    color: "#fff",
+    lineHeight: 76,
+    textAlign: "center"
+  },
+  OnDeleteCancel: {
+    width: 78,
+  },
+  OnDeleteCancelText: {
+    fontSize: 50,
+    color: "#ccc",
+    lineHeight: 76,
+    textAlign: "center",
+  },
 })
 
 export default connect(mapStateToProps)(Element)

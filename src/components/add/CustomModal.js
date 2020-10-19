@@ -18,10 +18,10 @@ const CustomModal = (props) => {
       animationType="slide">
       <View style={styles.Modal}>
         <View style={styles.Content}>
-          <TouchableOpacity style={styles.CloseBar} onPress={props.toggle_modal}>
-            <Text style={styles.CloseText}>Keep these changes</Text>
-          </TouchableOpacity>
           {props.children}
+          <TouchableOpacity style={styles.CloseBar} onPress={props.toggle_modal}>
+            <Text style={styles.CloseText}>Keep changes</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </Modal>
@@ -45,16 +45,16 @@ const styles = StyleSheet.create({
     flex: 1
   },
   CloseBar: {
-    borderWidth: 1,
-    borderColor: colors.greenaccept,
+    marginTop: 20,
     borderRadius: 5,
-    marginBottom: 20,
+    paddingVertical: 2,
+    backgroundColor: colors.calltoaction
   },
   CloseText: {
     fontSize: 16,
     padding: 5,
     textAlign: "center",
-    color: colors.greenaccept
+    color: "#fff"
   }
 })
 

@@ -1,24 +1,22 @@
 
 import React, { Component } from 'react'
-
-import { Provider } from 'react-redux'
-import { PersistGate } from 'redux-persist/integration/react'
-import { store, persistor } from './src/redux/store'
-
 import {
   Text,
   View,
   Image,
   StyleSheet,
   ActivityIndicator
-} from 'react-native';
+} from 'react-native'
+
+import { Provider } from 'react-redux'
+import { PersistGate } from 'redux-persist/integration/react'
+import { store, persistor } from './src/redux/store'
 
 import {
   setCustomText,
   setCustomTextInput
 } from 'react-native-global-props';
 
-import calendar from 'Collaap/src/data/calendar.js'
 import colors from 'Collaap/src/data/colors.js'
 
 import LoginController from 'Collaap/src/utils/LoginController'
@@ -40,19 +38,11 @@ class App extends Component<Props>{
   constructor(props){
     super(props)
 
-    this.state = {
-      calendar: null
-    }
-
     this.loginController = new LoginController()
     this.elementsController = new ElementsController()
   }
 
-  buildCalendar = async () => {
-  }
-
-  async componentDidMount(){
-
+  componentDidMount(){
     store.dispatch({
       type: "SET_SESSION_TOKEN",
       payload: {
@@ -63,14 +53,9 @@ class App extends Component<Props>{
 
     this.loginController.ObtainSessionToken()
     this.elementsController.RetrieveCalendar()
-
-
-
-
-
   }
 
-  //TRIGGER WHEN THE USER SAVES HIS PROFILE
+  //Trigger when the user saves their profile
   onSaveProfile = async (username, icon_name) => {
     store.dispatch({
       type: "SET_SESSION_TOKEN",

@@ -20,6 +20,7 @@ class PrimaryCalendarItem extends Component{
     }
   }
 
+  //Calculate the with of the line
   calculateWidth = (date, use_secondary, is_everyday) => {
     if(is_everyday || use_secondary !== 'time'){
       return "100%"
@@ -28,19 +29,17 @@ class PrimaryCalendarItem extends Component{
     }
   }
 
-  calculateLeft = (date, time, use_secondary, is_everyday) => {
+  //Calculate where the line starts
+  calculateLeft = (time, use_secondary, is_everyday) => {
     if(is_everyday || use_secondary !== 'time'){
       return "0%"
 
     }else{
+      const to_time = new Date(time)
+      const hours = to_time.getUTCHours()
+      const calcLeft = parseInt(hours) * 3
 
-      console.log("time", time)
-
-      // let subTime = time.substring(0, 3)
-      // let calcLeft = parseInt(subTime) * 3
-      // return calcLeft.toString() + "%"
-
-      return "0%"
+      return calcLeft.toString() + "%"
     }
   }
 
@@ -74,7 +73,7 @@ class PrimaryCalendarItem extends Component{
               data={this.props.item.elements}
               renderItem={({item}) =>
                 <View style={[styles.ElementInCalendar, {
-                  marginLeft: this.calculateLeft(item.date, item.time, item.use_secondary, item.is_everyday),
+                  marginLeft: this.calculateLeft(item.time, item.use_secondary, item.is_everyday),
                   width: this.calculateWidth(item.date, item.use_secondary, item.is_everyday),
                   borderColor: helpers.getColorByCategory(item.category)
                 }]} />

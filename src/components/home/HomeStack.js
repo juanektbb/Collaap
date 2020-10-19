@@ -4,13 +4,11 @@ import { createStackNavigator } from '@react-navigation/stack'
 import Home from './Home'
 import AddScreen from 'Collaap/src/components/add/AddScreen'
 import NoteScreen from 'Collaap/src/components/add/NoteScreen'
-
 import Header from 'Collaap/src/components/general/Header'
 
 const Stack = createStackNavigator()
 
 const HomeStack = () => {
-
   return(
     <Stack.Navigator screenOptions={{headerShown: true}}>
       <Stack.Screen
@@ -25,7 +23,7 @@ const HomeStack = () => {
         name="AddScreen"
         component={AddScreen}
         options={{
-          title: "Add new item"
+          title: "New Item"
         }}
       />
 
@@ -38,7 +36,6 @@ const HomeStack = () => {
       />
     </Stack.Navigator>
   )
-
 }
 
 export default HomeStack
