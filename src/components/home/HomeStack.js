@@ -2,7 +2,7 @@ import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
 
 import Home from './Home'
-import AddScreen from 'Collaap/src/components/add/AddScreen'
+import NewScreen from 'Collaap/src/components/add/NewScreen'
 import NoteScreen from 'Collaap/src/components/add/NoteScreen'
 import Header from 'Collaap/src/components/general/Header'
 
@@ -20,8 +20,8 @@ const HomeStack = () => {
       />
 
       <Stack.Screen
-        name="AddScreen"
-        component={AddScreen}
+        name="NewScreen"
+        component={NewScreen}
         options={{
           title: "New Item"
         }}

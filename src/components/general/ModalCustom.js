@@ -3,13 +3,13 @@ import {
   Text,
   View,
   Modal,
-  TouchableOpacity,
-  StyleSheet
+  StyleSheet,
+  TouchableOpacity
 } from 'react-native'
 
 import colors from 'Collaap/src/data/colors.js'
 
-const CustomModal = (props) => {
+const ModalCustom = (props) => {
   return(
     <Modal
       visible={props.is_open}
@@ -31,8 +31,8 @@ const CustomModal = (props) => {
 const styles = StyleSheet.create({
   Modal: {
     flex: 1,
-    backgroundColor: "#000000aa",
-    alignItems: "center"
+    alignItems: "center",
+    backgroundColor: "#000000aa"
   },
   Content: {
     borderWidth: 1,
@@ -58,4 +58,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default CustomModal
+export default ModalCustom

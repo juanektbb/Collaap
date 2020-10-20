@@ -36,8 +36,8 @@ class Home extends Component{
     this.props.navigation.navigate('NewItemScreen', { item })
   }
 
-  openAddScreen = (date) => {
-    this.props.navigation.navigate('AddScreen', { open_date: date })
+  openNewScreen = (date) => {
+    this.props.navigation.navigate('NewScreen', { open_date: date })
   }
 
   clickOnCalendarCell = (yyyymmdd) => {
@@ -78,14 +78,14 @@ class Home extends Component{
           <Separator />
         </>}
         ListEmptyComponent={() =>
-          <Pressable onPress={() => this.openAddScreen(this.state.on_this_date)}>
+          <Pressable onPress={() => this.openNewScreen(this.state.on_this_date)}>
             <View>
               <Text style={styles.EmptyComponent}>Empty</Text>
               <Text style={styles.EmptyComponentPlus}>+</Text>
             </View>
           </Pressable>}
         ListFooterComponent={content_to_show.length > 0 &&
-          <Pressable onPress={() => this.openAddScreen(this.state.on_this_date)}>
+          <Pressable onPress={() => this.openNewScreen(this.state.on_this_date)}>
             <View>
               <Text style={styles.AddMore}>Add more +</Text>
             </View>

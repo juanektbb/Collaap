@@ -6,7 +6,6 @@ import { store } from 'Collaap/src/redux/store'
 class CollaapsController{
 
   FecthCollaaps = async () => {
-
     const session_token = await AsyncStorage.getItem('session_token')
 
     const headers = settings['REQUEST_HEADERS']
@@ -19,8 +18,6 @@ class CollaapsController{
 
     const response = await fetch(`${settings['API_URL']}/users/collaaps`, details)
     const data = await response.json()
-
-    headers['x-access-token'] = "this"
 
     return data
   }
@@ -40,8 +37,6 @@ class CollaapsController{
       })
 
     }else{
-      console.log("here")
-      console.log(response['data'])
       store.dispatch({
         type: "SET_COLLAAPS",
         payload: {

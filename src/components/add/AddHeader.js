@@ -10,18 +10,15 @@ import {
   StyleSheet
 } from 'react-native'
 
-import CustomModal from './CustomModal'
-
 import colors from 'Collaap/src/data/colors.js'
 import categories from 'Collaap/src/data/categories.js'
 
+import ModalCustom from 'Collaap/src/components/general/ModalCustom'
+
 class AddHeader extends Component{
 
-  constructor(props){
-    super(props)
-    this.state = {
-      is_open: false
-    }
+  state = {
+    is_open: false
   }
 
   toggle_modal = () => {
@@ -33,12 +30,8 @@ class AddHeader extends Component{
   onSelectCategory = (category_name) => {
     this.props.onChangeCategory(category_name)
     this.setState({
-      is_open: false,
+      is_open: false
     })
-  }
-
-  componentDidMount(){
-
   }
 
   render(){
@@ -49,8 +42,7 @@ class AddHeader extends Component{
           placeholder="Title"
           style={styles.Title}
           value={this.props.item.title}
-          onChangeText={this.props.onChangeTitle}
-        />
+          onChangeText={this.props.onChangeTitle}/>
 
         <Pressable onPress={this.toggle_modal}>
           <View style={styles.CategoryPicker}>
@@ -58,7 +50,7 @@ class AddHeader extends Component{
           </View>
         </Pressable>
 
-        <CustomModal is_open={this.state.is_open} toggle_modal={this.toggle_modal}>
+        <ModalCustom is_open={this.state.is_open} toggle_modal={this.toggle_modal}>
           <FlatList
             numColumns={3}
             keyExtractor={item => categories[item].name}
@@ -74,10 +66,11 @@ class AddHeader extends Component{
                 </View>
               </Pressable>}
           />
-        </CustomModal>
+        </ModalCustom>
       </View>
     )
   }
+
 }
 
 const styles = StyleSheet.create({
@@ -115,7 +108,7 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   OnCategory: {
-    opacity: 0.1
+    opacity: 0.25
   },
   CategoryImage: {
     width: 72,

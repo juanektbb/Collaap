@@ -9,15 +9,12 @@ import {
 } from 'react-native'
 
 import colors from 'Collaap/src/data/colors.js'
-import DateTimePicker from '@react-native-community/datetimepicker';
+import DateTimePicker from '@react-native-community/datetimepicker'
 
 class DateOption extends Component{
 
-  constructor(props){
-    super(props)
-    this.state = {
-      is_open: false
-    }
+  state = {
+    is_open: false
   }
 
   toggle_date_option = () => {
@@ -39,8 +36,7 @@ class DateOption extends Component{
   }
 
   render(){
-    return(
-      <>
+    return(<>
       <View style={styles.DatesElement}>
         <TouchableOpacity onPress={this.toggle_date_option}>
           <Image style={[styles.DatesImage, !this.props.switcher_value ? styles.OpacityOn: null]} source={this.props.icon}/>

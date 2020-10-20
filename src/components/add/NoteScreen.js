@@ -16,7 +16,7 @@ import categories from 'Collaap/src/data/categories.js'
 
 import AddHeader from './AddHeader.js'
 import AddOptions from './AddOptions.js'
-
+import Loading from 'Collaap/src/components/general/Loading'
 import NoteController from 'Collaap/src/utils/NoteController'
 
 class NoteScreen extends Component{
@@ -38,6 +38,7 @@ class NoteScreen extends Component{
         end_date: new Date(),   //Priority 4
         time: new Date(),       //Priority 4 too
       },
+      loading: false,
       error: false,
       error_msg: ""
     }
@@ -145,26 +146,27 @@ class NoteScreen extends Component{
     }))
   }
 
-
+  //Item 9: Change text body
   apply_main_body = (text) => {
-    this.setState({
+    this.setState(prevState => ({
       item: {
-        ...this.state.item,
+        ...prevState.item,
         content: text
       }
-    })
+    }))
   }
 
-
   loadResponseError = (msg) => {
-    this.setState({
-      error: true,
-      error_msg: msg
-    })
+    this.setState({ error: true, error_msg: msg })
+  }
+
+  toggleLoading = (bool) => {
+    this.setState({ loading: bool })
   }
 
   //ITEM IS READY TO BE SENT
   submitItem = async () => {
+    this.toggleLoading(true)
 
     //There is no title in this element
     if(this.state.item.title === ""){
@@ -179,9 +181,11 @@ class NoteScreen extends Component{
 
       if(response['error']){
         this.loadResponseError(response['msg'])
+        this.toggleLoading(false)
         return false
 
       }else{
+        this.toggleLoading(false)
         this.props.navigation.navigate('Home')
       }
 
@@ -195,10 +199,10 @@ class NoteScreen extends Component{
         return false
 
       }else{
+        this.toggleLoading(false)
         this.props.navigation.navigate('Home')
       }
     }
-
   }
 
   //LOAD SOME DATA IN THIS NOTE
@@ -245,7 +249,10 @@ class NoteScreen extends Component{
   }
 
   render(){
-    return(
+    return(<>
+      {this.state.loading && <Loading />}
+
+      {!this.state.loading &&
       <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={{flex: 1}}>
         <View style={styles.NoteScreen}>
 
@@ -257,8 +264,7 @@ class NoteScreen extends Component{
           <AddHeader
             item={this.state.item}
             onChangeTitle={this.onChangeTitle}
-            onChangeCategory={this.onChangeCategory}
-          />
+            onChangeCategory={this.onChangeCategory}/>
 
           <Pressable style={styles.MainBody} onPress={() => this.mainTextInput.focus()}>
             <TextInput
@@ -267,8 +273,7 @@ class NoteScreen extends Component{
               placeholder="What is happening?"
               value={this.state.item.content}
               ref={(input) => { this.mainTextInput = input }}
-              onChangeText={(text) => this.apply_main_body(text)}
-            />
+              onChangeText={(text) => this.apply_main_body(text)}/>
           </Pressable>
 
           <AddOptions
@@ -278,8 +283,7 @@ class NoteScreen extends Component{
             apply_end_date={this.apply_end_date}
             apply_time={this.apply_time}
             change_use_secondary={this.change_use_secondary}
-            onChangeEveryday={this.onChangeEveryday}
-          />
+            onChangeEveryday={this.onChangeEveryday}/>
 
           <TouchableOpacity onPress={this.submitItem} style={styles.SubmitButton}>
             <Text style={styles.SubmitButtonText}>
@@ -288,8 +292,8 @@ class NoteScreen extends Component{
           </TouchableOpacity>
 
         </View>
-      </KeyboardAvoidingView>
-    )
+      </KeyboardAvoidingView>}
+    </>)
   }
 }
 

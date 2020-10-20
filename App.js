@@ -1,12 +1,5 @@
 
 import React, { Component } from 'react'
-import {
-  Text,
-  View,
-  Image,
-  StyleSheet,
-  ActivityIndicator
-} from 'react-native'
 
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
@@ -15,13 +8,12 @@ import { store, persistor } from './src/redux/store'
 import {
   setCustomText,
   setCustomTextInput
-} from 'react-native-global-props';
-
-import colors from 'Collaap/src/data/colors.js'
+} from 'react-native-global-props'
 
 import LoginController from 'Collaap/src/utils/LoginController'
 import ElementsController from 'Collaap/src/utils/ElementsController'
 import Navigation from 'Collaap/src/components/general/Navigation'
+import Loading from 'Collaap/src/components/general/Loading'
 
 const customTextProps = {
   style: { fontFamily: 'HKGrotesk-Regular' }
@@ -37,7 +29,6 @@ class App extends Component<Props>{
 
   constructor(props){
     super(props)
-
     this.loginController = new LoginController()
     this.elementsController = new ElementsController()
   }
@@ -73,31 +64,14 @@ class App extends Component<Props>{
     return(
       <Provider store={store}>
         <PersistGate
-          loading={
-            <View style={styles.IndicatorShape}>
-              <ActivityIndicator size="large" color={colors.maintone}/>
-              <Text style={styles.IndicatorText}>Collaap</Text>
-            </View>}
+          loading={<Loading />}
           persistor={persistor}>
-
           <Navigation onSaveProfile={this.onSaveProfile}/>
         </PersistGate>
       </Provider>
     )
   }
-}
 
-const styles = StyleSheet.create({
-  IndicatorShape: {
-    flex: 1,
-    justifyContent: "center"
-  },
-  IndicatorText: {
-    textAlign: "center",
-    marginTop: 10,
-    fontSize: 18,
-    color: colors.secondtone
-  }
-})
+}
 
 export default App

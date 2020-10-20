@@ -11,8 +11,8 @@ import colors from 'Collaap/src/data/colors.js'
 
 class Header extends Component{
 
-  openAddScreen = () => {
-    this.props.navigation.navigate("AddScreen")
+  openNewScreen = () => {
+    this.props.navigation.navigate("NewScreen")
   }
 
   render(){
@@ -23,7 +23,7 @@ class Header extends Component{
           <Text style={styles.LogoText}>Collaap</Text>
         </View>
         {this.props.plus &&
-          <Pressable onPress={this.openAddScreen}>
+          <Pressable onPress={this.openNewScreen}>
             <View style={styles.Plus}>
               <Text style={styles.PlusText}>+</Text>
             </View>

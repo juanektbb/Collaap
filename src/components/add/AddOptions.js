@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
-
 import {
   Text,
   View,
-  TextInput,
   Image,
   Switch,
   FlatList,
+  TextInput,
   StyleSheet,
   TouchableOpacity,
 } from 'react-native'
@@ -14,12 +13,10 @@ import {
 import { connect } from 'react-redux'
 
 import colors from 'Collaap/src/data/colors.js'
-
 import helpers from 'Collaap/src/utils/helpers.js'
 
-import CustomModal from './CustomModal'
+import ModalCustom from 'Collaap/src/components/general/ModalCustom'
 import DateOption from './DateOption'
-
 
 function mapStateToProps(state){
   return {
@@ -29,12 +26,9 @@ function mapStateToProps(state){
 
 class AddOptions extends Component{
 
-  constructor(props){
-    super(props)
-    this.state = {
-      is_collaborators_open: false,
-      is_reminder_open: false,
-    }
+  state = {
+    is_collaborators_open: false,
+    is_reminder_open: false
   }
 
   toggle_collaborators = () => {
@@ -49,22 +43,21 @@ class AddOptions extends Component{
     })
   }
 
-  componentDidMount(){
-  }
-
   render(){
     return(
       <View style={styles.AddOptions}>
         <TouchableOpacity onPress={this.toggle_collaborators} style={styles.OptionsBox}>
-            <Image style={styles.OptionsImage} source={require('Collaap/src/images/collaborator.png')}/>
-            <Text style={styles.CollaboratorsCounter}>({this.props.item.array_collaboratos.length})</Text>
+          <Image style={styles.OptionsImage} source={require('Collaap/src/images/collaborator.png')}/>
+          <Text style={styles.CollaboratorsCounter}>
+            ({this.props.item.array_collaboratos.length})
+          </Text>
         </TouchableOpacity>
 
         <TouchableOpacity onPress={this.toggle_reminder} style={styles.OptionsBox}>
           <Image style={styles.OptionsImage} source={require('Collaap/src/images/reminder.png')}/>
         </TouchableOpacity>
 
-        <CustomModal is_open={this.state.is_collaborators_open} toggle_modal={this.toggle_collaborators}>
+        <ModalCustom is_open={this.state.is_collaborators_open} toggle_modal={this.toggle_collaborators}>
           <FlatList
             keyExtractor={(item) => item.username}
             data={this.props.collaaps}
@@ -80,9 +73,9 @@ class AddOptions extends Component{
                 <Text>{item.first_name} {item.last_name}</Text>
               </View>}
           />
-        </CustomModal>
+        </ModalCustom>
 
-        <CustomModal is_open={this.state.is_reminder_open} toggle_modal={this.toggle_reminder}>
+        <ModalCustom is_open={this.state.is_reminder_open} toggle_modal={this.toggle_reminder}>
           <View style={[styles.DatesContainer, this.props.item.is_everyday ? styles.OpacityActive : null]}>
             <DateOption
               display_date={this.props.item.start_date}
@@ -92,8 +85,7 @@ class AddOptions extends Component{
               icon={require('Collaap/src/images/icon-date.png')}
               readable_function={helpers.convertToReadableDate}
               switcher={false}
-              switcher_value={true}
-            />
+              switcher_value={true}/>
 
             <DateOption
               display_date={this.props.item.end_date}
@@ -104,8 +96,7 @@ class AddOptions extends Component{
               readable_function={helpers.convertToReadableDate}
               switcher={true}
               switcher_value={this.props.item.use_secondary === 'date' ? true : false}
-              on_switcher_change={this.props.change_use_secondary}
-            />
+              on_switcher_change={this.props.change_use_secondary}/>
 
             <DateOption
               display_date={this.props.item.time}
@@ -116,8 +107,7 @@ class AddOptions extends Component{
               readable_function={helpers.convertToReadableTime}
               switcher={true}
               switcher_value={this.props.item.use_secondary === 'time' ? true : false}
-              on_switcher_change={this.props.change_use_secondary}
-            />
+              on_switcher_change={this.props.change_use_secondary}/>
           </View>
 
           <View style={styles.OrContainer}>
@@ -127,11 +117,10 @@ class AddOptions extends Component{
           <View style={styles.EverydayContainer}>
             <Switch
               value={this.props.item.is_everyday ? true : false}
-              onValueChange={() => this.props.onChangeEveryday()}
-            />
+              onValueChange={() => this.props.onChangeEveryday()}/>
             <Text style={styles.EverydayText}>Everyday</Text>
           </View>
-        </CustomModal>
+        </ModalCustom>
       </View>
     )
   }

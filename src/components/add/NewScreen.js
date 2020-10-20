@@ -7,7 +7,7 @@ import {
   TouchableOpacity
 } from 'react-native'
 
-class AddScreen extends Component{
+class NewScreen extends Component{
 
   openNoteScreen = () => {
     this.props.navigation.navigate("NewItemScreen", { open_date: this.state.open_date })
@@ -35,7 +35,7 @@ class AddScreen extends Component{
 
   render(){
     return (
-      <View style={styles.AddScreen}>
+      <View style={styles.NewScreen}>
         <TouchableOpacity onPress={this.openNoteScreen}>
           <View style={styles.Option}>
             <Image style={styles.Icon} source={require("Collaap/src/images/add-note.png")} />
@@ -50,7 +50,7 @@ class AddScreen extends Component{
 }
 
 const styles = StyleSheet.create({
-  AddScreen: {
+  NewScreen: {
     flex: 1,
     flexDirection: "column",
     justifyContent: "space-evenly",
@@ -76,4 +76,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default AddScreen
+export default NewScreen

@@ -2,16 +2,34 @@ import AsyncStorage from '@react-native-community/async-storage'
 import { store } from 'Collaap/src/redux/store'
 
 import helpers from 'Collaap/src/utils/helpers.js'
-import auth from 'Collaap/src/handlers/auth.js'
+import settings from 'Collaap/src/settings.js'
 
 import CollaapsController from './CollaapsController.js'
 
-
 class LoginController{
+
+  Auth = async (username, password, icon_name) => {
+    const content_body = {
+      "username": username,
+      "password": password,
+      "icon": icon_name
+    }
+
+    const details = {
+        method: 'POST',
+        headers: settings['REQUEST_HEADERS'],
+        body: JSON.stringify(content_body)
+    }
+
+    const response = await fetch(`${settings['API_URL']}/users/login`, details)
+    const data = await response.json()
+
+    return data
+  }
 
   //TRIGGER GATHERING A NEW SESSION TOKEN
   LoginUser = async (username, icon_name, way) => {
-    const response = await auth(username, "123456", icon_name)
+    const response = await this.Auth(username, "123456", icon_name)
 
     await AsyncStorage.removeItem('session_token')
     await AsyncStorage.removeItem('username')
@@ -97,11 +115,8 @@ class LoginController{
   }
 
   Loaders = async (session_token) => {
-    console.log("Loading...")
-
     const CollaapsController2 = new CollaapsController(session_token)
     CollaapsController2.LoadCollaaps()
-
   }
 
 }
