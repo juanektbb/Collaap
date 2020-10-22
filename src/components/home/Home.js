@@ -13,9 +13,9 @@ import helpers from 'Collaap/src/utils/helpers.js'
 import colors from 'Collaap/src/data/colors.js'
 import categories from 'Collaap/src/data/categories.js'
 
-import Element from './Element'
-import PrimaryCalendar from './PrimaryCalendar'
 import Separator from 'Collaap/src/components/general/Separator'
+import Element from 'Collaap/src/components/home/Element'
+import PrimaryCalendar from 'Collaap/src/components/home/PrimaryCalendar'
 
 import NoteController from 'Collaap/src/utils/NoteController'
 
@@ -29,7 +29,8 @@ class Home extends Component{
 
   state = {
     on_this_date: helpers.getToday(),
-    on_error: null
+    on_error: null,
+    loading: false
   }
 
   loadNewItemScreen = (item) => {
@@ -41,9 +42,7 @@ class Home extends Component{
   }
 
   clickOnCalendarCell = (yyyymmdd) => {
-    this.setState({
-      on_this_date: yyyymmdd
-    })
+    this.setState({ on_this_date: yyyymmdd })
   }
 
   deleteThisItem = async (_id) => {
@@ -61,11 +60,11 @@ class Home extends Component{
 
     return (<>
       {this.state.on_error !== null &&
-        <View style={styles.OnError}>
-          <Text style={styles.OnErrorText}>
-            {this.state.on_error}
-          </Text>
-        </View>}
+      <View style={styles.OnError}>
+        <Text style={styles.OnErrorText}>
+          {this.state.on_error}
+        </Text>
+      </View>}
 
       <FlatList
         keyExtractor={item => item._id}

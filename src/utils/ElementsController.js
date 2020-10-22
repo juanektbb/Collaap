@@ -19,7 +19,28 @@ class ElementsController{
     const response = await fetch(`${settings['API_URL']}/elements`, details)
     const data = await response.json()
 
-    if(data['error']){
+    // if(data['error']){
+    if(true){ 
+
+      console.log("arrived")
+
+      store.dispatch({
+        type: "SET_CALENDAR",
+        payload: {
+          calendar: null
+        }
+      })
+
+      console.log("HHH")
+
+      // store.dispatch({
+      //   type: "SET_SESSION_TOKEN",
+      //   payload: {
+      //     session_status: 'error',
+      //     session_error: "Unexpected error happened, try again.",
+      //     session_token: null
+      //   }
+      // })
 
     }else{
       store.dispatch({

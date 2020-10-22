@@ -2,27 +2,22 @@ import React, { Component } from 'react'
 import {
   Text,
   View,
-  StyleSheet,
   Image,
+  StyleSheet,
   TouchableOpacity
 } from 'react-native'
 
 class NewScreen extends Component{
 
+  state = {
+    open_date: null
+  }
+
   openNoteScreen = () => {
     this.props.navigation.navigate("NewItemScreen", { open_date: this.state.open_date })
   }
 
-  constructor(props){
-    super(props)
-    this.state = {
-      open_date: null
-    }
-
-  }
-
   componentDidMount(){
-
     if(this.props.route.params !== undefined){
       const { open_date } = this.props.route.params
 
@@ -30,7 +25,6 @@ class NewScreen extends Component{
         open_date: open_date
       })
     }
-
   }
 
   render(){
@@ -47,6 +41,7 @@ class NewScreen extends Component{
       </View>
     )
   }
+
 }
 
 const styles = StyleSheet.create({
@@ -57,13 +52,12 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   Option: {
-    backgroundColor: "#fff",
-    borderRadius: 70,
     width: 140,
     height: 140,
-
-    justifyContent: "center",
-    alignItems: 'center'
+    borderRadius: 70,
+    alignItems: 'center',
+    backgroundColor: "#fff",
+    justifyContent: "center"
   },
   Icon: {
     width: 60,

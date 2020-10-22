@@ -48,6 +48,7 @@ class AddOptions extends Component{
       <View style={styles.AddOptions}>
         <TouchableOpacity onPress={this.toggle_collaborators} style={styles.OptionsBox}>
           <Image style={styles.OptionsImage} source={require('Collaap/src/images/collaborator.png')}/>
+
           <Text style={styles.CollaboratorsCounter}>
             ({this.props.item.array_collaboratos.length})
           </Text>
@@ -67,9 +68,12 @@ class AddOptions extends Component{
                   trackColor={{ false: "#ccc", true: colors.softcalltoaction }}
                   thumbColor={this.props.item.array_collaboratos.includes(item._id) ? colors.calltoaction : "#fbfbfb"}
                   value={this.props.item.array_collaboratos.includes(item._id)}
-                  onValueChange={() => this.props.toggle_array_collaborators(item._id)}
-                />
-                <Image source={helpers.getIconByName(item.icon)} style={styles.CollaboratorImage}/>
+                  onValueChange={() => this.props.toggle_array_collaborators(item._id)}/>
+
+                <Image
+                  source={helpers.getIconByName(item.icon)}
+                  style={styles.CollaboratorImage}/>
+
                 <Text>{item.first_name} {item.last_name}</Text>
               </View>}
           />

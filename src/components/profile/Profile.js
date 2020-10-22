@@ -34,7 +34,6 @@ class Profile extends Component{
   constructor(props){
     super(props)
     this.state = {
-      first_name: this.props.first_name_redux,
       username: this.props.username_redux,
       icon_name: this.props.icon_name_redux,
       icon_image: this.props.icon_image_redux
@@ -73,12 +72,12 @@ class Profile extends Component{
 
             {this.props.session_status === 'obtained' &&
               <View style={styles.ResponseInner}>
-                <Text style={styles.WelcomeText}>Welcome back {this.state.first_name}</Text>
+                <Text style={styles.WelcomeText}>Welcome back {this.props.first_name_redux}</Text>
               </View>}
 
             {this.props.session_status === 'clicked' &&
               <View style={styles.ResponseInner}>
-                <Text style={styles.SuccessText}>Hey {this.state.first_name}, your profile was updated!</Text>
+                <Text style={styles.SuccessText}>Hey {this.props.first_name_redux}, your profile was updated!</Text>
               </View>}
           </View>
 

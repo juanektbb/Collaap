@@ -10,10 +10,9 @@ import {
   setCustomTextInput
 } from 'react-native-global-props'
 
-import LoginController from 'Collaap/src/utils/LoginController'
-import ElementsController from 'Collaap/src/utils/ElementsController'
-import Navigation from 'Collaap/src/components/general/Navigation'
 import Loading from 'Collaap/src/components/general/Loading'
+import Navigation from 'Collaap/src/components/general/Navigation'
+import LoginController from 'Collaap/src/utils/LoginController'
 
 const customTextProps = {
   style: { fontFamily: 'HKGrotesk-Regular' }
@@ -25,12 +24,11 @@ const customTextInputProps = {
 setCustomText(customTextProps)
 setCustomTextInput(customTextInputProps)
 
-class App extends Component<Props>{
+class App extends Component{
 
   constructor(props){
     super(props)
     this.loginController = new LoginController()
-    this.elementsController = new ElementsController()
   }
 
   componentDidMount(){
@@ -43,10 +41,9 @@ class App extends Component<Props>{
     })
 
     this.loginController.ObtainSessionToken()
-    this.elementsController.RetrieveCalendar()
   }
 
-  //Trigger when the user saves their profile
+  //TRIGGER BUTTON SAVING PROFILE
   onSaveProfile = async (username, icon_name) => {
     store.dispatch({
       type: "SET_SESSION_TOKEN",

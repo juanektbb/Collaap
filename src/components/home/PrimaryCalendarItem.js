@@ -59,8 +59,12 @@ class PrimaryCalendarItem extends Component{
       <Pressable onPress={() => this.props.clickOnCalendarCell(this.props.item.key)}>
         <View style={[styles.CalendarPrimItem, (this.state.isActive) ? styles.IsSelected : null]}>
           <View style={styles.Number}>
-              <Text style={styles.NumberText}>{this.props.item.day}</Text>
-            <Text style={styles.NumberExtension}>{this.props.item.extension}</Text>
+            <Text style={styles.NumberText}>
+              {this.props.item.day}
+            </Text>
+            <Text style={styles.NumberExtension}>
+              {this.props.item.extension}
+            </Text>
           </View>
 
           <View>

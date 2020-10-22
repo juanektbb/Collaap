@@ -7,7 +7,6 @@ import {
 } from 'react-native'
 
 import { connect } from 'react-redux'
-
 import PrimaryCalendarItem from './PrimaryCalendarItem'
 
 function mapStateToProps(state){
@@ -17,7 +16,6 @@ function mapStateToProps(state){
 }
 
 const PrimaryCalendar = (props) => {
-
   return(
     <FlatList
       horizontal

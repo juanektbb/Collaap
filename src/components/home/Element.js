@@ -5,7 +5,8 @@ import {
   Image,
   FlatList,
   StyleSheet,
-  TouchableOpacity
+  TouchableOpacity,
+  ActivityIndicator
 } from 'react-native'
 
 import { connect } from 'react-redux'
@@ -22,7 +23,8 @@ function mapStateToProps(state){
 class Element extends Component{
 
   state = {
-    on_delete: false
+    on_delete: false,
+    loading: false
   }
 
   //What to show about the time
@@ -36,21 +38,33 @@ class Element extends Component{
     }
   }
 
+  triggerDelete = (item_id) => {
+    this.setState({ loading: true })
+    this.props.deleteThisItem(item_id)
+  }
+
   render(){
     return(<>
-      {this.state.on_delete &&
+      {this.state.loading &&
+      <View style={styles.IndicatorShape}>
+        <ActivityIndicator size="large" color={colors.maintone}/>
+        <Text style={styles.IndicatorText}>Deleting</Text>
+      </View>}
+
+      {this.state.on_delete && !this.state.loading &&
       <View style={styles.OnDelete}>
         <TouchableOpacity
           style={styles.OnDeleteButton}
-          onPress={() => this.props.deleteThisItem(this.props.item._id)}>
+          onPress={() => this.triggerDelete(this.props.item._id)}>
             <Text style={styles.OnDeleteButtonText}>Delete</Text>
         </TouchableOpacity>
+
         <TouchableOpacity style={styles.OnDeleteCancel} onPress={() => this.setState({ on_delete: false })}>
           <Text style={styles.OnDeleteCancelText}>&#10005;</Text>
         </TouchableOpacity>
       </View>}
 
-      {!this.state.on_delete &&
+      {!this.state.on_delete && !this.state.loading &&
       <TouchableOpacity
         onPress={() => this.props.loadNewItemScreen(this.props.item)}
         onLongPress={() => this.setState({ on_delete: true })}>
@@ -130,6 +144,17 @@ const styles = StyleSheet.create({
   Time: {
     fontSize: 13,
     marginTop: 4
+  },
+  IndicatorShape: {
+    height: 78,
+    flex: 1,
+    justifyContent: "center"
+  },
+  IndicatorText: {
+    textAlign: "center",
+    marginTop: 2,
+    fontSize: 12,
+    color: colors.secondtone
   },
   OnDelete: {
     height: 78,

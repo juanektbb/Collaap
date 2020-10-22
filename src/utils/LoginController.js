@@ -4,10 +4,12 @@ import { store } from 'Collaap/src/redux/store'
 import helpers from 'Collaap/src/utils/helpers.js'
 import settings from 'Collaap/src/settings.js'
 
-import CollaapsController from './CollaapsController.js'
+import CollaapsController from './CollaapsController'
+import ElementsController from './ElementsController'
 
 class LoginController{
 
+  //COMMUNICATION WITH THE SERVER
   Auth = async (username, password, icon_name) => {
     const content_body = {
       "username": username,
@@ -22,17 +24,15 @@ class LoginController{
     }
 
     const response = await fetch(`${settings['API_URL']}/users/login`, details)
-    const data = await response.json()
-
-    return data
+    return await response.json()
   }
 
   //TRIGGER GATHERING A NEW SESSION TOKEN
   LoginUser = async (username, icon_name, way) => {
-    const response = await this.Auth(username, "123456", icon_name)
-
     await AsyncStorage.removeItem('session_token')
     await AsyncStorage.removeItem('username')
+
+    const response = await this.Auth(username, "123456", icon_name)
 
     //Server gave an error
     if(response['error']){
@@ -81,6 +81,7 @@ class LoginController{
       this.Loaders(session_token)
 
     }catch(error){
+      console.log("WORLD")
       store.dispatch({
         type: "SET_SESSION_TOKEN",
         payload: {
@@ -114,9 +115,13 @@ class LoginController{
     }
   }
 
+  //LOAD MORE DATA FROM SERVER
   Loaders = async (session_token) => {
-    const CollaapsController2 = new CollaapsController(session_token)
-    CollaapsController2.LoadCollaaps()
+    const collaapsController = new CollaapsController()
+    collaapsController.LoadCollaaps()
+
+    const elementsController = new ElementsController()
+    elementsController.RetrieveCalendar()
   }
 
 }

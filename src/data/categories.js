@@ -3,7 +3,7 @@ const categories = {
     name: "general",
     title: "General",
     icon: require("Collaap/src/images/categories/general.png"),
-    mainColor: "#9da3b0"
+    mainColor: "#606060"
   },
   "entertainment": {
     name: "entertainment",
@@ -40,6 +40,18 @@ const categories = {
     title: "Food",
     icon: require("Collaap/src/images/categories/food.png"),
     mainColor: "#9dc333"
+  },
+  "family": {
+    name: "family",
+    title: "Family",
+    icon: require("Collaap/src/images/categories/family.png"),
+    mainColor: "#ed62c9"
+  },
+  "transport": {
+    name: "transport",
+    title: "Transport",
+    icon: require("Collaap/src/images/categories/transport.png"),
+    mainColor: "#7049ec"
   }
 }
 
