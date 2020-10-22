@@ -18,6 +18,7 @@ const ModalCustom = (props) => {
       animationType="slide">
       <View style={styles.Modal}>
         <View style={styles.Content}>
+          <Text style={styles.Title}>{props.title}</Text>
           {props.children}
           <TouchableOpacity style={styles.CloseBar} onPress={props.toggle_modal}>
             <Text style={styles.CloseText}>Keep changes</Text>
@@ -43,6 +44,12 @@ const styles = StyleSheet.create({
     width: 320,
     padding: 23,
     flex: 1
+  },
+  Title: {
+    fontSize: 16,
+    color: "#999",
+    marginBottom: 25,
+    textAlign: "center"
   },
   CloseBar: {
     marginTop: 20,

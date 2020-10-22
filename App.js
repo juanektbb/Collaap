@@ -11,7 +11,7 @@ import {
 } from 'react-native-global-props'
 
 import Loading from 'Collaap/src/components/general/Loading'
-import Navigation from 'Collaap/src/components/general/Navigation'
+import Navigation from 'Collaap/src/components/base/Navigation'
 import LoginController from 'Collaap/src/utils/LoginController'
 
 const customTextProps = {

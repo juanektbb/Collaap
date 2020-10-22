@@ -54,22 +54,22 @@ class DateOption extends Component{
         </TouchableOpacity>
 
         {this.props.switcher &&
-          <Switch
-            value={this.props.switcher_value}
-            onValueChange={() => this.props.on_switcher_change(this.props.switcher_value ? null : this.props.mode)}
-            style={styles.Switcher}
-          />}
+        <Switch
+          value={this.props.switcher_value}
+          onValueChange={() => this.props.on_switcher_change(this.props.switcher_value ? null : this.props.mode)}
+          style={styles.Switcher}
+        />}
       </View>
 
       {this.state.is_open &&
-        <DateTimePicker
-          value={this.props.display_date}
-          testID="dateTimePicker"
-          mode={this.props.mode}
-          is24Hour={true}
-          display={this.props.mode === "date" ? "default" : "spinner"}
-          onChange={this.double_functionality}
-        />}
+      <DateTimePicker
+        value={this.props.display_date}
+        testID="dateTimePicker"
+        mode={this.props.mode}
+        is24Hour={true}
+        display={this.props.mode === "date" ? "default" : "spinner"}
+        onChange={this.double_functionality}
+      />}
     </>)
   }
 
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
   },
   DatesElement: {
     flexDirection: "row",
-    paddingVertical: 15,
+    paddingBottom: 25,
   },
   InsideContent: {
     flex: 1

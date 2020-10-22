@@ -1,7 +1,7 @@
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
 
-import Header from 'Collaap/src/components/general/Header'
+import Header from 'Collaap/src/components/base/Header'
 import Home from 'Collaap/src/components/home/Home'
 import NewScreen from 'Collaap/src/components/add/NewScreen'
 import NoteScreen from 'Collaap/src/components/add/NoteScreen'

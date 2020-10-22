@@ -50,7 +50,7 @@ class AddHeader extends Component{
           </View>
         </Pressable>
 
-        <ModalCustom is_open={this.state.is_open} toggle_modal={this.toggle_modal}>
+        <ModalCustom is_open={this.state.is_open} toggle_modal={this.toggle_modal} title="Choose a category">
           <FlatList
             numColumns={3}
             keyExtractor={item => categories[item].name}

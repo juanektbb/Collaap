@@ -12,10 +12,10 @@ import {
   KeyboardAvoidingView
 } from 'react-native'
 
+import { connect } from 'react-redux'
+
 import characters from 'Collaap/src/data/characters.js'
 import colors from 'Collaap/src/data/colors.js'
-
-import { connect } from 'react-redux'
 
 function mapStateToProps(state){
   return {

@@ -11,11 +11,11 @@ import {
 
 import { connect } from 'react-redux'
 
-import colors from 'Collaap/src/data/colors.js'
 import helpers from 'Collaap/src/helpers.js'
+import colors from 'Collaap/src/data/colors.js'
 
-import ModalCustom from 'Collaap/src/components/general/ModalCustom'
 import DateOption from 'Collaap/src/components/add/DateOption'
+import ModalCustom from 'Collaap/src/components/general/ModalCustom'
 
 function mapStateToProps(state){
   return {
@@ -57,7 +57,7 @@ class AddOptions extends Component{
           <Image style={styles.OptionsImage} source={require('Collaap/src/images/reminder.png')}/>
         </TouchableOpacity>
 
-        <ModalCustom is_open={this.state.is_collaborators_open} toggle_modal={this.toggle_collaborators}>
+        <ModalCustom is_open={this.state.is_collaborators_open} toggle_modal={this.toggle_collaborators} title="Who should be notified?">
           <FlatList
             keyExtractor={(item) => item.username}
             data={this.props.collaaps}
@@ -78,7 +78,7 @@ class AddOptions extends Component{
           />
         </ModalCustom>
 
-        <ModalCustom is_open={this.state.is_reminder_open} toggle_modal={this.toggle_reminder}>
+        <ModalCustom is_open={this.state.is_reminder_open} toggle_modal={this.toggle_reminder} title="Choose a date and/or time">
           <View style={[styles.DatesContainer, this.props.item.is_everyday ? styles.OpacityActive : null]}>
             <DateOption
               display_date={this.props.item.start_date}
