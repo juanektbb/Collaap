@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-community/async-storage'
 import { store } from 'Collaap/src/redux/store'
 
-import helpers from 'Collaap/src/utils/helpers.js'
+import helpers from 'Collaap/src/helpers.js'
 import settings from 'Collaap/src/settings.js'
 
 import CollaapsController from './CollaapsController'
@@ -118,10 +118,10 @@ class LoginController{
   //LOAD MORE DATA FROM SERVER
   Loaders = async (session_token) => {
     const collaapsController = new CollaapsController()
-    collaapsController.LoadCollaaps()
+    await collaapsController.LoadCollaaps()
 
     const elementsController = new ElementsController()
-    elementsController.RetrieveCalendar()
+    await elementsController.RetrieveCalendar()
   }
 
 }

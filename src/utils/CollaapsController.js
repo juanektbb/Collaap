@@ -5,6 +5,7 @@ import { store } from 'Collaap/src/redux/store'
 
 class CollaapsController{
 
+  //GET ALL COLLAAPS FROM DB
   FecthCollaaps = async () => {
     const session_token = await AsyncStorage.getItem('session_token')
 
@@ -17,30 +18,30 @@ class CollaapsController{
     }
 
     const response = await fetch(`${settings['API_URL']}/users/collaaps`, details)
-    const data = await response.json()
-
-    return data
+    return await response.json()
   }
 
+  //LOAD COLLAAPS IN REDUX
   LoadCollaaps = async () => {
-    const response = await this.FecthCollaaps()
+    const data = await this.FecthCollaaps()
 
-    //Server gave an error
-    if(response['error']){
+    //SERVER ERROR OCCURRED, NULL THE SESSION
+    if(data['error']){
       store.dispatch({
         type: "SET_SESSION_TOKEN",
         payload: {
           session_status: 'error',
-          session_error: response['msg'],
+          session_error: data['msg'],
           session_token: null
         }
       })
 
+    //STORE COLLAAPS IN REDUX
     }else{
       store.dispatch({
         type: "SET_COLLAAPS",
         payload: {
-          collaaps: response['data']
+          collaaps: data['data']
         }
       })
     }

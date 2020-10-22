@@ -1,10 +1,11 @@
 import AsyncStorage from '@react-native-community/async-storage'
-import { store } from 'Collaap/src/redux/store'
 
 import settings from 'Collaap/src/settings.js'
+import { store } from 'Collaap/src/redux/store'
 
 class ElementsController{
 
+  //BUILD AND GENERATE THE CALENDAR FROM BACKEND
   RetrieveCalendar = async () => {
     const session_token = await AsyncStorage.getItem('session_token')
 
@@ -19,29 +20,18 @@ class ElementsController{
     const response = await fetch(`${settings['API_URL']}/elements`, details)
     const data = await response.json()
 
-    // if(data['error']){
-    if(true){ 
-
-      console.log("arrived")
-
+    //SERVER ERROR OCCURRED, NULL THE SESSION
+    if(data['error']){
       store.dispatch({
-        type: "SET_CALENDAR",
+        type: "SET_SESSION_TOKEN",
         payload: {
-          calendar: null
+          session_status: 'error',
+          session_error: data['error'],
+          session_token: null
         }
       })
 
-      console.log("HHH")
-
-      // store.dispatch({
-      //   type: "SET_SESSION_TOKEN",
-      //   payload: {
-      //     session_status: 'error',
-      //     session_error: "Unexpected error happened, try again.",
-      //     session_token: null
-      //   }
-      // })
-
+    //STORE CALENDAR IN REDUX
     }else{
       store.dispatch({
         type: "SET_CALENDAR",
@@ -49,10 +39,7 @@ class ElementsController{
           calendar: data
         }
       })
-
     }
-
-    return data
   }
 
 }

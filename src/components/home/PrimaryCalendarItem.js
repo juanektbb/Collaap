@@ -8,7 +8,7 @@ import {
   Pressable
 } from 'react-native'
 
-import helpers from 'Collaap/src/utils/helpers.js'
+import helpers from 'Collaap/src/helpers.js'
 import colors from 'Collaap/src/data/colors.js'
 
 class PrimaryCalendarItem extends Component{

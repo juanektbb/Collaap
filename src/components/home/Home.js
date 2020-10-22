@@ -9,7 +9,7 @@ import {
 
 import { connect } from 'react-redux'
 
-import helpers from 'Collaap/src/utils/helpers.js'
+import helpers from 'Collaap/src/helpers.js'
 import colors from 'Collaap/src/data/colors.js'
 import categories from 'Collaap/src/data/categories.js'
 

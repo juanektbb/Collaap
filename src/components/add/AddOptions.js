@@ -5,7 +5,6 @@ import {
   Image,
   Switch,
   FlatList,
-  TextInput,
   StyleSheet,
   TouchableOpacity,
 } from 'react-native'
@@ -13,10 +12,10 @@ import {
 import { connect } from 'react-redux'
 
 import colors from 'Collaap/src/data/colors.js'
-import helpers from 'Collaap/src/utils/helpers.js'
+import helpers from 'Collaap/src/helpers.js'
 
 import ModalCustom from 'Collaap/src/components/general/ModalCustom'
-import DateOption from './DateOption'
+import DateOption from 'Collaap/src/components/add/DateOption'
 
 function mapStateToProps(state){
   return {

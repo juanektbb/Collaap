@@ -1,14 +1,8 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
 import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-
-import {
-  View,
-  Image,
-  StyleSheet
-} from 'react-native';
-import { connect } from 'react-redux'
 
 import HomeStack from 'Collaap/src/components/home/HomeStack'
 import ProfileStack from 'Collaap/src/components/profile/ProfileStack'

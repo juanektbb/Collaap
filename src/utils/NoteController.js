@@ -1,12 +1,12 @@
 import AsyncStorage from '@react-native-community/async-storage'
-import settings from 'Collaap/src/settings.js'
 
 import ElementsController from 'Collaap/src/utils/ElementsController'
+import settings from 'Collaap/src/settings.js'
 
 class NoteController{
 
+  //CONSTRUCTOR WITH AN ITEM NOT NULL
   constructor(item){
-
     if(item !== null){
       const { title, category, content,
         array_collaboratos, is_everyday, start_date,
@@ -23,9 +23,9 @@ class NoteController{
       this.end_date = end_date
       this.time = time
     }
-
   }
 
+  //BUILD BODY FOR REQUEST
   contentBodyBuilder = () => {
     return {
       "type": "note",
@@ -41,6 +41,7 @@ class NoteController{
     }
   }
 
+  //SAVE A NEW NOTE 
   SaveNote = async () => {
     const content_body = this.contentBodyBuilder()
     const session_token = await AsyncStorage.getItem('session_token')
@@ -63,6 +64,7 @@ class NoteController{
     return data
   }
 
+  //UPDATE AN EXISTING NOTE
   UpdateNote = async (item_id) => {
     const content_body = this.contentBodyBuilder()
     const session_token = await AsyncStorage.getItem('session_token')
@@ -85,6 +87,7 @@ class NoteController{
     return data
   }
 
+  //DELETE AN EXISTING NOTE
   DeleteNote = async (item_id) => {
     const session_token = await AsyncStorage.getItem('session_token')
 
@@ -105,6 +108,7 @@ class NoteController{
     return data
   }
 
+  //HELPER CLASS FUNCTION
   ReloadElements = async () => {
     const elementsController = new ElementsController()
     await elementsController.RetrieveCalendar()
