@@ -108,6 +108,27 @@ class NoteController{
     return data
   }
 
+  //DELETE MYSELF FROM AN EXISTING NOTE
+  DeleteMeFromCollaaps = async (item_id) => {
+    const session_token = await AsyncStorage.getItem('session_token')
+
+    const headers = settings['REQUEST_HEADERS']
+    headers['x-access-token'] = session_token
+
+    const details = {
+        method: 'DELETE',
+        headers: headers
+    }
+
+    const response = await fetch(`${settings['API_URL']}/elements/${item_id}/myself`, details)
+    const data = await response.json()
+
+    if(!data['error'])
+      await this.ReloadElements()
+
+    return data
+  }
+
   //HELPER CLASS FUNCTION
   ReloadElements = async () => {
     const elementsController = new ElementsController()

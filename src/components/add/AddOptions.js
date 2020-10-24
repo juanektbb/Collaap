@@ -62,12 +62,19 @@ class AddOptions extends Component{
             keyExtractor={(item) => item.username}
             data={this.props.collaaps}
             renderItem={({item}) =>
+              
               <View style={styles.SingleCollaborator}>
+                {this.props.item_user_id !== item._id ?
                 <Switch
                   trackColor={{ false: "#ccc", true: colors.softcalltoaction }}
                   thumbColor={this.props.item.array_collaboratos.includes(item._id) ? colors.calltoaction : "#fbfbfb"}
                   value={this.props.item.array_collaboratos.includes(item._id)}
-                  onValueChange={() => this.props.toggle_array_collaborators(item._id)}/>
+                  style={styles.bbb}
+                  onValueChange={() => this.props.toggle_array_collaborators(item._id)}/> 
+                :
+                <View style={styles.OwnerBox}>
+                  <Text style={styles.Owner}>Owner</Text>
+                </View>}
 
                 <Image
                   source={helpers.getIconByName(item.icon)}
@@ -143,6 +150,13 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     justifyContent: "center"
   },
+  OwnerBox: {
+    width: 46
+  },
+  Owner: {
+    color: "#bbb",
+    textAlign: "center"
+  },  
   OptionsImage: {
     width: 35,
     height: 35

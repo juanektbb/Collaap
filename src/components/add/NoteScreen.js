@@ -12,7 +12,6 @@ import {
 } from 'react-native'
 
 import colors from 'Collaap/src/data/colors.js'
-import categories from 'Collaap/src/data/categories.js'
 
 import AddHeader from './AddHeader.js'
 import AddOptions from './AddOptions.js'
@@ -25,6 +24,7 @@ class NoteScreen extends Component{
     super(props)
     this.state = {
       item_id: null,
+      item_user_id: null,
       item: {
         type: "note",
         title: "",
@@ -215,6 +215,7 @@ class NoteScreen extends Component{
 
         this.setState(prevState => ({
           item_id: item._id,
+          item_user_id: item.user,
           item: {
             ...prevState.item,
             title: item.title,
@@ -278,6 +279,7 @@ class NoteScreen extends Component{
 
           <AddOptions
             item={this.state.item}
+            item_user_id={this.state.item_user_id}
             toggle_array_collaborators={this.toggle_array_collaborators}
             apply_start_date={this.apply_start_date}
             apply_end_date={this.apply_end_date}

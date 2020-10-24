@@ -13,12 +13,12 @@ import { connect } from 'react-redux'
 
 import helpers from 'Collaap/src/helpers.js'
 import colors from 'Collaap/src/data/colors.js'
-import { color } from 'react-native-reanimated'
 
 function mapStateToProps(state){
   return {
     user_id: state.user_id,
-    collaaps: state.collaaps
+    collaaps: state.collaaps,
+    icon_image: state.icon_image
   }
 }
 
@@ -26,6 +26,8 @@ class Element extends Component{
 
   state = {
     on_delete: false,
+    on_delete_text: "Delete this element",
+    def_to_delete: null,
     loading: false
   }
 
@@ -40,9 +42,23 @@ class Element extends Component{
     }
   }
 
-  triggerDelete = (item_id) => {
+  triggerDelete = async (item_id) => {
     this.setState({ loading: true })
-    this.props.deleteThisItem(item_id)
+    await this.state.def_to_delete(item_id)
+  }
+
+  componentDidMount(){
+
+    //This is the owner of the note
+    if(this.props.item.user === this.props.user_id){  
+      this.setState({ def_to_delete: this.props.deleteThisItem })
+      
+    //This is not the owner
+    }else{
+      this.setState({ on_delete_text: "Take me out from this element" })
+      this.setState({ def_to_delete: this.props.deleteMyCollaap })
+    }
+
   }
 
   render(){
@@ -52,7 +68,7 @@ class Element extends Component{
       {this.state.loading &&
       <View style={styles.IndicatorShape}>
         <ActivityIndicator size="large" color={colors.maintone}/>
-        <Text style={styles.IndicatorText}>Deleting</Text>
+        <Text style={styles.IndicatorText}>Loading</Text>
       </View>}
 
       {this.state.on_delete && !this.state.loading &&
@@ -60,7 +76,9 @@ class Element extends Component{
         <TouchableOpacity
           style={styles.OnDeleteButton}
           onPress={() => this.triggerDelete(this.props.item._id)}>
-            <Text style={styles.OnDeleteButtonText}>Delete</Text>
+            <Text style={styles.OnDeleteButtonText}>
+              {this.state.on_delete_text}
+            </Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.OnDeleteCancel} onPress={() => this.setState({ on_delete: false })}>
@@ -86,7 +104,8 @@ class Element extends Component{
               {thisOwner !== undefined && this.props.item.user !== this.props.user_id && 
               <Image
                 style={styles.SmallCollaap}
-                source={helpers.getIconByName(thisOwner.icon)}/>}
+                source={helpers.getIconByName(thisOwner.icon)}
+              />}
 
               <Text style={styles.Time}>
                 {this.buildTime(this.props.item.time, this.props.item.use_secondary, this.props.item.is_everyday)}
@@ -107,10 +126,14 @@ class Element extends Component{
                 <Text style={styles.NoCollaaps}>Empty</Text>}
               renderItem={({item}) =>
                 <>
-                  {this.props.collaaps.find(c => c._id === item) !== undefined && item !== this.props.user_id &&
+                  {this.props.collaaps.find(c => c._id === item) !== undefined && item !== this.props.user_id ?
                   <Image
                     style={styles.LittleCollaap}
                     source={helpers.getIconByName(this.props.collaaps.find(c => c._id === item).icon)}
+                  /> :
+                  <Image
+                    style={styles.LittleCollaap}
+                    source={this.props.icon_image}
                   />}
                 </>}
             />
@@ -168,7 +191,7 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   Collaaps: {
-    alignItems: "flex-start",
+    alignItems: "center",
     justifyContent: "space-between"
   },
   You: {

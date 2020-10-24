@@ -55,6 +55,16 @@ class Home extends Component{
     }
   }
 
+  deleteMyCollaap = async (_id) => {
+    const noteController = new NoteController(null)
+    const response = await noteController.DeleteMeFromCollaaps(_id)
+
+    if(response['error']){
+      this.setState({ on_error: response['msg'] })
+      return false
+    }
+  }
+
   render(){
     const content_to_show = this.props.calendar[this.state.on_this_date].elements
 
@@ -96,6 +106,7 @@ class Home extends Component{
             item={item}
             icon={categories[item.category].icon}
             deleteThisItem={this.deleteThisItem}
+            deleteMyCollaap={this.deleteMyCollaap}
             loadNewItemScreen={this.loadNewItemScreen}
           />}
       />
@@ -118,7 +129,7 @@ const styles = StyleSheet.create({
   AddMore: {
     height: 60,
     marginTop: 5,
-    fontSize: 20,
+    fontSize: 18,
     color: '#bbb',
     lineHeight: 60,
     textAlign: 'center'
