@@ -62,6 +62,7 @@ class LoginController{
       store.dispatch({
         type: "SET_SESSION_TOKEN",
         payload: {
+          user_id: user['id'],
           username: user['username'],
           session_status: way, // This is success data as [obtained, clicked] -> To show msg to the user
           session_error: null,

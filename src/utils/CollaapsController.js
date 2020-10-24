@@ -17,6 +17,8 @@ class CollaapsController{
         headers: headers
     }
 
+    console.log("There is a call")
+
     const response = await fetch(`${settings['API_URL']}/users/collaaps`, details)
     return await response.json()
   }

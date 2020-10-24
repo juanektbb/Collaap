@@ -13,9 +13,11 @@ import { connect } from 'react-redux'
 
 import helpers from 'Collaap/src/helpers.js'
 import colors from 'Collaap/src/data/colors.js'
+import { color } from 'react-native-reanimated'
 
 function mapStateToProps(state){
   return {
+    user_id: state.user_id,
     collaaps: state.collaaps
   }
 }
@@ -44,6 +46,8 @@ class Element extends Component{
   }
 
   render(){
+    const thisOwner = this.props.collaaps.find(c => c._id === this.props.item.user)
+
     return(<>
       {this.state.loading &&
       <View style={styles.IndicatorShape}>
@@ -77,22 +81,38 @@ class Element extends Component{
             <Text style={styles.Title}>
               {this.props.item.title}
             </Text>
-            <Text style={styles.Time}>
-              {this.buildTime(this.props.item.time, this.props.item.use_secondary, this.props.item.is_everyday)}
-            </Text>
+
+            <View style={styles.LineTime}>
+              {thisOwner !== undefined && this.props.item.user !== this.props.user_id && 
+              <Image
+                style={styles.SmallCollaap}
+                source={helpers.getIconByName(thisOwner.icon)}/>}
+
+              <Text style={styles.Time}>
+                {this.buildTime(this.props.item.time, this.props.item.use_secondary, this.props.item.is_everyday)}
+              </Text>
+            </View>
           </View>
 
           <View style={styles.Collaborators}>
+            {this.props.item.collaborators.includes(this.props.user_id) &&
+              <Text style={styles.You}>You</Text>}
+            
             <FlatList
+              numColumns={2}
               keyExtractor={(item) => item}
               data={this.props.item.collaborators}
+              style={styles.Collaaps}
               ListEmptyComponent={() =>
                 <Text style={styles.NoCollaaps}>Empty</Text>}
               renderItem={({item}) =>
-                <Image
-                  style={styles.LittleCollaap}
-                  source={helpers.getIconByName(this.props.collaaps.find(c => c._id === item).icon)}
-                />}
+                <>
+                  {this.props.collaaps.find(c => c._id === item) !== undefined && item !== this.props.user_id &&
+                  <Image
+                    style={styles.LittleCollaap}
+                    source={helpers.getIconByName(this.props.collaaps.find(c => c._id === item).icon)}
+                  />}
+                </>}
             />
           </View>
         </View>
@@ -109,45 +129,71 @@ const styles = StyleSheet.create({
   },
   CategoryBox: {
     width: 48,
-    height: 48
+    marginRight: 5
   },
   CategoryIcon: {
     width: 48,
     height: 48
   },
   Main: {
-    flexBasis: '60%',
-    marginHorizontal: 10
+    flex: 1,
+    paddingHorizontal: 5
+  },
+  Title: {
+    flex: 1,
+    fontSize: 16
+  },
+  LineTime: {
+    marginTop: 4,
+    borderColor: "red",
+    flexDirection: "row"
+  },
+  Time: {
+    fontSize: 13
+  },
+  SmallCollaap: {
+    width: 15,
+    height: 15,
+    marginTop: 2,
+    marginRight: 5,
+    borderRadius: 5,
+    justifyContent: "center"
   },
   Collaborators: {
-    flex: 1,
-    padding: 5,
+    width: 55,
+    paddingLeft: 5,
     borderLeftWidth: 1,
+    paddingVertical: 3,
     borderColor: '#e4e4e4',
+    justifyContent: "center"
+  },
+  Collaaps: {
     alignItems: "flex-start",
-    justifyContent: "center",
+    justifyContent: "space-between"
+  },
+  You: {
+    borderWidth: 1,
+    textAlign: "center",
+    marginBottom: 3,
+    color: colors.maintone,
+    borderColor: colors.maintone
   },
   LittleCollaap: {
     width: 20,
     height: 20,
     opacity: 0.9,
-    borderRadius: 11
+    borderRadius: 11,
+    marginVertical: 1,
+    marginHorizontal: 1,
   },
   NoCollaaps: {
     fontSize: 8,
     color: "#ccc",
     textAlign: "center"
   },
-  Title: {
-    fontSize: 18
-  },
-  Time: {
-    fontSize: 13,
-    marginTop: 4
-  },
   IndicatorShape: {
-    height: 78,
     flex: 1,
+    height: 78,
     justifyContent: "center"
   },
   IndicatorText: {
@@ -165,7 +211,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.calltoaction,
   },
   OnDeleteButtonText: {
-    fontSize: 18,
+    fontSize: 16,
     color: "#fff",
     lineHeight: 76,
     textAlign: "center"
