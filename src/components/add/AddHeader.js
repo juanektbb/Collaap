@@ -2,11 +2,10 @@ import React, { Component } from 'react'
 import {
   Text,
   View,
-  TextInput,
   Image,
-  Modal,
-  Pressable,
   FlatList,
+  Pressable,
+  TextInput,
   StyleSheet
 } from 'react-native'
 
