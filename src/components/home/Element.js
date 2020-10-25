@@ -38,7 +38,6 @@ class Element extends Component{
 
     }else{
       const to_time = new Date(time)
-      // return to_time.getUTCHours() + ":" + to_time.getUTCMinutes()
       return to_time.getHours() + ":" + to_time.getMinutes()
     }
   }

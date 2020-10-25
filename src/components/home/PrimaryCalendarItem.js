@@ -36,7 +36,6 @@ class PrimaryCalendarItem extends Component{
 
     }else{
       const to_time = new Date(time)
-      // const hours = to_time.getUTCHours()
       const hours = to_time.getHours()
       const calcLeft = parseInt(hours) * 3
 
