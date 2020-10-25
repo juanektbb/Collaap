@@ -127,11 +127,10 @@ const styles = StyleSheet.create({
     borderBottomColor: '#e4e4e4'
   },
   AddMore: {
-    height: 60,
-    marginTop: 5,
+    height: 50,
     fontSize: 18,
     color: '#bbb',
-    lineHeight: 60,
+    lineHeight: 50,
     textAlign: 'center'
   },
   EmptyComponent: {
