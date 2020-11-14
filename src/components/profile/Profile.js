@@ -3,11 +3,11 @@ import {
   Text,
   View,
   Image,
+  Platform,
   FlatList,
   TextInput,
   Pressable,
   StyleSheet,
-  SafeAreaView,
   ActivityIndicator,
   KeyboardAvoidingView
 } from 'react-native'
@@ -104,7 +104,7 @@ class Profile extends Component{
             <TextInput
               value={this.state.username}
               placeholder="Username"
-              style={styles.TextInput}
+              style={Platform.OS == 'ios' ? styles.TextInputIOS : styles.TextInputAndroid}
               onChangeText={(username) => this.changeUsername(username)}
             />
 
@@ -193,14 +193,30 @@ const styles = StyleSheet.create({
   },
   FormBody: {
     paddingHorizontal: 10,
-    paddingVertical: 20
+    paddingVertical: 20,
+    alignItems: "center",
   },
-  TextInput: {
+  TextInputIOS: {
+    width: 317,
     borderWidth: 1,
     borderColor: "#ddd",
-    marginBottom: 10
+    marginBottom: 20,
+    fontSize: 16,
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+  },
+  TextInputAndroid: {
+    width: 317,
+    borderWidth: 1,
+    borderColor: "#ddd",
+    marginBottom: 20,
+    fontSize: 15,
+    lineHeight: 18,
+    paddingVertical: 6,
+    paddingHorizontal: 10,
   },
   SubmitButton: {
+    width: 317,
     backgroundColor: colors.calltoaction,
     padding: 10,
     marginHorizontal: 10,

@@ -66,6 +66,7 @@ class Home extends Component{
   }
 
   render(){
+    // const content_to_show = this.props.calendar ? [] : this.props.calendar[this.state.on_this_date].elements
     const content_to_show = this.props.calendar[this.state.on_this_date].elements
 
     return (<>
@@ -84,7 +85,7 @@ class Home extends Component{
           <PrimaryCalendar
             onThisDate={this.state.on_this_date}
             clickOnCalendarCell={this.clickOnCalendarCell}/>
-          <Separator />
+          <Separator height={10} />
         </>}
         ListEmptyComponent={() =>
           <Pressable onPress={() => this.openNewScreen(this.state.on_this_date)}>

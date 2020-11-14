@@ -1,18 +1,17 @@
 import React from 'react'
 import {
-  View,
-  StyleSheet
+  View
 } from 'react-native'
 
 import colors from 'Collaap/src/data/colors.js'
 
-const Separator = () => <View style={styles.Separator} />
+const Separator = (props) => 
+  <View style={
+    {
+      height: props.height, 
+      backgroundColor: colors.maintone
+    }
+  } />
 
-const styles = StyleSheet.create({
-  Separator: {
-    height: 10,
-    backgroundColor: colors.maintone
-  }
-})
 
 export default Separator

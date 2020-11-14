@@ -16,6 +16,7 @@ import AddHeader from './AddHeader.js'
 import AddOptions from './AddOptions.js'
 import Loading from 'Collaap/src/components/general/Loading'
 import NoteController from 'Collaap/src/utils/NoteController'
+import { withSafeAreaInsets } from 'react-native-safe-area-context'
 
 class NoteScreen extends Component{
 
@@ -39,7 +40,8 @@ class NoteScreen extends Component{
       },
       loading: false,
       error: false,
-      error_msg: ""
+      error_msg: "",
+      keyboard_open: false
     }
   }
 
@@ -266,6 +268,17 @@ class NoteScreen extends Component{
             onChangeTitle={this.onChangeTitle}
             onChangeCategory={this.onChangeCategory}/>
 
+          {this.state.keyboard_open &&
+          <View style={styles.DoneBox}>
+            <Pressable style={Platform.OS == "ios" ? styles.DoneButtonIOS : styles.DoneButtonAndroid} onPress={() => {
+                this.mainTextInput.blur()
+                this.setState({ keyboard_open: false })
+              }
+            }>
+              <Text style={styles.DoneText}>Done</Text>
+            </Pressable>
+          </View>}
+
           <Pressable style={styles.MainBody} onPress={() => this.mainTextInput.focus()}>
             <TextInput
               multiline={true}
@@ -273,8 +286,16 @@ class NoteScreen extends Component{
               placeholder="What is happening?"
               value={this.state.item.content}
               ref={(input) => { this.mainTextInput = input }}
-              onChangeText={(text) => this.apply_main_body(text)}/>
+              onChangeText={(text) => this.apply_main_body(text)}
+              onFocus={() => {
+                this.setState({ keyboard_open: true })
+              }}
+            />
           </Pressable>
+
+          
+
+
 
           <AddOptions
             item={this.state.item}
@@ -312,8 +333,33 @@ const styles = StyleSheet.create({
   },
   MainBodyInput: {
     fontSize: 16,
-    paddingVertical: 5,
+    lineHeight: 20,
+    paddingVertical: 0,
     paddingHorizontal: 9
+  },
+  DoneBox:{
+    marginTop: 10,
+    marginBottom: -10,
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    alignItems: "flex-end"
+  },
+  DoneButtonIOS: {
+    borderRadius: 5,
+    paddingVertical: 3,
+    paddingHorizontal: 13,
+    backgroundColor: colors.calltoaction,
+  },
+  DoneButtonAndroid: {
+    borderRadius: 5,
+    paddingVertical: 2,
+    paddingHorizontal: 13,
+    backgroundColor: colors.calltoaction,
+  },
+  DoneText: {
+    color: "white",
+    fontSize: 15,
+    lineHeight: 18
   },
   MsgBox: {
     marginTop: 10,

@@ -1,7 +1,12 @@
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
 
+import {
+  Platform
+} from 'react-native'
+
 import Header from 'Collaap/src/components/base/Header'
+import HeaderPlus from 'Collaap/src/components/base/HeaderPlus'
 import Home from 'Collaap/src/components/home/Home'
 import NewScreen from 'Collaap/src/components/add/NewScreen'
 import NoteScreen from 'Collaap/src/components/add/NoteScreen'
@@ -15,7 +20,10 @@ const HomeStack = () => {
         name="Home"
         component={Home}
         options={({ navigation, route }) => ({
-          headerTitle: props => <Header {...props} plus={true} navigation={navigation} />
+          headerTitle: props => <Header {...props} plus={true} navigation={navigation} />,
+          headerRight: props => {
+            return Platform.OS == "ios" && <HeaderPlus navigation={navigation} />
+          }
         })}
       />
 

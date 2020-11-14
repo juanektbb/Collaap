@@ -3,6 +3,7 @@ import {
   View,
   Text,
   Image,
+  Platform,
   StyleSheet,
   Pressable
 } from 'react-native';
@@ -17,12 +18,13 @@ class Header extends Component{
 
   render(){
     return(
-      <View style={styles.Header}>
+      <View style={Platform.OS == "ios" ? styles.HeaderIOS : styles.HeaderAndroid}>
         <View style={styles.Logo}>
           <Image style={styles.LogoImage} source={require('Collaap/src/images/logo.png')} />
-          <Text style={styles.LogoText}>Collaap</Text>
+          {Platform.OS == "android" && 
+            <Text style={styles.LogoText}>Collaap</Text>}
         </View>
-        {this.props.plus &&
+        {this.props.plus && Platform.OS == "android" &&
           <Pressable onPress={this.openNewScreen}>
             <View style={styles.Plus}>
               <Text style={styles.PlusText}>+</Text>
@@ -34,7 +36,15 @@ class Header extends Component{
 }
 
 const styles = StyleSheet.create({
-  Header: {
+  HeaderIOS: {
+    height: 56,
+    marginLeft: -16,
+    marginRight: -16,
+    paddingHorizontal: 5,
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  HeaderAndroid: {
     height: 56,
     marginLeft: -16,
     marginRight: -16,
@@ -51,15 +61,15 @@ const styles = StyleSheet.create({
   LogoImage: {
     width: 34,
     height: 34,
-    borderWidth: 1
   },
+
   LogoText: {
     color: colors.softwhite,
     fontSize: 26,
     fontFamily: "HKGrotesk-Regular"
   },
   Plus: {
-    width: 36,
+    width: 36
   },
   PlusText: {
     fontSize: 36,
