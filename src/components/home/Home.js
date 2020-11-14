@@ -67,7 +67,8 @@ class Home extends Component{
 
   render(){
     // const content_to_show = this.props.calendar ? [] : this.props.calendar[this.state.on_this_date].elements
-    const content_to_show = this.props.calendar[this.state.on_this_date].elements
+    // const content_to_show = this.props.calendar[this.state.on_this_date].elements
+    const content_to_show = []
 
     return (<>
       {this.state.on_error !== null &&
