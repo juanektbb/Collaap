@@ -29,6 +29,13 @@ class App extends Component{
   constructor(props){
     super(props)
     this.loginController = new LoginController()
+
+    store.dispatch({
+      type: "SET_CALENDAR",
+      payload: {
+        calendar: []
+      }
+    })
   }
 
   componentDidMount(){

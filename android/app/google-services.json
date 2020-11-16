@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "832801886654",
+    "firebase_url": "https://collaap-app.firebaseio.com",
+    "project_id": "collaap-app",
+    "storage_bucket": "collaap-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:832801886654:android:78e6815ad8f02755fae9ef",
+        "android_client_info": {
+          "package_name": "com.collaap"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "832801886654-r4dj3onl816nqrvj39g7ojkt9dsmmo4j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.collaap",
+            "certificate_hash": "2f24358989c3c476df0d57fe4724148a24c8bc45"
+          }
+        },
+        {
+          "client_id": "832801886654-6md8f4va58buae94frl0nbe85bg314h6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBDWX5meSB_NEzWu5Y79kEcR9Z11juXZ-4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "832801886654-6md8f4va58buae94frl0nbe85bg314h6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

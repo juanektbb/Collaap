@@ -16,6 +16,8 @@ target 'Collaap' do
 
   pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-community/async-storage'
 
+  pod 'RNFBApp', :path => '../node_modules/@react-native-firebase/app'
+
   target 'CollaapTests' do
     inherit! :complete
     # Pods for testing
