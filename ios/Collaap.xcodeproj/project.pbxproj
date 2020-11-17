@@ -90,6 +90,7 @@
 		8677AD6956014C4496DC1491 /* Roboto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Roboto.ttf; path = "../node_modules/native-base/Fonts/Roboto.ttf"; sourceTree = "<group>"; };
 		8CA4169DFADF45B48CD521B1 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/native-base/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		94F9101E25619593003EB281 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		94F910B425630D80003EB281 /* Collaap.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = Collaap.entitlements; path = Collaap/Collaap.entitlements; sourceTree = "<group>"; };
 		9FC64609E15E4A95BD5F5B4C /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/native-base/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		A2528B8B379C16DC262B9804 /* libPods-Collaap-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Collaap-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4E393D45C07ECA85E21E54A /* libPods-Collaap-CollaapTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Collaap-CollaapTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -194,6 +195,7 @@
 		13B07FAE1A68108700A75B9A /* Collaap */ = {
 			isa = PBXGroup;
 			children = (
+				94F910B425630D80003EB281 /* Collaap.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -368,6 +370,7 @@
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = 34MD37B8UU;
 						LastSwiftMigration = 1120;
+						ProvisioningStyle = Automatic;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -763,6 +766,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Collaap/Collaap.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 34MD37B8UU;
 				ENABLE_BITCODE = NO;
@@ -775,6 +781,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.collaap;
 				PRODUCT_NAME = Collaap;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -787,6 +794,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Collaap/Collaap.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 34MD37B8UU;
 				INFOPLIST_FILE = Collaap/Info.plist;
@@ -798,6 +808,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.collaap;
 				PRODUCT_NAME = Collaap;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
