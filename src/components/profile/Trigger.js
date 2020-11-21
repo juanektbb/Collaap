@@ -15,8 +15,8 @@ import {
 } from 'react-native'
 
 import { useEffect } from 'react'
-import { fcmService } from '../../FCMService'
-import { localNotificationService } from '../../LocalNotificationService'
+import { fcmService } from 'Collaap/src/config/FCMService'
+import { localNotificationService } from 'Collaap/src/config/LocalNotificationService'
 
 
 export default function Trigger(){
@@ -24,10 +24,11 @@ export default function Trigger(){
     useEffect(() => {
         fcmService.registerAppWithFCM()
         fcmService.register(onRegister, onNotification, onOpenNotification)
+        
         localNotificationService.configure(onOpenNotification)
 
         function onRegister(token){
-            console.log("trigger, on register: ", token)
+            console.log("[App] Register token: ", token)
         }
 
         function onNotification(notify){

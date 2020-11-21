@@ -287,6 +287,8 @@ class NoteScreen extends Component{
               value={this.state.item.content}
               ref={(input) => { this.mainTextInput = input }}
               onChangeText={(text) => this.apply_main_body(text)}
+              selectionColor={'green'}
+              onSelectionChange={(event) => console.log(event.nativeEvent.selection)}
               onFocus={() => {
                 this.setState({ keyboard_open: true })
               }}

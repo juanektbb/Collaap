@@ -1,5 +1,8 @@
+const server_url = 'https://stage-collaap.herokuapp.com'
+
 const settings = {
-  "API_URL": "https://stage-collaap.herokuapp.com/api",
+  "SERVER_URL": server_url,
+  "API_URL": `${server_url}/api`,
   "REQUEST_HEADERS": {
       'Accept': 'application/json',
       'Content-Type': 'application/json',

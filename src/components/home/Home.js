@@ -1,10 +1,14 @@
-import React, { Component } from 'react';
+import React, { Component, useContext } from 'react';
 import {
-  StyleSheet,
   Text,
   View,
+  Platform,
   FlatList,
-  Pressable
+  Pressable,
+  StyleSheet,
+  ScrollView,
+  SafeAreaView,
+  RefreshControl
 } from 'react-native';
 
 import { connect } from 'react-redux'
@@ -19,19 +23,35 @@ import PrimaryCalendar from 'Collaap/src/components/home/PrimaryCalendar'
 
 import NoteController from 'Collaap/src/utils/NoteController'
 
+
+import { promise_calendar_refresher } from 'Collaap/src/config/auto/refresh_calendar.js'
+import refresh_collaaps from 'Collaap/src/config/auto/refresh_collaaps.js'
+
 function mapStateToProps(state){
   return {
     calendar: state.calendar
   }
 }
 
+
+import { calendar_refresher } from 'Collaap/src/config/auto/refresh_calendar.js'
+
+import { SocketContext } from 'Collaap/src/SocketContext.js';
+
+
 class Home extends Component{
+
+  static contextType = SocketContext
 
   state = {
     on_this_date: helpers.getToday(),
     on_error: null,
-    loading: false
+    loading: false,
+    refreshing: false,
+    refresh_msg: false
   }
+
+  
 
   loadNewItemScreen = (item) => {
     this.props.navigation.navigate('NewItemScreen', { item })
@@ -65,10 +85,48 @@ class Home extends Component{
     }
   }
 
+  
+  //Functionality for RefreshControl component
+  _onRefresh = () => {
+    this.setState({ refreshing: true })
+    
+    promise_calendar_refresher().then((res) => {
+      this.setState({
+        refreshing: false,
+        refresh_msg: res ? "New content updated" : "Already up to date"
+      })
+
+      setTimeout(() => this.setState({ refresh_msg: false }), 3500)
+    });
+  }
+
+
+
+
+
+  triggerBaby(){
+      const { callOtherDevices } = this.context    
+
+      callOtherDevices("devices")
+      console.log("trigger me")
+
+  }
+
+
+
   render(){
     const content_to_show = this.props.calendar[this.state.on_this_date] !== undefined ? this.props.calendar[this.state.on_this_date].elements : []
 
-    return (<>
+    return (
+      <SafeAreaView style={styles.container}>
+
+
+      <Pressable onPress={() => this.triggerBaby()}>
+        <Text style={{height: 50, backgroundColor: "red"}}>SEND MESSAGE TO OTHER DEVICES</Text>
+      </Pressable>
+
+      
+
       {this.state.on_error !== null &&
       <View style={styles.OnError}>
         <Text style={styles.OnErrorText}>
@@ -76,10 +134,21 @@ class Home extends Component{
         </Text>
       </View>}
 
+
+      {this.state.refresh_msg && <Text style={styles.MsgLoaded}>{this.state.refresh_msg}</Text>}
+
+
       <FlatList
         keyExtractor={item => item._id}
         data={content_to_show}
         style={styles.Home}
+
+        refreshControl={
+          <RefreshControl
+            refreshing={this.state.refreshing}
+            onRefresh={this._onRefresh}
+          />}
+
         ListHeaderComponent={<>
           <PrimaryCalendar
             onThisDate={this.state.on_this_date}
@@ -110,11 +179,26 @@ class Home extends Component{
             loadNewItemScreen={this.loadNewItemScreen}
           />}
       />
-    </>)
+
+
+    </SafeAreaView>)
   }
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    // marginTop: Constants.statusBarHeight,
+  },
+  scrollView: {
+    flex: 1,
+    backgroundColor: 'pink',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+
+
   OnError: {
     paddingVertical: 10
   },
@@ -122,6 +206,17 @@ const styles = StyleSheet.create({
     color: colors.calltoaction,
     textAlign: "center"
   },
+
+  MsgLoaded: {
+    fontSize: 12,
+    paddingTop: 5,
+    color: "#FFF",
+    paddingBottom: 4,
+    textAlign: "center",
+    backgroundColor: "#E94560"
+  },
+
+
   Separator: {
     borderBottomWidth: 1,
     borderBottomColor: '#e4e4e4'

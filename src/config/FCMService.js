@@ -3,11 +3,13 @@ import { Platform } from 'react-native'
 
 class FCMService {
 
+    //
     register = (onRegister, onNotification, onOpenNotification) => {
         this.checkPermission(onRegister)
         this.createNotificationListeners(onRegister, onNotification, onOpenNotification)
     }
 
+    //
     registerAppWithFCM = async () => {
         if(Platform.OS === 'ios'){
             await messaging().registerDeviceForRemoteMessages()
@@ -29,39 +31,42 @@ class FCMService {
         })
     }
 
+
     getToken = (onRegister) => {
         messaging().getToken()
         .then(fcmToken => {
             if(fcmToken){
                 onRegister(fcmToken)
             }else{
-                console.log("[FCMServce] User does not have a device token")
+                console.error("[FCMService] This user does not have a device token")
             }
         }).catch(error => {
-            console.log("[FCMService] getToken rejected ", error)
+            console.error("[FCMService] getToken() rejected: ", error)
         })
     }
 
+    
     requestPermission = (onRegister) => {
         messaging().requestPermission()
         .then(() => {
             this.getToken(onRegister)
         }).catch(error => {
-            console.log("[FCMService] Request Permission rejected ", error)
+            console.error("[FCMService] requestPermission() rejected: ", error)
         })
     }
 
+    // Handle delete this token
     deleteToken = () => {
-        console.log("[FCMService] deleteToken")
         messaging().deleteToken()
         .catch(error => {
-            console.log("[FCMService] Delete token error ", error)
+            console.log("[FCMService] deleteToken() error: ", error)
         })
     }
 
+    // ALL LISTENERS TRIGGER ON THE REGISTER
     createNotificationListeners = (onRegister, onNotification, onOpenNotification) => {
 
-        //When the app is running in the background
+        // LISTENER BACKGROUND: App is running in the background
         messaging()
         .onNotificationOpenedApp(remoteMessage => {
             console.log('FCMService] onNotificationOpenedApp Notification caused app to open from background state', remoteMessage)
@@ -85,13 +90,14 @@ class FCMService {
             }
         })
 
-        //Foreground state messages
+        // LISTENER FOREGROUND: App is running in the foreground
         this.messageListener = messaging().onMessage(async remoteMessage => {
-            console.log("[FCMService] A new FCM message arrived!", remoteMessage)
+            console.log("[FCMService] New msg in foreground", remoteMessage)
+
             if(remoteMessage){
                 let notification = null
                 if(Platform.OS === 'ios'){
-                    notification = remoteMessage.data.notificaiton
+                    notification = remoteMessage.data.notification
                 }else{
                     notification = remoteMessage.notification
                 }
@@ -100,9 +106,10 @@ class FCMService {
             }
         })
 
-        //Triggered when have new token
-        messaging().onTokenRefresh(fcmToken => {
-            console.log("[FCMService] New token refresh, ", fcmToken)
+        // LISTENER NEW TOKEN: A new token and latest was created
+        messaging()
+        .onTokenRefresh(fcmToken => {
+            console.log("[FCMService] New token refresh: ", fcmToken)
             onRegister(fcmToken)
         })
 

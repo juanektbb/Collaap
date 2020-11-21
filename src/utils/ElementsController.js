@@ -5,6 +5,25 @@ import { store } from 'Collaap/src/redux/store'
 
 class ElementsController{
 
+  //BASIC CALENDAR FETCH
+  SimpleRetriveCalendar = async () => {
+    const session_token = await AsyncStorage.getItem('session_token')
+
+    const headers = settings['REQUEST_HEADERS']
+    headers['x-access-token'] = session_token
+
+    const details = {
+        method: 'GET',
+        headers: headers
+    }
+
+    const response = await fetch(`${settings['API_URL']}/elements`, details)
+    const data = await response.json()
+
+    return data
+
+  }
+
   //BUILD AND GENERATE THE CALENDAR FROM BACKEND
   RetrieveCalendar = async () => {
     const session_token = await AsyncStorage.getItem('session_token')
