@@ -2,7 +2,7 @@ const _ = require('lodash')
 import ElementsController from 'Collaap/src/utils/ElementsController'
 import { store } from 'Collaap/src/redux/store.js'
 
-store.subscribe(listener)
+let unsubscribe = store.subscribe(listener)
 let in_redux_calendar = []
 
 function select(state){
@@ -12,6 +12,8 @@ function select(state){
 function listener(){
   	in_redux_calendar = select(store.getState())
 }
+
+unsubscribe()
 
 // Dispatcher in store to load new calendar
 const dispatcher = (new_calendar) => {

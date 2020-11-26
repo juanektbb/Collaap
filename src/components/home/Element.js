@@ -4,6 +4,7 @@ import {
   View,
   Image,
   FlatList,
+  Platform,
   StyleSheet,
   TouchableOpacity,
   ActivityIndicator
@@ -26,7 +27,7 @@ class Element extends Component{
 
   state = {
     on_delete: false,
-    on_delete_text: "Delete this element",
+    on_delete_text: "",
     def_to_delete: null,
     loading: false
   }
@@ -38,25 +39,31 @@ class Element extends Component{
 
     }else{
       const to_time = new Date(time)
-      return to_time.getHours() + ":" + to_time.getMinutes()
+      return "Time: " + to_time.getHours() + ":" + to_time.getMinutes()
     }
   }
 
-  triggerDelete = async (item_id) => {
+  triggerDelete = async (item) => {
     this.setState({ loading: true })
-    await this.state.def_to_delete(item_id)
+    await this.state.def_to_delete(item)
+    this.setState({ loading: false })
   }
 
   componentDidMount(){
 
     //This is the owner of the note
     if(this.props.item.user === this.props.user_id){  
-      this.setState({ def_to_delete: this.props.deleteThisItem })
+      this.setState({ 
+        on_delete_text: "Delete this element", 
+        def_to_delete: this.props.deleteThisItem, 
+      })
       
     //This is not the owner
     }else{
-      this.setState({ on_delete_text: "Take me out from this element" })
-      this.setState({ def_to_delete: this.props.deleteMyCollaap })
+      this.setState({ 
+        on_delete_text: "Take me out from this element", 
+        def_to_delete: this.props.deleteMyCollaap 
+      })
     }
 
   }
@@ -75,7 +82,7 @@ class Element extends Component{
       <View style={styles.OnDelete}>
         <TouchableOpacity
           style={styles.OnDeleteButton}
-          onPress={() => this.triggerDelete(this.props.item._id)}>
+          onPress={() => this.triggerDelete(this.props.item)}>
             <Text style={styles.OnDeleteButtonText}>
               {this.state.on_delete_text}
             </Text>
@@ -103,7 +110,7 @@ class Element extends Component{
             <View style={styles.LineTime}>
               {thisOwner !== undefined && this.props.item.user !== this.props.user_id && 
               <Image
-                style={styles.SmallCollaap}
+                style={[styles.SmallCollaap, (Platform.OS === 'android' && styles.SmallCollaapAndroid)]}
                 source={helpers.getIconByName(thisOwner.icon)}
               />}
 
@@ -168,7 +175,6 @@ const styles = StyleSheet.create({
   },
   LineTime: {
     marginTop: 4,
-    borderColor: "red",
     flexDirection: "row"
   },
   Time: {
@@ -177,10 +183,12 @@ const styles = StyleSheet.create({
   SmallCollaap: {
     width: 15,
     height: 15,
-    marginTop: 2,
     marginRight: 5,
     borderRadius: 5,
     justifyContent: "center"
+  },
+  SmallCollaapAndroid: {
+    marginTop: 2
   },
   Collaborators: {
     width: 55,

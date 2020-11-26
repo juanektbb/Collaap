@@ -37,14 +37,22 @@ export default ({ children }) => {
     })
 
     //SOCKET EMITTERS:
-    const callOtherDevices = (message) => {
-        socket.emit("call_other_devices", "N/A")
+    const emitReloadMyCalendar = () => {
+        socket.emit("auto_reload_my_calendar", null)
     }
 
+    const emitReloadOneCalendarById = (user_id) => {
+        socket.emit("auto_reload_one_calendar_by_id", user_id)
+    }
+
+    const emitReloadCollaapsCalendars = (arr_collaaps_and_me) => {
+        socket.emit("auto_reload_collaaps_calendars", arr_collaaps_and_me)
+    }
+
+
     //...
-
-
     
+
     //Verbose: Socket is not defined, then create it
     if(!socket){
         //Verbose: Token must be something valid
@@ -66,6 +74,17 @@ export default ({ children }) => {
                 //TODO: dispatch the new calendar
                 alert(Platform.OS + " NEW calendar shoudl update here baby")
             })
+            
+            //LISTENER: New calendar arrived and needs to be dispatched
+            socket.on('reload_my_calendar', function(new_calendar){
+                store.dispatch({
+                type: "SET_CALENDAR",
+                    payload: {
+                        calendar: new_calendar
+                    }
+                })
+            })
+
 
             // ...
 
@@ -73,7 +92,9 @@ export default ({ children }) => {
             //Load available for global usage
             context_load = {
                 socket: socket,
-                callOtherDevices
+                emitReloadMyCalendar,
+                emitReloadOneCalendarById,
+                emitReloadCollaapsCalendars
             }
         }
     }

@@ -5,6 +5,8 @@ import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
 import { store, persistor } from './src/redux/store'
 
+import SocketProvider, { SocketContext } from 'Collaap/src/SocketContext.js'
+
 import {
   setCustomText,
   setCustomTextInput
@@ -26,12 +28,6 @@ const customTextInputProps = {
 setCustomText(customTextProps)
 setCustomTextInput(customTextInputProps)
 
-
-import { calendar_refresher } from 'Collaap/src/config/auto/refresh_calendar.js'
-import { collaaps_refresher } from 'Collaap/src/config/auto/refresh_collaaps.js'
-
-import SocketProvider, { SocketContext } from 'Collaap/src/SocketContext.js';
-
 class App extends Component{
 
   constructor(props){
@@ -44,6 +40,8 @@ class App extends Component{
         calendar: []
       }
     })
+
+    console.log("APP CONSTRUCTS")
   }
 
   async componentDidMount(){
@@ -57,12 +55,7 @@ class App extends Component{
 
     this.loginController.ObtainSessionToken()
 
-
-    console.log("IN APP - MOUNTED")
-
-
-    // setInterval(() => { calendar_refresher() }, 60000)
-    // setInterval(() => { collaaps_refresher() }, 60000)
+    console.log("APP MOUNTED")
 
   }
 

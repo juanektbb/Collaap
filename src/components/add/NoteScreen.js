@@ -18,7 +18,11 @@ import Loading from 'Collaap/src/components/general/Loading'
 import NoteController from 'Collaap/src/utils/NoteController'
 import { withSafeAreaInsets } from 'react-native-safe-area-context'
 
+import { SocketContext } from 'Collaap/src/SocketContext.js';
+
 class NoteScreen extends Component{
+
+  static contextType = SocketContext
 
   constructor(props){
     super(props)
@@ -165,17 +169,24 @@ class NoteScreen extends Component{
     this.setState({ loading: bool })
   }
 
-  //ITEM IS READY TO BE SENT
+  /*
+    SUBMIT: ITEM IS READY TO BE SENT FOR POST/PUT
+  */
   submitItem = async () => {
-    this.toggleLoading(true)
+
+    //Get the emitters reload from SocketContext
+    const { emitReloadMyCalendar, emitReloadOneCalendarById, emitReloadCollaapsCalendars } = this.context  
 
     //There is no title in this element
     if(this.state.item.title === ""){
-      this.loadResponseError("You need to write a title for this note")
+      this.loadResponseError("You need a title for this note!")
       return false
     }
 
-    //There is no item_id, so new item
+    //Show reloading animation
+    this.toggleLoading(true)
+
+    //NEW NOTE: POST - There is no item_id, so new item
     if(this.state.item_id === null){
       const noteController = new NoteController(this.state.item)
       const response = await noteController.SaveNote()
@@ -186,11 +197,17 @@ class NoteScreen extends Component{
         return false
 
       }else{
+
+        //Get all collaaps in the note and reload their calendars
+        const collaapsInvolved = noteController.CollaapsInvolved()
+        emitReloadMyCalendar()
+        emitReloadCollaapsCalendars(collaapsInvolved)
+        
         this.toggleLoading(false)
         this.props.navigation.navigate('Home')
       }
 
-    //There is item_id, so update item
+    //NEW NOTE: PUT - There is item_id, so update item
     }else{
       const noteController = new NoteController(this.state.item)
       const response = await noteController.UpdateNote(this.state.item_id)
@@ -200,6 +217,13 @@ class NoteScreen extends Component{
         return false
 
       }else{
+
+        //Get all collaaps in the note and reload their calendars
+        const collaapsInvolved = noteController.CollaapsInvolved()
+        emitReloadMyCalendar()
+        emitReloadOneCalendarById(this.state.item_user_id)
+        emitReloadCollaapsCalendars(collaapsInvolved)
+
         this.toggleLoading(false)
         this.props.navigation.navigate('Home')
       }

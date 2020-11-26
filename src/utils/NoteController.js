@@ -23,6 +23,9 @@ class NoteController{
       this.end_date = end_date
       this.time = time
     }
+
+
+
   }
 
   //BUILD BODY FOR REQUEST
@@ -41,6 +44,10 @@ class NoteController{
     }
   }
 
+  CollaapsInvolved = () => {
+    return this.array_collaboratos
+  }
+
   //SAVE A NEW NOTE 
   SaveNote = async () => {
     const content_body = this.contentBodyBuilder()
@@ -57,9 +64,6 @@ class NoteController{
 
     const response = await fetch(`${settings['API_URL']}/elements`, details)
     const data = await response.json()
-
-    if(!data['error'])
-      await this.ReloadElements()
 
     return data
   }
@@ -81,9 +85,6 @@ class NoteController{
     const response = await fetch(`${settings['API_URL']}/elements/${item_id}`, details)
     const data = await response.json()
 
-    if(!data['error'])
-      await this.ReloadElements()
-
     return data
   }
 
@@ -101,9 +102,6 @@ class NoteController{
 
     const response = await fetch(`${settings['API_URL']}/elements/${item_id}`, details)
     const data = await response.json()
-
-    if(!data['error'])
-      await this.ReloadElements()
 
     return data
   }
@@ -123,16 +121,7 @@ class NoteController{
     const response = await fetch(`${settings['API_URL']}/elements/${item_id}/myself`, details)
     const data = await response.json()
 
-    if(!data['error'])
-      await this.ReloadElements()
-
     return data
-  }
-
-  //HELPER CLASS FUNCTION
-  ReloadElements = async () => {
-    const elementsController = new ElementsController()
-    await elementsController.RetrieveCalendar()
   }
 
 }

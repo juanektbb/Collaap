@@ -6,7 +6,8 @@ const colors = {
   "softwhite": "#f9f9f9",
   "greenaccept": "#0584DB",
   "softcalltoaction": "#fac3cc",
-  "lightgrey": "#BABABA"
+  "lightgrey": "#BABABA",
+  "error": "#E22727"
 }
 
 export default colors
