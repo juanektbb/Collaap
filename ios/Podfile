@@ -18,6 +18,7 @@ target 'Collaap' do
 
   pod 'RNFBApp', :path => '../node_modules/@react-native-firebase/app'
 
+
   target 'CollaapTests' do
     inherit! :complete
     # Pods for testing

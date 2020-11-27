@@ -1,3 +1,10 @@
 module.exports = {
-  assets: ['./src/fonts']
+  assets: ['./src/fonts'],
+  dependencies: {
+    'react-native-keychain': {
+      platforms: {
+        android: null,
+      },
+    },
+  },
 }

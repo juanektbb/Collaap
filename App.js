@@ -28,6 +28,7 @@ const customTextInputProps = {
 setCustomText(customTextProps)
 setCustomTextInput(customTextInputProps)
 
+
 class App extends Component{
 
   constructor(props){
@@ -55,7 +56,16 @@ class App extends Component{
 
     this.loginController.ObtainSessionToken()
 
+
+    // const username = 'juanito';
+    // const password = 'ojitos';
+
+    // await Keychain.setGenericPassword(username, password);
+
     console.log("APP MOUNTED")
+
+  
+      // await Keychain.resetGenericPassword();
 
   }
 

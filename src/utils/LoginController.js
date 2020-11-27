@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-community/async-storage'
+import * as Keychain from 'react-native-keychain'
 import { store } from 'Collaap/src/redux/store'
 
 import helpers from 'Collaap/src/helpers.js'
@@ -59,6 +60,11 @@ class LoginController{
       await AsyncStorage.setItem('session_token', session_token)
       let this_icon_image = helpers.getIconByName(user['icon'])
 
+      await Keychain.setGenericPassword("collaap2", "123456", {storage: Keychain.STORAGE_TYPE.AES })
+
+      console.log("generic...")
+
+
       store.dispatch({
         type: "SET_SESSION_TOKEN",
         payload: {
@@ -99,21 +105,46 @@ class LoginController{
     const username = await AsyncStorage.getItem('username')
     const icon_name = await AsyncStorage.getItem('icon_name')
 
-    if(username !== null){
-      this.LoginUser(username, icon_name, 'obtained')
+    // if(username !== null){
+    //   this.LoginUser(username, icon_name, 'obtained')
+    // }else{
+    //             store.dispatch({
+    //         type: "SET_SESSION_TOKEN",
+    //         payload: {
+    //           username: "",
+    //           session_status: 'awaiting',
+    //           session_error: null,
+    //           session_token: null
+    //         }
+    //       })
+    // }
 
-    //Username does not exists either, set app to neuter
-    }else{
-      store.dispatch({
-        type: "SET_SESSION_TOKEN",
-        payload: {
-          username: "",
-          session_status: 'awaiting',
-          session_error: null,
-          session_token: null
+    try{
+      const credentials = await Keychain.getGenericPassword( {storage: Keychain.STORAGE_TYPE.AES })
+      if(credentials){
+
+        console.log("Gathering...")
+
+        this.LoginUser(credentials.username, icon_name, 'obtained')
+
+
+        } else {
+          
+          store.dispatch({
+            type: "SET_SESSION_TOKEN",
+            payload: {
+              username: "",
+              session_status: 'awaiting',
+              session_error: null,
+              session_token: null
+            }
+          })
+
         }
-      })
-    }
+      } catch (error) {
+        console.log("Keychain couldn't be accessed!", error);
+      }
+
   }
 
   //LOAD MORE DATA FROM SERVER

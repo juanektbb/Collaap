@@ -4,6 +4,8 @@ import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
+import com.oblador.keychain.KeychainPackage;
+import com.oblador.keychain.KeychainModuleBuilder;
 import io.invertase.firebase.app.ReactNativeFirebaseAppPackage;
 import io.invertase.firebase.app.ReactNativeFirebaseAppPackage;
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
@@ -35,6 +37,7 @@ public class MainApplication extends Application implements ReactApplication {
           List<ReactPackage> packages = new PackageList(this).getPackages();
           // Packages that cannot be autolinked yet can be added manually here, for example:
           // packages.add(new MyReactNativePackage());
+          packages.add(new KeychainPackage(new KeychainModuleBuilder().withoutWarmUp()));
           return packages;
         }
 
