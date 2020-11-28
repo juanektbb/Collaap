@@ -42,7 +42,15 @@ class App extends Component{
       }
     })
 
-    console.log("APP CONSTRUCTS")
+    //LOGIN IS LOADING
+    store.dispatch({
+      type: "SET_SESSION_TOKEN",
+      payload: {
+        session_status: 'loading',
+        session_error: null,
+        session_token: null,
+      }
+    })
   }
 
   async componentDidMount(){
@@ -55,18 +63,6 @@ class App extends Component{
     })
 
     this.loginController.ObtainSessionToken()
-
-
-    // const username = 'juanito';
-    // const password = 'ojitos';
-
-    // await Keychain.setGenericPassword(username, password);
-
-    console.log("APP MOUNTED")
-
-  
-      // await Keychain.resetGenericPassword();
-
   }
 
   //TRIGGER BUTTON SAVING PROFILE
@@ -80,7 +76,7 @@ class App extends Component{
       }
     })
 
-    this.loginController.LoginUser(username, icon_name, 'clicked')
+    this.loginController.LoginUser(username, "123456", icon_name, 'clicked')
   }
 
   render(){

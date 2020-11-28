@@ -16,6 +16,9 @@ function index(state = {}, action){
     case "SET_COLLAAPS": {
       return {...state, ...action.payload}
     }
+    case "SET_APP_ERROR": {
+      return {...state, ...action.payload}
+    }
     default:
       return state
 

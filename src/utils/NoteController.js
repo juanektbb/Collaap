@@ -1,6 +1,5 @@
 import AsyncStorage from '@react-native-community/async-storage'
-
-import ElementsController from 'Collaap/src/utils/ElementsController'
+import user_persist from 'Collaap/src/shared/user_persist.js'
 import settings from 'Collaap/src/settings.js'
 
 class NoteController{
@@ -23,9 +22,6 @@ class NoteController{
       this.end_date = end_date
       this.time = time
     }
-
-
-
   }
 
   //BUILD BODY FOR REQUEST
@@ -48,8 +44,10 @@ class NoteController{
     return this.array_collaboratos
   }
 
-  //SAVE A NEW NOTE 
-  SaveNote = async () => {
+  /*
+    SAVE A NEW NOTE 
+  */
+  SaveNote = async (first_call = true) => {
     const content_body = this.contentBodyBuilder()
     const session_token = await AsyncStorage.getItem('session_token')
 
@@ -65,11 +63,21 @@ class NoteController{
     const response = await fetch(`${settings['API_URL']}/elements`, details)
     const data = await response.json()
 
-    return data
+    //Time to check if the user's token is still valid, or needs to persits it 
+    const is_dynamically_persisted = await user_persist(first_call, response['status'], this.SaveNote)
+
+    //Persist was necessary and return its contents
+    if(is_dynamically_persisted){
+      return is_dynamically_persisted
+    }else{
+      return data
+    }
   }
 
-  //UPDATE AN EXISTING NOTE
-  UpdateNote = async (item_id) => {
+  /* 
+    UPDATE AN EXISTING NOTE
+  */
+  UpdateNote = async (item_id, first_call = true) => {
     const content_body = this.contentBodyBuilder()
     const session_token = await AsyncStorage.getItem('session_token')
 
@@ -85,11 +93,21 @@ class NoteController{
     const response = await fetch(`${settings['API_URL']}/elements/${item_id}`, details)
     const data = await response.json()
 
-    return data
+    //Time to check if the user's token is still valid, or needs to persits it 
+    const is_dynamically_persisted = await user_persist(first_call, response['status'], this.UpdateNote, { id: item_id })
+
+    //Persist was necessary and return its contents
+    if(is_dynamically_persisted){
+      return is_dynamically_persisted
+    }else{
+      return data
+    }
   }
 
-  //DELETE AN EXISTING NOTE
-  DeleteNote = async (item_id) => {
+  /* 
+    DELETE AN EXISTING NOTE
+  */
+  DeleteNote = async (item_id, first_call = true) => {
     const session_token = await AsyncStorage.getItem('session_token')
 
     const headers = settings['REQUEST_HEADERS']
@@ -103,11 +121,21 @@ class NoteController{
     const response = await fetch(`${settings['API_URL']}/elements/${item_id}`, details)
     const data = await response.json()
 
-    return data
+    //Time to check if the user's token is still valid, or needs to persits it 
+    const is_dynamically_persisted = await user_persist(first_call, response['status'], this.DeleteNote, { id: item_id })
+
+    //Persist was necessary and return its contents
+    if(is_dynamically_persisted){
+      return is_dynamically_persisted
+    }else{
+      return data
+    }
   }
 
-  //DELETE MYSELF FROM AN EXISTING NOTE
-  DeleteMeFromCollaaps = async (item_id) => {
+  /* 
+    DELETE MYSELF FROM AN EXISTING NOTE
+  */
+  DeleteMeFromCollaaps = async (item_id, first_call = true) => {
     const session_token = await AsyncStorage.getItem('session_token')
 
     const headers = settings['REQUEST_HEADERS']
@@ -121,7 +149,15 @@ class NoteController{
     const response = await fetch(`${settings['API_URL']}/elements/${item_id}/myself`, details)
     const data = await response.json()
 
-    return data
+    //Time to check if the user's token is still valid, or needs to persits it 
+    const is_dynamically_persisted = await user_persist(first_call, response['status'], this.DeleteMeFromCollaaps, { id: item_id })
+
+    //Persist was necessary and return its contents
+    if(is_dynamically_persisted){
+      return is_dynamically_persisted
+    }else{
+      return data
+    }
   }
 
 }

@@ -62,15 +62,21 @@ class Profile extends Component{
             {this.props.session_status === 'loading' &&
               <ActivityIndicator size="small" color={colors.maintone}/>}
 
+            {this.props.session_status === null &&
+              <View style={styles.ResponseInner}>
+                <Text style={styles.WelcomeText}>Welcome to Collaap</Text>
+                <Text style={styles.InstructionsText}>Login only with your username</Text>
+              </View>}
+
             {this.props.session_status === 'error' &&
               <View style={styles.ResponseInner}>
                 <Text style={styles.ErrorText}>{this.props.session_error}</Text>
               </View>}
 
-            {this.props.session_status === 'awaiting' &&
+            {this.props.session_status === 'collaap' &&
               <View style={styles.ResponseInner}>
-                <Text style={styles.WelcomeText}>Welcome to Collaap</Text>
-                <Text style={styles.InstructionsText}>Login only with your username</Text>
+                <Text style={styles.WelcomeText}>{this.props.first_name_redux}</Text>
+                <Text style={styles.InstructionsText}>You are logged in as {this.state.username}</Text>
               </View>}
 
             {this.props.session_status === 'obtained' &&
@@ -114,10 +120,11 @@ class Profile extends Component{
             <Pressable onPress={() => this.props.onSaveProfile(this.state.username, this.state.icon_name)}>
               <View style={styles.SubmitButton}>
                 <Text style={styles.SubmitButtonText}>
-                  {this.props.session_status === 'awaiting' && "Login"}
+                  {this.props.session_status === null && "Login"}
                   {this.props.session_status === 'error' && "Login"}
                   {this.props.session_status === 'obtained' && "Update account"}
                   {this.props.session_status === 'clicked' && "Update account"}
+                  {this.props.session_status === 'collaap' && "Update account"}
                 </Text>
               </View>
             </Pressable>
