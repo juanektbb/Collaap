@@ -14,22 +14,22 @@ session_token: null
 ``` 
 
 * `error` - An error happened, like wrong password or unable to load keychain details
-`
+```
 session_error: response['msg'],
 session_token: null
-`
+```
 
 * `loading` -  The application is making a request
-`
+```
 session_error: null
 session_token: null
-`
+```
 
 ###### SUCCESS Force Status: forced_status 
-`
+```
 session_error: null
 session_token: 'Token String'
-`
+```
 
 * `obtained` - User was logged in automatically when app loaded
 * `clicked` - User click to log in
