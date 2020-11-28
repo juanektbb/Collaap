@@ -1,12 +1,12 @@
 # COLLAAP
 
-### SESSION CONFIG
+## SESSION CONFIG
 There are 3 variables to look at:
 * session_status: STRING or NULL,
 * session_error: STRING or NULL,
 * session_token: STRING or NULL
 
-##### SESSION_STATUS VALUES
+### SESSION_STATUS VALUES
 * `session_status: null` - User has not logged in yet
 ```
 session_error: null
@@ -25,7 +25,7 @@ session_error: null
 session_token: null
 ```
 
-###### SUCCESS Force Status: `session_status: forced_status` 
+#### Success cases: `session_status: forced_status` 
 ```
 session_error: null
 session_token: 'Token String'
