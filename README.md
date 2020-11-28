@@ -1,12 +1,12 @@
 
 
-# SESSION CONFIG
+### SESSION CONFIG
 There are 3 variables to look at:
     - session_status: STRING or NULL,
     - session_error: STRING or NULL,
     - session_token: STRING or NULL
 
-### SESSION_STATUS VALUES
+##### SESSION_STATUS VALUES
     * null - User has not logged in yet
         session_error: null
         session_token: null
