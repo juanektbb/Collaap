@@ -10,8 +10,8 @@ import {
   TouchableOpacity
 } from 'react-native'
 
-import helpers from 'Collaap/src/helpers.js'
 import colors from 'Collaap/src/data/colors.js'
+import helpers from 'Collaap/src/shared/helpers.js'
 import DateTimePicker from '@react-native-community/datetimepicker'
 
 class OptionTime extends Component{

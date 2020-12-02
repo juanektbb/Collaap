@@ -2,8 +2,8 @@ import AsyncStorage from '@react-native-community/async-storage'
 import * as Keychain from 'react-native-keychain'
 import { store } from 'Collaap/src/redux/store'
 
-import helpers from 'Collaap/src/helpers.js'
 import settings from 'Collaap/src/settings.js'
+import helpers from 'Collaap/src/shared/helpers.js'
 
 import CollaapsController from './CollaapsController'
 import CalendarController from './CalendarController'

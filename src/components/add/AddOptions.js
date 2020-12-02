@@ -12,8 +12,8 @@ import {
 
 import { connect } from 'react-redux'
 
-import helpers from 'Collaap/src/helpers.js'
 import colors from 'Collaap/src/data/colors.js'
+import helpers from 'Collaap/src/shared/helpers.js'
 
 import OptionDate from 'Collaap/src/components/add_features/OptionDate'
 import OptionTime from 'Collaap/src/components/add_features/OptionTime'

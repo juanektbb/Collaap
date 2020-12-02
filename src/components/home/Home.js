@@ -14,8 +14,8 @@ import {
 import { connect } from 'react-redux'
 import { SocketContext } from 'Collaap/src/auto/SocketContext.js';
 
-import helpers from 'Collaap/src/helpers.js'
 import colors from 'Collaap/src/data/colors.js'
+import helpers from 'Collaap/src/shared/helpers.js'
 import categories from 'Collaap/src/data/categories.js'
 
 import Loading from 'Collaap/src/components/general/Loading'
