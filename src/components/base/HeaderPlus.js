@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import {
   View,
   Text,
-  StyleSheet,
-  Pressable
+  Pressable,
+  StyleSheet
 } from 'react-native';
 
 import colors from 'Collaap/src/data/colors.js'

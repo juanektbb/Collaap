@@ -38,8 +38,7 @@ class Element extends Component{
       return "All day"
 
     }else{
-      const to_time = new Date(time)
-      return "Time: " + to_time.getHours() + ":" + to_time.getMinutes()
+      return "Time: " + helpers.convertToReadableTime(new Date(time))
     }
   }
 

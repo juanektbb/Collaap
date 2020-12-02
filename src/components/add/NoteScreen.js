@@ -18,7 +18,7 @@ import Loading from 'Collaap/src/components/general/Loading'
 import NoteController from 'Collaap/src/utils/NoteController'
 import { withSafeAreaInsets } from 'react-native-safe-area-context'
 
-import { SocketContext } from 'Collaap/src/SocketContext.js';
+import { SocketContext } from 'Collaap/src/auto/SocketContext.js';
 
 class NoteScreen extends Component{
 
@@ -36,12 +36,13 @@ class NoteScreen extends Component{
         content: "",
         list_stuff: [],
         array_collaboratos: [],
-        is_everyday: false,     //Priority 1
-        start_date: new Date(), //Priority 2
-        use_secondary: null,    //Priority 3 (null, date, time)
-        end_date: new Date(),   //Priority 4
-        time: new Date(),       //Priority 4 too
+        is_everyday: false,                           //Priority 1
+        start_date: new Date(),                       //Priority 2
+        use_secondary: null,                          //Priority 3 (null, date, time)
+        end_date: this.get_minimun_date(new Date()),  //Priority 4
+        time: new Date(),                             //Priority 4 too
       },
+      min_end_date: null,
       loading: false,
       error: false,
       error_msg: "",
@@ -59,13 +60,13 @@ class NoteScreen extends Component{
     }))
 
     if(text !== ""){
-      this.props.navigation.setOptions({ title: text })
+      this.props.navigation.setOptions({ title: this.modify_screen_title(text) })
       this.setState({
         error: false,
         error_msg: ""
       })
     }else{
-      this.props.navigation.setOptions({ title: "Untitled Item" })
+      this.props.navigation.setOptions({ title: "Untitled Note" })
     }
   }
 
@@ -91,11 +92,21 @@ class NoteScreen extends Component{
 
   //Item 4: Change start date
   apply_start_date = (timestamp) => {
+    let to_start_date = new Date(timestamp)
+    let to_min_end_date = this.get_minimun_date(to_start_date)
+    let to_end_date = null
+
+    if(this.state.item.end_date < to_min_end_date){
+      to_end_date = to_min_end_date
+    }
+
     this.setState(prevState => ({
       item: {
         ...prevState.item,
-        start_date: new Date(timestamp)
-      }
+        start_date: to_start_date,
+        end_date: (to_end_date !== null) ? to_end_date : this.state.item.end_date
+      },
+      min_end_date: to_min_end_date
     }))
   }
 
@@ -159,6 +170,45 @@ class NoteScreen extends Component{
         content: text
       }
     }))
+  }
+
+  modify_screen_title = (title) => {
+    if(title.length <= 27)
+      return title
+    else
+      return title.substr(0, 24) + "..."
+  }
+
+  //FIND THE MINIMUN DATE FOR END_DATE
+  get_minimun_date = (on_start) => {
+    if(on_start === null)
+      return null
+
+    var plus_date = new Date(on_start)
+    plus_date.setDate(plus_date.getDate() + 1);
+
+    return plus_date
+  }
+
+  //FIND THE APPROPIATE DATE, WHEN NOTE EXISTS
+  compute_start_date = (is_everyday, start_date) => {
+    return is_everyday ? new Date() : new Date(start_date)
+  }
+
+  //FIND THE APPROPIATE DATE, WHEN NOTE EXISTS
+  compute_end_date = (is_everyday, start_date, end_date) => {
+    //If it is everyday, populate with day after
+    if(is_everyday){ 
+      return this.get_minimun_date(new Date())
+
+    //If end day exists, provide it
+    }else if(end_date !== null){
+      return new Date(end_date)
+    
+    //If it is only one day, provide its next day
+    }else{ 
+      return this.get_minimun_date(new Date(start_date))
+    }
   }
 
   loadResponseError = (msg) => {
@@ -234,7 +284,7 @@ class NoteScreen extends Component{
   componentDidMount(){
     if(this.props.route.params !== undefined){
 
-      //This screen is for updating
+      //THIS SCREEN IS FOR UPDATING
       const { item } = this.props.route.params
       if(item !== undefined){
 
@@ -248,15 +298,25 @@ class NoteScreen extends Component{
             category: item.category,
             array_collaboratos: item.collaborators,
             is_everyday: item.is_everyday,
-            start_date: item.is_everyday ? new Date() : new Date(item.start_date),
+            start_date: this.compute_start_date(item.is_everyday, item.start_date),
             use_secondary: item.use_secondary,
-            end_date: item.is_everyday ? new Date() : new Date(item.end_date),
-            time: item.is_everyday ? new Date() : new Date(item.time)
-          }
-        }))
+            
+            //If it is everyday or null, create as next day 
+            end_date: this.compute_end_date(item.is_everyday, item.start_date, item.end_date),
 
+
+            time: item.is_everyday ? new Date() : new Date(item.time)
+          },
+
+          //Compute the minimun end date
+          min_end_date: this.get_minimun_date(
+            this.compute_start_date(item.is_everyday, item.start_date)
+          )
+        }))
+        
+        //Set the title 
         this.props.navigation.setOptions({
-          title: item.title
+          title: this.modify_screen_title(item.title)
         })
       }
 
@@ -266,13 +326,22 @@ class NoteScreen extends Component{
         this.setState({
           item: {
             ...this.state.item,
-            start_date: new Date(open_date)
+            start_date: new Date(open_date),
+            end_date: this.get_minimun_date(new Date(open_date))
           },
+          min_end_date: this.get_minimun_date(new Date(open_date))
         })
       }
 
+    //SET MINIMUN END DATE IN STATE
+    }else{
+      this.setState({
+        min_end_date: this.get_minimun_date(this.state.item.start_date)
+      })
     }
   }
+
+
 
   render(){
     return(<>
@@ -331,7 +400,8 @@ class NoteScreen extends Component{
             apply_end_date={this.apply_end_date}
             apply_time={this.apply_time}
             change_use_secondary={this.change_use_secondary}
-            onChangeEveryday={this.onChangeEveryday}/>
+            onChangeEveryday={this.onChangeEveryday}
+            min_end_date={this.state.min_end_date}/>
 
           <TouchableOpacity onPress={this.submitItem} style={styles.SubmitButton}>
             <Text style={styles.SubmitButtonText}>

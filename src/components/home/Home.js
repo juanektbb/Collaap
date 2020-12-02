@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 
 import { connect } from 'react-redux'
-import { SocketContext } from 'Collaap/src/SocketContext.js';
+import { SocketContext } from 'Collaap/src/auto/SocketContext.js';
 
 import helpers from 'Collaap/src/helpers.js'
 import colors from 'Collaap/src/data/colors.js'
@@ -25,7 +25,8 @@ import PrimaryCalendar from 'Collaap/src/components/home/PrimaryCalendar'
 
 import NoteController from 'Collaap/src/utils/NoteController'
 
-import { promise_calendar_refresher } from 'Collaap/src/config/auto/refresh_calendar.js'
+import { promise_calendar_refresher } from 'Collaap/src/auto/refreshers/refresh_calendar.js'
+import { promise_collaaps_refresher } from 'Collaap/src/auto/refreshers/refresh_collaaps.js'
 
 function mapStateToProps(state){
   return {
@@ -109,14 +110,17 @@ class Home extends Component{
   */
   _onRefresh = () => {
     this.setState({ refreshing: true })
-    
-    promise_calendar_refresher().then((res) => {
-      this.setState({
-        refreshing: false,
-        refresh_msg: res ? "New content updated" : "Already up to date"
-      })
 
-      setTimeout(() => this.setState({ refresh_msg: false }), 3500)
+    //Force the refresh of calendar and collaaps
+    promise_calendar_refresher().then((res_1) => {
+        promise_collaaps_refresher().then((res_2) => {
+            this.setState({
+              refreshing: false,
+              refresh_msg: res_1 || res_2 ? "New content updated" : "Already up to date"
+            })
+
+            setTimeout(() => this.setState({ refresh_msg: false }), 3500)     
+        })
     })
   }
 

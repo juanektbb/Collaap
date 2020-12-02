@@ -5,9 +5,8 @@
  */
 
 import React, { createContext, useState, useEffect } from 'react'
-import {
-    Platform
-} from 'react-native'
+import { Platform } from 'react-native'
+
 import io from 'socket.io-client'
 import settings from 'Collaap/src/settings.js'
 import { store } from 'Collaap/src/redux/store.js'
@@ -49,10 +48,8 @@ export default ({ children }) => {
         socket.emit("auto_reload_collaaps_calendars", arr_collaaps_and_me)
     }
 
-
     //...
     
-
     //Verbose: Socket is not defined, then create it
     if(!socket){
         //Verbose: Token must be something valid
@@ -85,9 +82,7 @@ export default ({ children }) => {
                 })
             })
 
-
             // ...
-
 
             //Load available for global usage
             context_load = {

@@ -61,7 +61,6 @@ class NoteController{
     }
 
     const response = await fetch(`${settings['API_URL']}/elements`, details)
-    const data = await response.json()
 
     //Time to check if the user's token is still valid, or needs to persits it 
     const is_dynamically_persisted = await user_persist(first_call, response['status'], this.SaveNote)
@@ -70,7 +69,7 @@ class NoteController{
     if(is_dynamically_persisted){
       return is_dynamically_persisted
     }else{
-      return data
+      return await response.json()
     }
   }
 
@@ -91,7 +90,6 @@ class NoteController{
     }
 
     const response = await fetch(`${settings['API_URL']}/elements/${item_id}`, details)
-    const data = await response.json()
 
     //Time to check if the user's token is still valid, or needs to persits it 
     const is_dynamically_persisted = await user_persist(first_call, response['status'], this.UpdateNote, { id: item_id })
@@ -100,7 +98,7 @@ class NoteController{
     if(is_dynamically_persisted){
       return is_dynamically_persisted
     }else{
-      return data
+      return await response.json()
     }
   }
 
@@ -119,7 +117,6 @@ class NoteController{
     }
 
     const response = await fetch(`${settings['API_URL']}/elements/${item_id}`, details)
-    const data = await response.json()
 
     //Time to check if the user's token is still valid, or needs to persits it 
     const is_dynamically_persisted = await user_persist(first_call, response['status'], this.DeleteNote, { id: item_id })
@@ -128,7 +125,7 @@ class NoteController{
     if(is_dynamically_persisted){
       return is_dynamically_persisted
     }else{
-      return data
+      return await response.json()
     }
   }
 
@@ -147,7 +144,6 @@ class NoteController{
     }
 
     const response = await fetch(`${settings['API_URL']}/elements/${item_id}/myself`, details)
-    const data = await response.json()
 
     //Time to check if the user's token is still valid, or needs to persits it 
     const is_dynamically_persisted = await user_persist(first_call, response['status'], this.DeleteMeFromCollaaps, { id: item_id })
@@ -156,7 +152,7 @@ class NoteController{
     if(is_dynamically_persisted){
       return is_dynamically_persisted
     }else{
-      return data
+      return await response.json()
     }
   }
 

@@ -5,7 +5,7 @@ import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
 import { store, persistor } from './src/redux/store'
 
-import SocketProvider, { SocketContext } from 'Collaap/src/SocketContext.js'
+import SocketProvider, { SocketContext } from 'Collaap/src/auto/SocketContext.js'
 
 import {
   setCustomText,

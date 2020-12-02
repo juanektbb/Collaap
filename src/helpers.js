@@ -21,7 +21,8 @@ const helpers = {
 
   convertToReadableTime: (time) => {
     const hours = time.getHours() < 10 ? "0" + time.getHours() : time.getHours()
-    return hours + ":" + time.getMinutes()
+    const mins = time.getMinutes() < 10 ? "0" + time.getMinutes() : time.getMinutes()
+    return hours + ":" + mins
   },
 
   getColorByCategory: (category) => {

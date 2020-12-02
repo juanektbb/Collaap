@@ -2,7 +2,7 @@ const _ = require('lodash')
 import CollaapsController from 'Collaap/src/utils/CollaapsController'
 import { store } from 'Collaap/src/redux/store.js'
 
-store.subscribe(listener)
+let unsubscribe = store.subscribe(listener)
 let in_redux_collaaps = []
 
 function select(state){
@@ -24,15 +24,18 @@ const dispatcher = (new_collaaps) => {
 }
 
 // MAIN REFRESHER
-const refresher = async () => {
+const main_refresher = async () => {
     const collaapsController = new CollaapsController()
-    const data = await collaapsController.FecthCollaaps()
+    const data = await collaapsController.SimpleFecthCollaaps()
 
 	// Compare both json and check if they are different
-    const are_calendar_equal = _.isEqual(data['data'], in_redux_collaaps)
+    const are_collaaps_equal = _.isEqual(data['data'], in_redux_collaaps)
+
+	//Unsubscribe the store
+	unsubscribe()
 
 	// Load data in store with dispatch
-    if(!are_calendar_equal){
+    if(!are_collaaps_equal){
       	dispatcher(data['data'])
         return true
     }
@@ -40,4 +43,11 @@ const refresher = async () => {
     return false
 }
 
-export { refresher as collaaps_refresher }
+// THIS IS THE SAME FUNCTION BUT AS A PROMISE TO HANDLE RefreshControl
+const promise_collaaps_refresher = () => {
+	return new Promise(function(resolve){
+        resolve(main_refresher())
+	})
+}
+
+export { main_refresher as collaaps_refresher, promise_collaaps_refresher }

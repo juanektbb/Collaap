@@ -1,9 +1,5 @@
 import React from 'react'
-import { createStackNavigator } from '@react-navigation/stack'
-
-import {
-  Platform
-} from 'react-native'
+import { Platform } from 'react-native'
 
 import Header from 'Collaap/src/components/base/Header'
 import HeaderPlus from 'Collaap/src/components/base/HeaderPlus'
@@ -11,19 +7,28 @@ import Home from 'Collaap/src/components/home/Home'
 import NewScreen from 'Collaap/src/components/add/NewScreen'
 import NoteScreen from 'Collaap/src/components/add/NoteScreen'
 
+import { createStackNavigator } from '@react-navigation/stack'
 const Stack = createStackNavigator()
 
 const HomeStack = () => {
   return(
-    <Stack.Navigator screenOptions={{headerShown: true}}>
+    <Stack.Navigator
+      screenOptions={{ 
+        headerStyle: { 
+          elevation: 0,
+          borderBottomWidth: 1,
+          backgroundColor: "#f8f8f8",
+          borderBottomColor: "#ddd"
+        } 
+      }}>
+
       <Stack.Screen
         name="Home"
         component={Home}
         options={({ navigation, route }) => ({
-          headerTitle: props => <Header {...props} plus={true} navigation={navigation} />,
-          headerRight: props => {
-            return Platform.OS == "ios" && <HeaderPlus navigation={navigation} />
-          }
+          headerTitle: props => <Header {...props}   />,
+          headerRight: props => <HeaderPlus navigation={navigation} />,
+          headerTitleAlign: 'center'
         })}
       />
 
@@ -31,7 +36,9 @@ const HomeStack = () => {
         name="NewScreen"
         component={NewScreen}
         options={{
-          title: "New Item"
+          title: "New Note",
+          headerBackTitle: "Back",
+          headerTruncatedBackTitle: "Back"
         }}
       />
 
@@ -39,9 +46,12 @@ const HomeStack = () => {
         name="NewItemScreen"
         component={NoteScreen}
         options={{
-          title: "Untitled Item"
+          title: "Untitled Note",
+          headerBackTitle: "Back",
+          headerTruncatedBackTitle: "Back"
         }}
       />
+      
     </Stack.Navigator>
   )
 }

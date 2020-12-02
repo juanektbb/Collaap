@@ -5,6 +5,7 @@ import {
   Image,
   Switch,
   FlatList,
+  ScrollView,
   StyleSheet,
   TouchableOpacity,
 } from 'react-native'
@@ -14,7 +15,8 @@ import { connect } from 'react-redux'
 import helpers from 'Collaap/src/helpers.js'
 import colors from 'Collaap/src/data/colors.js'
 
-import DateOption from 'Collaap/src/components/add/DateOption'
+import OptionDate from 'Collaap/src/components/add_features/OptionDate'
+import OptionTime from 'Collaap/src/components/add_features/OptionTime'
 import ModalCustom from 'Collaap/src/components/general/ModalCustom'
 
 function mapStateToProps(state){
@@ -57,79 +59,91 @@ class AddOptions extends Component{
           <Image style={styles.OptionsImage} source={require('Collaap/src/images/reminder.png')}/>
         </TouchableOpacity>
 
-        <ModalCustom is_open={this.state.is_collaborators_open} toggle_modal={this.toggle_collaborators} title="Who should be notified?">
+        <ModalCustom 
+          is_open={this.state.is_collaborators_open} 
+          toggle_modal={this.toggle_collaborators} 
+          title="Choose your collaaps?">
           <FlatList
             keyExtractor={(item) => item.username}
             data={this.props.collaaps}
             renderItem={({item}) =>
-              
               <View style={styles.SingleCollaborator}>
+
                 {this.props.item_user_id !== item._id ?
-                <Switch
-                  trackColor={{ false: "#ccc", true: colors.softcalltoaction }}
-                  thumbColor={this.props.item.array_collaboratos.includes(item._id) ? colors.calltoaction : "#fbfbfb"}
-                  value={this.props.item.array_collaboratos.includes(item._id)}
-                  style={styles.bbb}
-                  onValueChange={() => this.props.toggle_array_collaborators(item._id)}/> 
-                :
-                <View style={styles.OwnerBox}>
-                  <Text style={styles.Owner}>Owner</Text>
-                </View>}
+                  <Switch
+                    trackColor={{ false: "#ccc", true: colors.softcalltoaction }}
+                    thumbColor={this.props.item.array_collaboratos.includes(item._id) ? colors.calltoaction : "#fbfbfb"}
+                    value={this.props.item.array_collaboratos.includes(item._id)}
+                    onValueChange={() => this.props.toggle_array_collaborators(item._id)}
+                  /> 
+                  :
+                  <View style={styles.OwnerBox}>
+                    <Text style={styles.Owner}>Owner</Text>
+                  </View>}
 
                 <Image
                   source={helpers.getIconByName(item.icon)}
-                  style={styles.CollaboratorImage}/>
+                  style={styles.CollaboratorImage}
+                />
 
                 <Text>{item.first_name} {item.last_name}</Text>
               </View>}
           />
         </ModalCustom>
 
-        <ModalCustom is_open={this.state.is_reminder_open} toggle_modal={this.toggle_reminder} title="Choose a date and/or time">
-          <View style={[styles.DatesContainer, this.props.item.is_everyday ? styles.OpacityActive : null]}>
-            <DateOption
-              display_date={this.props.item.start_date}
-              apply_change={this.props.apply_start_date}
-              mode="date"
-              title="Date"
-              icon={require('Collaap/src/images/icon-date.png')}
-              readable_function={helpers.convertToReadableDate}
-              switcher={false}
-              switcher_value={true}/>
+        <ModalCustom 
+          is_open={this.state.is_reminder_open} 
+          toggle_modal={this.toggle_reminder} 
+          title="Choose a date and/or time">
+          <ScrollView 
+            style={{flex: 1}} 
+            showsVerticalScrollIndicator={false}>
+            <View style={styles.DatesContainer}>
+              <OptionDate
+                title="Date"
+                display_date={this.props.item.start_date}
+                apply_change={this.props.apply_start_date}
+                is_everyday={this.props.item.is_everyday}
+                switcher={false}
+                switcher_value={true}
+                min_date={null}
+              />
 
-            <DateOption
-              display_date={this.props.item.end_date}
-              apply_change={this.props.apply_end_date}
-              mode="date"
-              title="End date"
-              icon={require('Collaap/src/images/icon-date.png')}
-              readable_function={helpers.convertToReadableDate}
-              switcher={true}
-              switcher_value={this.props.item.use_secondary === 'date' ? true : false}
-              on_switcher_change={this.props.change_use_secondary}/>
+              <OptionDate
+                title="End date"
+                display_date={this.props.item.end_date}
+                apply_change={this.props.apply_end_date}
+                is_everyday={this.props.item.is_everyday}
+                switcher={true}
+                switcher_value={this.props.item.use_secondary === 'date' ? true : false}
+                on_switcher_change={this.props.change_use_secondary}
+                min_date={this.props.min_end_date}
+              />
 
-            <DateOption
-              display_date={this.props.item.time}
-              apply_change={this.props.apply_time}
-              mode="time"
-              title="Time"
-              icon={require('Collaap/src/images/icon-time.png')}
-              readable_function={helpers.convertToReadableTime}
-              switcher={true}
-              switcher_value={this.props.item.use_secondary === 'time' ? true : false}
-              on_switcher_change={this.props.change_use_secondary}/>
-          </View>
+              <OptionTime
+                display_date={this.props.item.time}
+                apply_change={this.props.apply_time}
+                is_everyday={this.props.item.is_everyday}
+                switcher={true}
+                switcher_value={this.props.item.use_secondary === 'time' ? true : false}
+                on_switcher_change={this.props.change_use_secondary}
+              />
+            </View>
 
-          <View style={styles.OrContainer}>
-            <Text style={styles.OrText}>Or</Text>
-          </View>
+            <View style={styles.OrContainer}>
+              <Text style={styles.OrText}>Or</Text>
+            </View>
 
-          <View style={styles.EverydayContainer}>
-            <Switch
-              value={this.props.item.is_everyday ? true : false}
-              onValueChange={() => this.props.onChangeEveryday()}/>
-            <Text style={styles.EverydayText}>Everyday</Text>
-          </View>
+            <View style={styles.EverydayContainer}>
+              <Text style={styles.EverydayText}>Everyday</Text>
+              <Switch
+                trackColor={{ false: "#ccc", true: colors.softcalltoaction }}
+                thumbColor={this.props.item.is_everyday ? colors.calltoaction : "#fbfbfb"}
+                value={this.props.item.is_everyday ? true : false}
+                onValueChange={() => this.props.onChangeEveryday()}
+              />
+            </View>
+          </ScrollView>
         </ModalCustom>
       </View>
     )
@@ -194,13 +208,14 @@ const styles = StyleSheet.create({
     fontSize: 16
   },
   EverydayContainer: {
-    flex: 1,
-    flexDirection: "row",
+    height: 120,
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   EverydayText: {
-    fontSize: 14
+    fontSize: 16,
+    color: "#ddd",
+    marginBottom: 6
   },
   OpacityActive: {
     opacity: 0.1

@@ -6,7 +6,7 @@ import helpers from 'Collaap/src/helpers.js'
 import settings from 'Collaap/src/settings.js'
 
 import CollaapsController from './CollaapsController'
-import ElementsController from './ElementsController'
+import CalendarController from './CalendarController'
 
 class LoginController{
 
@@ -171,10 +171,10 @@ class LoginController{
   //LOAD MORE DATA FROM SERVER
   Loaders = async (session_token) => {
     const collaapsController = new CollaapsController()
-    await collaapsController.LoadCollaaps()
+    await collaapsController.BuildCollaaps()
 
-    const elementsController = new ElementsController()
-    await elementsController.RetrieveCalendar()
+    const calendarController = new CalendarController()
+    await calendarController.BuildCalendar()
   }
 
 }

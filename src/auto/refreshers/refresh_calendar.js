@@ -1,5 +1,5 @@
 const _ = require('lodash')
-import ElementsController from 'Collaap/src/utils/ElementsController'
+import CalendarController from 'Collaap/src/utils/CalendarController'
 import { store } from 'Collaap/src/redux/store.js'
 
 let unsubscribe = store.subscribe(listener)
@@ -13,8 +13,6 @@ function listener(){
   	in_redux_calendar = select(store.getState())
 }
 
-unsubscribe()
-
 // Dispatcher in store to load new calendar
 const dispatcher = (new_calendar) => {
   	store.dispatch({
@@ -27,11 +25,14 @@ const dispatcher = (new_calendar) => {
 
 // MAIN REFRESHER
 const main_refresher = async () => {
-    const elementsController = new ElementsController()
-    const data = await elementsController.SimpleRetriveCalendar()
+    const calendarController = new CalendarController()
+    const data = await calendarController.SimpleFetchCalendar()
 
 	// Compare both json and check if they are different
     const are_calendar_equal = _.isEqual(data, in_redux_calendar)
+
+	//Unsubscribe the store
+	unsubscribe()
 
 	// Load data in store with dispatch
     if(!are_calendar_equal){
@@ -45,12 +46,7 @@ const main_refresher = async () => {
 // THIS IS THE SAME FUNCTION BUT AS A PROMISE TO HANDLE RefreshControl
 const promise_calendar_refresher = () => {
 	return new Promise(function(resolve){
-
-		//This 1s delay causes a lovely effect on the loader for the user experience <3
-		setTimeout(() => 
-			resolve(main_refresher()),
-		1000)
-
+		resolve(main_refresher())
 	})
 }
 
