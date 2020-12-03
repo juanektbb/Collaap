@@ -12,9 +12,9 @@ import {
 import colors from 'Collaap/src/data/colors.js'
 import categories from 'Collaap/src/data/categories.js'
 
-import ModalCustom from 'Collaap/src/components/general/ModalCustom'
+import ModalCustom from 'Collaap/src/components/General/ModalCustom'
 
-class AddHeader extends Component{
+class NoteHeader extends Component{
 
   state = {
     is_open: false
@@ -35,7 +35,7 @@ class AddHeader extends Component{
 
   render(){
     return(
-      <View style={styles.AddHeader}>
+      <View style={styles.NoteHeader}>
         <TextInput
           maxLength={45}
           placeholder="Title"
@@ -73,7 +73,7 @@ class AddHeader extends Component{
 }
 
 const styles = StyleSheet.create({
-  AddHeader: {
+  NoteHeader: {
     flexDirection: "row"
   },
   Title: {
@@ -121,4 +121,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default AddHeader
+export default NoteHeader

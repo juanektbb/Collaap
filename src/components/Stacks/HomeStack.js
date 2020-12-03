@@ -1,11 +1,11 @@
 import React from 'react'
 import { Platform } from 'react-native'
 
-import Header from 'Collaap/src/components/base/Header'
-import HeaderPlus from 'Collaap/src/components/base/HeaderPlus'
-import Home from 'Collaap/src/components/home/Home'
-import NewScreen from 'Collaap/src/components/add/NewScreen'
-import NoteScreen from 'Collaap/src/components/add/NoteScreen'
+import Header from 'Collaap/src/components/Base/Header'
+import HeaderPlus from 'Collaap/src/components/Base/HeaderPlus'
+import HomeScreen from 'Collaap/src/components/HomeScreen/HomeScreen'
+import NewScreen from 'Collaap/src/components/NewScreen/NewScreen'
+import NoteScreen from 'Collaap/src/components/NoteScreen/NoteScreen'
 
 import { createStackNavigator } from '@react-navigation/stack'
 const Stack = createStackNavigator()
@@ -24,7 +24,7 @@ const HomeStack = () => {
 
       <Stack.Screen
         name="Home"
-        component={Home}
+        component={HomeScreen}
         options={({ navigation, route }) => ({
           headerTitle: props => <Header {...props}   />,
           headerRight: props => <HeaderPlus navigation={navigation} />,

@@ -6,7 +6,7 @@ import {
 } from 'react-native'
 
 import { connect } from 'react-redux'
-import PrimaryCalendarItem from './PrimaryCalendarItem'
+import PrimaryCalendarElement from './PrimaryCalendarElement'
 
 function mapStateToProps(state){
   return{
@@ -24,7 +24,7 @@ const PrimaryCalendar = (props) => {
       ItemSeparatorComponent={() =>
         <View style={styles.Separator} />}
       renderItem={({item}) =>
-        <PrimaryCalendarItem
+        <PrimaryCalendarElement
           item={props.calendar[item]}
           clickOnCalendarCell={props.clickOnCalendarCell}
           isActive={props.calendar[item].key === props.onThisDate}

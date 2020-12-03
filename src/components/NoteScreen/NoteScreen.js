@@ -12,9 +12,9 @@ import {
 
 import colors from 'Collaap/src/data/colors.js'
 
-import AddHeader from './AddHeader.js'
-import AddOptions from './AddOptions.js'
-import Loading from 'Collaap/src/components/general/Loading'
+import NoteHeader from 'Collaap/src/components/NoteScreen/NoteHeader.js'
+import NoteOptions from 'Collaap/src/components/NoteScreen/NoteOptions.js'
+import Loading from 'Collaap/src/components/General/Loading'
 import NoteController from 'Collaap/src/utils/NoteController'
 import { withSafeAreaInsets } from 'react-native-safe-area-context'
 
@@ -356,7 +356,7 @@ class NoteScreen extends Component{
               <Text style={styles.ErrorMsg}>{this.state.error_msg}</Text>
             </View>}
 
-          <AddHeader
+          <NoteHeader
             item={this.state.item}
             onChangeTitle={this.onChangeTitle}
             onChangeCategory={this.onChangeCategory}/>
@@ -392,7 +392,7 @@ class NoteScreen extends Component{
 
 
 
-          <AddOptions
+          <NoteOptions
             item={this.state.item}
             item_user_id={this.state.item_user_id}
             toggle_array_collaborators={this.toggle_array_collaborators}

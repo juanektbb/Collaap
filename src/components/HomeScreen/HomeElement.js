@@ -23,7 +23,7 @@ function mapStateToProps(state){
   }
 }
 
-class Element extends Component{
+class HomeElement extends Component{
 
   state = {
     on_delete: false,
@@ -257,4 +257,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default connect(mapStateToProps)(Element)
+export default connect(mapStateToProps)(HomeElement)

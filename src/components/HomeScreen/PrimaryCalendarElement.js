@@ -11,7 +11,7 @@ import {
 import colors from 'Collaap/src/data/colors.js'
 import helpers from 'Collaap/src/shared/helpers.js'
 
-class PrimaryCalendarItem extends Component{
+class PrimaryCalendarElement extends Component{
 
   constructor(props){
     super(props)
@@ -134,4 +134,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default PrimaryCalendarItem
+export default PrimaryCalendarElement

@@ -4,9 +4,9 @@ import { connect } from 'react-redux'
 import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
-import NavBarIcon from 'Collaap/src/components/base/NavBarIcon'
-import HomeStack from 'Collaap/src/components/home/HomeStack'
-import ProfileStack from 'Collaap/src/components/profile/ProfileStack'
+import NavBarIcon from 'Collaap/src/components/Base/NavBarIcon'
+import HomeStack from 'Collaap/src/components/Stacks/HomeStack'
+import ProfileStack from 'Collaap/src/components/Stacks/ProfileStack'
 
 const Tabs = createBottomTabNavigator()
 

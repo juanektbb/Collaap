@@ -18,10 +18,10 @@ import colors from 'Collaap/src/data/colors.js'
 import helpers from 'Collaap/src/shared/helpers.js'
 import categories from 'Collaap/src/data/categories.js'
 
-import Loading from 'Collaap/src/components/general/Loading'
-import Separator from 'Collaap/src/components/general/Separator'
-import Element from 'Collaap/src/components/home/Element'
-import PrimaryCalendar from 'Collaap/src/components/home/PrimaryCalendar'
+import Loading from 'Collaap/src/components/General/Loading'
+import Separator from 'Collaap/src/components/General/Separator'
+import HomeElement from 'Collaap/src/components/HomeScreen/HomeElement'
+import PrimaryCalendar from 'Collaap/src/components/HomeScreen/PrimaryCalendar'
 
 import NoteController from 'Collaap/src/utils/NoteController'
 
@@ -175,7 +175,7 @@ class Home extends Component{
           ItemSeparatorComponent={() =>
             <View style={styles.Separator}></View>}
           renderItem={({item}) =>
-            <Element
+            <HomeElement
               item={item}
               icon={categories[item.category].icon}
               deleteThisItem={this.deleteThisItem}

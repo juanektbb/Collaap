@@ -15,9 +15,9 @@ import { connect } from 'react-redux'
 import colors from 'Collaap/src/data/colors.js'
 import helpers from 'Collaap/src/shared/helpers.js'
 
-import OptionDate from 'Collaap/src/components/add_features/OptionDate'
-import OptionTime from 'Collaap/src/components/add_features/OptionTime'
-import ModalCustom from 'Collaap/src/components/general/ModalCustom'
+import OptionDate from 'Collaap/src/components/NoteScreen/Options/OptionDate'
+import OptionTime from 'Collaap/src/components/NoteScreen/Options/OptionTime'
+import ModalCustom from 'Collaap/src/components/General/ModalCustom'
 
 function mapStateToProps(state){
   return {
@@ -25,7 +25,7 @@ function mapStateToProps(state){
   }
 }
 
-class AddOptions extends Component{
+class NoteOptions extends Component{
 
   state = {
     is_collaborators_open: false,
@@ -46,7 +46,7 @@ class AddOptions extends Component{
 
   render(){
     return(
-      <View style={styles.AddOptions}>
+      <View style={styles.NoteOptions}>
         <TouchableOpacity onPress={this.toggle_collaborators} style={styles.OptionsBox}>
           <Image style={styles.OptionsImage} source={require('Collaap/src/images/collaborator.png')}/>
 
@@ -151,7 +151,7 @@ class AddOptions extends Component{
 }
 
 const styles = StyleSheet.create({
-  AddOptions: {
+  NoteOptions: {
     height: 61,
     flexDirection: "row",
     alignItems: "center",
@@ -222,4 +222,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default connect(mapStateToProps)(AddOptions)
+export default connect(mapStateToProps)(NoteOptions)

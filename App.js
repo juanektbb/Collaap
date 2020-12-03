@@ -14,8 +14,8 @@ import {
 
 import { Platform } from 'react-native'
 
-import Loading from 'Collaap/src/components/general/Loading'
-import Navigation from 'Collaap/src/components/base/Navigation'
+import Loading from 'Collaap/src/components/General/Loading'
+import Navigation from 'Collaap/src/components/Base/Navigation'
 import LoginController from 'Collaap/src/utils/LoginController'
 
 const customTextProps = {
