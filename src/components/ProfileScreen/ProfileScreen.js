@@ -12,9 +12,6 @@ import {
   KeyboardAvoidingView
 } from 'react-native'
 
-
-import Trigger from './Trigger'
-
 import { connect } from 'react-redux'
 
 import characters from 'Collaap/src/data/characters.js'
@@ -129,8 +126,6 @@ class Profile extends Component{
               </View>
             </Pressable>
           </View>
-
-          <Trigger />
 
           <View style={{ flex : 1 }}/>
         </View>

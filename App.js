@@ -18,6 +18,8 @@ import Loading from 'Collaap/src/components/General/Loading'
 import Navigation from 'Collaap/src/components/Base/Navigation'
 import LoginController from 'Collaap/src/utils/LoginController'
 
+import PushNotifications from 'Collaap/src/config/PushNotifications'
+
 const customTextProps = {
   style: { fontFamily: 'HKGrotesk-Regular' }
 }
@@ -32,6 +34,8 @@ setCustomTextInput(customTextInputProps)
 class App extends Component{
 
   constructor(props){
+    console.log("APP STARTED")
+
     super(props)
     this.loginController = new LoginController()
 
@@ -54,6 +58,8 @@ class App extends Component{
   }
 
   async componentDidMount(){
+    console.log("APP MOUNTED")
+
     store.dispatch({
       type: "SET_SESSION_TOKEN",
       payload: {
@@ -63,6 +69,10 @@ class App extends Component{
     })
 
     this.loginController.ObtainSessionToken()
+  }
+
+  componentDidUpdate(){
+    console.log("APP UPDATED")
   }
 
   //TRIGGER BUTTON SAVING PROFILE
@@ -86,6 +96,7 @@ class App extends Component{
           <PersistGate
             loading={<Loading />}
             persistor={persistor}>
+            <PushNotifications />
             <Navigation onSaveProfile={this.onSaveProfile}/>
           </PersistGate>
         </SocketProvider>

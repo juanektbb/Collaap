@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import {
   View,
   Text,
@@ -11,7 +11,7 @@ import colors from 'Collaap/src/data/colors.js'
 class HeaderPlus extends Component{
 
   openNewScreen = () => {
-    this.props.navigation.navigate("NewScreen")
+    this.props.navigation.navigate('NewScreen')
   }
 
   render(){
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   Plus: {
     width: 46,
     flex: 1,
-    alignItems: "center",
+    alignItems: 'center',
     justifyContent: "center"
   },
   PlusText: {

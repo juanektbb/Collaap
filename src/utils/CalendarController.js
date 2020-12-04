@@ -1,10 +1,20 @@
 import AsyncStorage from '@react-native-community/async-storage'
-import user_persist from 'Collaap/src/shared/user_persist.js'
 
 import settings from 'Collaap/src/settings.js'
 import { store } from 'Collaap/src/redux/store'
 
 class CalendarController{
+
+  constructor(from_login = false){
+    this.from_login = from_login
+    this.user_persist = null
+
+    if(!from_login){
+      import('Collaap/src/shared/user_persist.js').then(({ user_persist }) => {
+        this.user_persist = user_persist
+      })
+    }
+  }
 
   /*
     BASIC CALENDAR FETCH
@@ -22,8 +32,13 @@ class CalendarController{
 
     const response = await fetch(`${settings['API_URL']}/elements`, details)
 
+    //Give the response if it comes from login
+    if(this.from_login){
+      return await response.json()
+    }
+
     //Time to check if the user's token is still valid, or needs to persits it 
-    const is_dynamically_persisted = await user_persist(first_call, response['status'], this.SimpleFetchCalendar)
+    const is_dynamically_persisted = await this.user_persist(first_call, response['status'], this.SimpleFetchCalendar)
 
     //Persist was necessary and return its contents
     if(is_dynamically_persisted){

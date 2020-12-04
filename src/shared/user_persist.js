@@ -1,6 +1,6 @@
 import LoginController from 'Collaap/src/utils/LoginController'
 
-export default async (is_first_call, response_code, method_to_rerun, options = null) => {
+const user_persist = async (is_first_call, response_code, method_to_rerun, options = null) => {
 
     //If it is the first call, and the server responds with wrong 
     if(is_first_call === true){
@@ -27,4 +27,8 @@ export default async (is_first_call, response_code, method_to_rerun, options = n
         return false
     }
 
+}
+
+export {
+    user_persist
 }

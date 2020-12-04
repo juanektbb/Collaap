@@ -5,20 +5,23 @@ import { Platform } from 'react-native'
 class LocalNotificationService{
 
     configure = (onOpenNotification) => {
-
         PushNotification.configure({
             onRegister: function(token){
-                console.log("[LNS] onRegister ", token)
+                console.log("[LNS] onRegister - Register token by LNS")
+                // console.log("Device: " + token.token)
             },
+
             onNotification: function (notification) {
-                console.log("[LNS] onNotification", notification)
+                console.log("[LNS] onNotification")
+
                 if(!notification?.data){
                     return
                 }
+                
                 notification.UserInteraction = true
                 onOpenNotification(Platform.OS === 'ios' ? notification.data.item : notification.data)
 
-                //called when a remote is received or opned, or local notification is opened
+                //When a remote is received or opened, also when local notification is opened
                 if(Platform.OS === 'ios'){
                     notification.finish(PushNotificationIOS.FetchResult.NoData)
                 }
@@ -46,27 +49,32 @@ class LocalNotificationService{
         })
     }
 
+    //Unregister the token and listeners
     unRegister = () => {
         PushNotification.unregister()
     }
 
+    //Notifications display
     showNotification = (id, title, message, data = {}, options = {}) => {
         PushNotification.localNotification({
-            //ANDROID ONLY PROPERTIES\
+            
+            //Android properties only
             ...this.buildAndroidNotification(id, title, message, data, options),
 
-            //Iios and android properties
+            //iOS and Android properties
             ...this.buildIOSNotification(id, title, message, data, options),
 
-            // IOS and android  properties
+            //iOS and Android properties
             title: title || "",
             message: message || "",
             playSound: options.playSound || false,
             soundName: options.soundName || "default",
-            userInteraction: false //BOOL if the notification was opened by the user from the notifications
+            userInteraction: false //BOOL, the notification was opened by the user from the notifications
+
         })
     }
 
+    //Android notifications layout
     buildAndroidNotification = (id, title, message, data = {}, options = {}) => {
         return {
             id: id,
@@ -78,11 +86,12 @@ class LocalNotificationService{
             vibrate: options.vibrate || true,
             vibration: options.vibration || 300,
             priority: options.priority || "high",
-            importance: options.importance || "high", //optional, set nofitication importance, default: high
+            importance: options.importance || "high", //Optional, set notification importance, default: high
             data: data
         }
     }
 
+    //iOS notifications layout
     buildIOSNotification = (id, title, message, data = {}, options = {}) => {
         return {
             alertAction: options.alertAction || "view",
@@ -94,6 +103,7 @@ class LocalNotificationService{
         }
     }
     
+    //Close all notifications in device
     cancelAllLocalNotifications = () => {
         if(Platform.OS === 'ios'){
             PushNotificationIOS.removeAllDeliveredNotifications()
@@ -102,8 +112,8 @@ class LocalNotificationService{
         }
     }
 
+    //Close all notifications in iOS
     removeAllDeliveredNotifications = (notificationId) => {
-        console.log("[LNS] removeDelieveredNotificationByID: ", notificationId)
         PushNotification.cancelAllLocalNotifications({ id: `${notificationId}` })
     }
 

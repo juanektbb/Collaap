@@ -7,6 +7,7 @@ import helpers from 'Collaap/src/shared/helpers.js'
 
 import CollaapsController from './CollaapsController'
 import CalendarController from './CalendarController'
+import FCMController from 'Collaap/src/utils/FCMController.js'
 
 class LoginController{
 
@@ -170,11 +171,15 @@ class LoginController{
 
   //LOAD MORE DATA FROM SERVER
   Loaders = async (session_token) => {
-    const collaapsController = new CollaapsController()
+    const collaapsController = new CollaapsController(from_login = true)
     await collaapsController.BuildCollaaps()
 
     const calendarController = new CalendarController()
     await calendarController.BuildCalendar()
+
+    const token = await AsyncStorage.getItem('fcm_token')
+    const fcmController = new FCMController()
+    await fcmController.PushToken(token)
   }
 
 }

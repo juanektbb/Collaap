@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-community/async-storage'
-import user_persist from 'Collaap/src/shared/user_persist.js'
+import { user_persist } from 'Collaap/src/shared/user_persist.js'
 import settings from 'Collaap/src/settings.js'
 
 class NoteController{
