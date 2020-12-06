@@ -6,15 +6,15 @@ import ProfileScreen from 'Collaap/src/components/ProfileScreen/ProfileScreen'
 import { createStackNavigator } from '@react-navigation/stack'
 const Stack = createStackNavigator()
 
+import colors from 'Collaap/src/data/colors.js'
+
 const ProfileStack = (props) => {
   return(
     <Stack.Navigator
       screenOptions={{ 
         headerStyle: { 
           elevation: 0,
-          borderBottomWidth: 1,
-          backgroundColor: "#f8f8f8",
-          borderBottomColor: "#ddd"
+          backgroundColor: colors.main_colour,
         } 
       }}>
 

@@ -44,9 +44,10 @@ export default function PushNotifications(){
             localNotificationService.cancelAllLocalNotifications()
         }
 
-        //
+        //Method to happen when the notification opens the app
         function onOpenNotification(notify){
-            console.log("[App] onOpenNotification - Notification launch the app")
+            console.log("[App] onOpenNotification - Notification launched the app")
+            localNotificationService.cancelAllLocalNotifications()
             // alert("THIS IS OPEN")   
         }
 

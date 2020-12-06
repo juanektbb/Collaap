@@ -1,24 +1,21 @@
-
 import React, { Component } from 'react'
+import { Platform, StatusBar } from 'react-native'
 
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
-import { store, persistor } from './src/redux/store'
+import { store, persistor } from 'Collaap/src/redux/store'
 
 import SocketProvider, { SocketContext } from 'Collaap/src/auto/SocketContext.js'
+import PushNotifications from 'Collaap/src/config/PushNotifications'
 
 import {
   setCustomText,
   setCustomTextInput
 } from 'react-native-global-props'
 
-import { Platform } from 'react-native'
-
 import Loading from 'Collaap/src/components/General/Loading'
 import Navigation from 'Collaap/src/components/Base/Navigation'
 import LoginController from 'Collaap/src/utils/LoginController'
-
-import PushNotifications from 'Collaap/src/config/PushNotifications'
 
 const customTextProps = {
   style: { fontFamily: 'HKGrotesk-Regular' }
@@ -30,6 +27,7 @@ const customTextInputProps = {
 setCustomText(customTextProps)
 setCustomTextInput(customTextInputProps)
 
+import colors from 'Collaap/src/data/colors.js'
 
 class App extends Component{
 
@@ -71,10 +69,6 @@ class App extends Component{
     this.loginController.ObtainSessionToken()
   }
 
-  componentDidUpdate(){
-    console.log("APP UPDATED")
-  }
-
   //TRIGGER BUTTON SAVING PROFILE
   onSaveProfile = async (username, icon_name) => {
     store.dispatch({
@@ -97,6 +91,7 @@ class App extends Component{
             loading={<Loading />}
             persistor={persistor}>
             <PushNotifications />
+            <StatusBar backgroundColor={colors.softdark} barStyle='light-content' />
             <Navigation onSaveProfile={this.onSaveProfile}/>
           </PersistGate>
         </SocketProvider>

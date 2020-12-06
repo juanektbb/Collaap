@@ -63,7 +63,7 @@ class OptionTime extends Component{
         {this.props.switcher &&
           <View style={styles.Switcher}>
             <Switch
-              trackColor={{ false: "#ccc", true: colors.softcalltoaction }}
+              trackColor={{ false: colors.softgrey, true: colors.softcalltoaction }}
               thumbColor={this.props.switcher_value ? colors.calltoaction : "#fbfbfb"}
               disabled={this.props.is_everyday}
               value={this.props.switcher_value}

@@ -202,7 +202,7 @@ const styles = StyleSheet.create({
   MsgLoaded: {
     fontSize: 12,
     paddingTop: 5,
-    color: "#FFF",
+    color: colors.white,
     paddingBottom: 4,
     textAlign: "center",
     backgroundColor: colors.calltoaction

@@ -10,15 +10,15 @@ import NoteScreen from 'Collaap/src/components/NoteScreen/NoteScreen'
 import { createStackNavigator } from '@react-navigation/stack'
 const Stack = createStackNavigator()
 
+import colors from 'Collaap/src/data/colors.js'
+
 const HomeStack = () => {
   return(
     <Stack.Navigator
       screenOptions={{ 
         headerStyle: { 
           elevation: 0,
-          borderBottomWidth: 1,
-          backgroundColor: "#f8f8f8",
-          borderBottomColor: "#ddd"
+          backgroundColor: colors.main_colour,
         } 
       }}>
 
@@ -38,6 +38,7 @@ const HomeStack = () => {
         options={{
           title: "New Note",
           headerBackTitle: "Back",
+          headerTintColor: colors.igamma,
           headerTruncatedBackTitle: "Back"
         }}
       />
@@ -48,6 +49,7 @@ const HomeStack = () => {
         options={{
           title: "Untitled Note",
           headerBackTitle: "Back",
+          headerTintColor: colors.igamma,
           headerTruncatedBackTitle: "Back"
         }}
       />

@@ -218,7 +218,7 @@ const styles = StyleSheet.create({
   },
   NoCollaaps: {
     fontSize: 8,
-    color: "#ccc",
+    color: colors.softgrey,
     textAlign: "center"
   },
   IndicatorShape: {
@@ -242,7 +242,7 @@ const styles = StyleSheet.create({
   },
   OnDeleteButtonText: {
     fontSize: 16,
-    color: "#fff",
+    color: colors.white,
     lineHeight: 76,
     textAlign: "center"
   },
@@ -251,7 +251,7 @@ const styles = StyleSheet.create({
   },
   OnDeleteCancelText: {
     fontSize: 50,
-    color: "#ccc",
+    color: colors.softgrey,
     lineHeight: 76,
     textAlign: "center",
   },

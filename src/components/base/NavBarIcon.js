@@ -29,12 +29,12 @@ const styles = StyleSheet.create({
     marginTop: 4,
     borderWidth: 1,
     borderRadius: 5,
-    borderColor: '#fff',
-    backgroundColor: '#fff',
+    borderColor: colors.white,
+    backgroundColor: colors.white,
   },
   activeTab: {
-    borderColor: colors.lightgrey,
-    backgroundColor: colors.lightgrey
+    borderColor: colors.igamma,
+    backgroundColor: colors.igamma
   }
 })
 

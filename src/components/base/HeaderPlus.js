@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     fontSize: 40,
     lineHeight: 46,
     textAlign: 'center',
-    color: colors.softdark
+    color: colors.igamma
   }
 })
 

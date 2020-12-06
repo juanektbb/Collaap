@@ -7,6 +7,8 @@ import {
   TouchableOpacity
 } from 'react-native'
 
+import colors from "Collaap/src/data/colors.js"
+
 class NewScreen extends Component{
 
   state = {
@@ -56,7 +58,7 @@ const styles = StyleSheet.create({
     height: 140,
     borderRadius: 70,
     alignItems: 'center',
-    backgroundColor: "#fff",
+    backgroundColor: colors.white,
     justifyContent: "center"
   },
   Icon: {

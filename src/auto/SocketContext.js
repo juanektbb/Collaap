@@ -33,7 +33,7 @@ export default ({ children }) => {
 
         //Clean by unsubscribing the listener
         return (() => unsubscribe())
-    })
+    }, [])
 
     //SOCKET EMITTERS:
     const emitReloadMyCalendar = () => {
@@ -69,7 +69,7 @@ export default ({ children }) => {
             //SOCKET LISTENERS:
             socket.on('to_single_device', function(msg){
                 //TODO: dispatch the new calendar
-                alert(Platform.OS + " NEW calendar shoudl update here baby")
+                alert(Platform.OS + " NEW calendar should update here baby")
             })
             
             //LISTENER: New calendar arrived and needs to be dispatched

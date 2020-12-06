@@ -1,7 +1,5 @@
 import React from 'react'
-import {
-  View
-} from 'react-native'
+import { View } from 'react-native'
 
 import colors from 'Collaap/src/data/colors.js'
 
@@ -12,6 +10,5 @@ const Separator = (props) =>
       backgroundColor: colors.maintone
     }
   } />
-
 
 export default Separator

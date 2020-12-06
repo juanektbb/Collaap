@@ -36,10 +36,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#000000aa"
   },
   Content: {
-    borderWidth: 1,
-    borderColor: '#ddd',
     borderRadius: 10,
-    backgroundColor: '#fff',
+    backgroundColor: colors.white,
     marginVertical: 50,
     width: 320,
     padding: 23,
@@ -47,7 +45,7 @@ const styles = StyleSheet.create({
   },
   Title: {
     fontSize: 16,
-    color: "#999",
+    color: colors.softgrey,
     marginBottom: 25,
     textAlign: "center"
   },
@@ -61,7 +59,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     padding: 5,
     textAlign: "center",
-    color: "#fff"
+    color: colors.white
   }
 })
 

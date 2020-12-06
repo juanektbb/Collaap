@@ -178,7 +178,7 @@ const styles = StyleSheet.create({
     width: 126,
     height: 126,
     borderWidth: 1,
-    borderColor: "#ccc",
+    borderColor: colors.softgrey,
     borderRadius: 60
   },
   MainIcon: {
@@ -191,7 +191,7 @@ const styles = StyleSheet.create({
   },
   Slide: {
     borderWidth: 1,
-    borderColor: "#ccc"
+    borderColor: colors.softgrey
   },
   SlideIcon: {
     marginTop: 3,
