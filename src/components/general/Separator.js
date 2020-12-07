@@ -6,7 +6,7 @@ import colors from 'Collaap/src/data/colors.js'
 const Separator = (props) => 
   <View style={{
     height: props.height, 
-    backgroundColor: colors.maintone
+    backgroundColor: colors.ialpha
   }} />
 
 export default Separator

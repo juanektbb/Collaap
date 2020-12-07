@@ -10,6 +10,7 @@ import {
   KeyboardAvoidingView
 } from 'react-native'
 
+import { SocketContext } from 'Collaap/src/auto/SocketContext.js'
 import colors from 'Collaap/src/data/colors.js'
 
 import NoteHeader from 'Collaap/src/components/NoteScreen/NoteHeader.js'
@@ -17,8 +18,6 @@ import NoteOptions from 'Collaap/src/components/NoteScreen/NoteOptions.js'
 import Loading from 'Collaap/src/components/General/Loading'
 import NoteController from 'Collaap/src/utils/NoteController'
 import { withSafeAreaInsets } from 'react-native-safe-area-context'
-
-import { SocketContext } from 'Collaap/src/auto/SocketContext.js';
 
 class NoteScreen extends Component{
 
@@ -65,6 +64,7 @@ class NoteScreen extends Component{
         error: false,
         error_msg: ""
       })
+
     }else{
       this.props.navigation.setOptions({ title: "Untitled Note" })
     }
@@ -185,7 +185,7 @@ class NoteScreen extends Component{
       return null
 
     var plus_date = new Date(on_start)
-    plus_date.setDate(plus_date.getDate() + 1);
+    plus_date.setDate(plus_date.getDate() + 1)
 
     return plus_date
   }
@@ -341,8 +341,6 @@ class NoteScreen extends Component{
     }
   }
 
-
-
   render(){
     return(<>
       {this.state.loading && <Loading />}
@@ -362,15 +360,14 @@ class NoteScreen extends Component{
             onChangeCategory={this.onChangeCategory}/>
 
           {this.state.keyboard_open &&
-          <View style={styles.DoneBox}>
-            <Pressable style={Platform.OS == "ios" ? styles.DoneButtonIOS : styles.DoneButtonAndroid} onPress={() => {
-                this.mainTextInput.blur()
-                this.setState({ keyboard_open: false })
-              }
-            }>
-              <Text style={styles.DoneText}>Done</Text>
-            </Pressable>
-          </View>}
+            <View style={styles.DoneBox}>
+              <Pressable style={Platform.OS == "ios" ? styles.DoneButtonIOS : styles.DoneButtonAndroid} onPress={() => {
+                  this.mainTextInput.blur()
+                  this.setState({ keyboard_open: false })
+                }}>
+                <Text style={styles.DoneText}>Done</Text>
+              </Pressable>
+            </View>}
 
           <Pressable style={styles.MainBody} onPress={() => this.mainTextInput.focus()}>
             <TextInput
@@ -387,10 +384,6 @@ class NoteScreen extends Component{
               }}
             />
           </Pressable>
-
-          
-
-
 
           <NoteOptions
             item={this.state.item}

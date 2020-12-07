@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
     marginTop: 2,
     fontSize: 11,
     textAlign: "center",
-    color: colors.softdark
+    color: colors.charcoal
   }
 })
 

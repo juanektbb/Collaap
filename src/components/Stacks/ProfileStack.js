@@ -14,7 +14,7 @@ const ProfileStack = (props) => {
       screenOptions={{ 
         headerStyle: { 
           elevation: 0,
-          backgroundColor: colors.main_colour,
+          backgroundColor: colors.ialpha,
         } 
       }}>
 

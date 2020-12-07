@@ -57,7 +57,7 @@ class Profile extends Component{
         <View style={styles.Container}>
           <View style={styles.ResponseBox}>
             {this.props.session_status === 'loading' &&
-              <ActivityIndicator size="small" color={colors.maintone}/>}
+              <ActivityIndicator size="small" color={colors.ialpha}/>}
 
             {this.props.session_status === null &&
               <View style={styles.ResponseInner}>
@@ -156,17 +156,17 @@ const styles = StyleSheet.create({
   WelcomeText: {
     textAlign: "center",
     fontSize: 22,
-    color: colors.secondtone
+    color: colors.ialpha
   },
   InstructionsText: {
     textAlign: "center",
     fontSize: 12,
-    color: colors.secondtone
+    color: colors.ialpha
   },
   SuccessText: {
     textAlign: "center",
     fontSize: 16,
-    color: colors.greenaccept
+    color: colors.ibeta
   },
   ChooseCharacter: {
     alignItems: "center"

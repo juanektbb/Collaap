@@ -71,7 +71,7 @@ class NoteOptions extends Component{
 
                 {this.props.item_user_id !== item._id ?
                   <Switch
-                    trackColor={{ false: colors.softgrey, true: colors.softcalltoaction }}
+                    trackColor={{ false: colors.softgrey, true: colors.hangtoaction }}
                     thumbColor={this.props.item.array_collaboratos.includes(item._id) ? colors.calltoaction : "#fbfbfb"}
                     value={this.props.item.array_collaboratos.includes(item._id)}
                     onValueChange={() => this.props.toggle_array_collaborators(item._id)}
@@ -137,7 +137,7 @@ class NoteOptions extends Component{
             <View style={styles.EverydayContainer}>
               <Text style={styles.EverydayText}>Everyday</Text>
               <Switch
-                trackColor={{ false: colors.softgrey, true: colors.softcalltoaction }}
+                trackColor={{ false: colors.softgrey, true: colors.hangtoaction }}
                 thumbColor={this.props.item.is_everyday ? colors.calltoaction : "#fbfbfb"}
                 value={this.props.item.is_everyday ? true : false}
                 onValueChange={() => this.props.onChangeEveryday()}

@@ -19,7 +19,6 @@ export default function PushNotifications(){
         //Registration handled succesfully and received token
         async function onRegister(token){
             console.log("[App] onRegister - Register token by FCMService")
-
             await AsyncStorage.setItem('fcm_token', token)
         }
 

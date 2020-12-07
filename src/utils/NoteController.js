@@ -6,11 +6,10 @@ class NoteController{
 
   //CONSTRUCTOR WITH AN ITEM NOT NULL
   constructor(item){
+
+    //An item is an existing note
     if(item !== null){
-      const { title, category, content,
-        array_collaboratos, is_everyday, start_date,
-        use_secondary, end_date, time
-      } = item
+      const { title, category, content, array_collaboratos, is_everyday, start_date, use_secondary, end_date, time } = item
 
       this.title =  title
       this.category = category
@@ -22,6 +21,7 @@ class NoteController{
       this.end_date = end_date
       this.time = time
     }
+
   }
 
   //BUILD BODY FOR REQUEST
@@ -40,6 +40,7 @@ class NoteController{
     }
   }
 
+  //All collaaps involved in this note
   CollaapsInvolved = () => {
     return this.array_collaboratos
   }

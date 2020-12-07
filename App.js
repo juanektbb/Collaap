@@ -91,7 +91,7 @@ class App extends Component{
             loading={<Loading />}
             persistor={persistor}>
             <PushNotifications />
-            <StatusBar backgroundColor={colors.softdark} barStyle='light-content' />
+            <StatusBar backgroundColor={colors.jalpha} barStyle='light-content' />
             <Navigation onSaveProfile={this.onSaveProfile}/>
           </PersistGate>
         </SocketProvider>

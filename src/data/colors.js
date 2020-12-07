@@ -1,22 +1,20 @@
 const colors = {
-  "maintone": "#0b4180",
-  "secondtone": "#35342C",
-  "calltoaction": "#E94560",
-  "softdark": "#080031",
-  "softwhite": "#f9f9f9",
-  "greenaccept": "#0584DB",
-  "softcalltoaction": "#fac3cc",
-  "lightgrey": "#BABABA",
-  "error": "#E22727",
-  "main_colour": "#0b4180",
-
-
-  "softgrey": "#ccc",
-
-  "ialpha": "#cfd2e9",
-  "ibeta": "#cfd2e9",
+  "ialpha": "#0b4180",
+  "ibeta": "#61a9fa",
   "igamma": "#cfd2e9",
 
+  "calltoaction": "#e94560",
+  "hangtoaction": "#fac3cc",
+
+  "charcoal": "#444",
+
+  "jalpha": "#080031",
+
+  "softwhite": "#f9f9f9",
+  "lightgrey": "#BABABA",
+  
+  "danger": "#e22727",
+  "softgrey": "#ccc",
   "white": "#fff"
 }
 

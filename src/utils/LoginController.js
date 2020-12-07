@@ -127,7 +127,6 @@ class LoginController{
   ObtainSessionToken = async () => {
     try{
       const credentials = await Keychain.getGenericPassword({storage: Keychain.STORAGE_TYPE.AES})
-
       const icon_name = await AsyncStorage.getItem('icon_name')
 
       if(credentials){
@@ -159,15 +158,6 @@ class LoginController{
       return false
     }
   }
-
-
-
-
-  ReauthenticateUser = async () => {
-
-  }
-
-
 
   //LOAD MORE DATA FROM SERVER
   Loaders = async (session_token) => {

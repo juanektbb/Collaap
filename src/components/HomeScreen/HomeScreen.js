@@ -1,4 +1,4 @@
-import React, { Component, useContext } from 'react';
+import React, { Component, useContext } from 'react'
 import {
   Text,
   View,
@@ -9,10 +9,10 @@ import {
   ScrollView,
   SafeAreaView,
   RefreshControl
-} from 'react-native';
+} from 'react-native'
 
 import { connect } from 'react-redux'
-import { SocketContext } from 'Collaap/src/auto/SocketContext.js';
+import { SocketContext } from 'Collaap/src/auto/SocketContext.js'
 
 import colors from 'Collaap/src/data/colors.js'
 import helpers from 'Collaap/src/shared/helpers.js'
@@ -193,7 +193,7 @@ class Home extends Component{
 const styles = StyleSheet.create({
   OnError: {
     paddingVertical: 8,
-    backgroundColor: colors.error
+    backgroundColor: colors.danger
   },
   OnErrorText: {
     color: colors.softwhite,

@@ -73,7 +73,7 @@ class HomeElement extends Component{
     return(<>
       {this.state.loading &&
       <View style={styles.IndicatorShape}>
-        <ActivityIndicator size="large" color={colors.maintone}/>
+        <ActivityIndicator size="large" color={colors.ialpha}/>
         <Text style={styles.IndicatorText}>Loading</Text>
       </View>}
 
@@ -205,8 +205,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     textAlign: "center",
     marginBottom: 3,
-    color: colors.maintone,
-    borderColor: colors.maintone
+    color: colors.ialpha,
+    borderColor: colors.ialpha
   },
   LittleCollaap: {
     width: 20,
@@ -230,7 +230,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginTop: 2,
     fontSize: 12,
-    color: colors.secondtone
+    color: colors.ialpha
   },
   OnDelete: {
     height: 78,

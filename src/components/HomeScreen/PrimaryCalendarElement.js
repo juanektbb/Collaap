@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
   NumberText: {
     fontSize: 40,
     textAlign: 'center',
-    color: colors.softdark
+    color: colors.charcoal
   },
   NumberExtension: {
     fontSize: 10,

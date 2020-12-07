@@ -52,4 +52,4 @@ const Navigation = props => {
   )
 }
 
-export default connect(mapStateToProps)(Navigation);
+export default connect(mapStateToProps)(Navigation)
