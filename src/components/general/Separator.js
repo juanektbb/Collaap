@@ -4,11 +4,9 @@ import { View } from 'react-native'
 import colors from 'Collaap/src/data/colors.js'
 
 const Separator = (props) => 
-  <View style={
-    {
-      height: props.height, 
-      backgroundColor: colors.maintone
-    }
-  } />
+  <View style={{
+    height: props.height, 
+    backgroundColor: colors.maintone
+  }} />
 
 export default Separator

@@ -21,9 +21,12 @@ const Navigation = props => {
   return(
     <NavigationContainer>
       <Tabs.Navigator 
-        initialRouteName="Home"
+        initialRouteName={props.session_token !== null ? "Home" : "Profile"}
         tabBarOptions = {{
-          showLabel: false
+          showLabel: false,
+          style: {
+            elevation: 0,
+          }
         }}>
 
         <Tabs.Screen
