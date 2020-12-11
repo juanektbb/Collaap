@@ -7,12 +7,12 @@ import { name as appName } from './app.json'
 import messaging from '@react-native-firebase/messaging'
 
 messaging().setBackgroundMessageHandler(async remoteMessage => {
-  console.log('Message handled in the background!', remoteMessage)
+  console.log('Message handled in the background: ', remoteMessage)
 })
 
-function HeadlessCheck({ isHeadless }) {
+function HeadlessCheck({ isHeadless }){
+  //App has been launched in the background by iOS, ignore
   if(isHeadless){
-    // App has been launched in the background by iOS, ignore
     return null
   }
 

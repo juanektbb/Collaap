@@ -1,3 +1,4 @@
+// const server_url = 'https://stage-collaap.herokuapp.com'
 const server_url = 'http://192.168.1.200:4000'
 
 const settings = {

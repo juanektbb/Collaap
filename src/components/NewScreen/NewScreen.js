@@ -15,8 +15,8 @@ class NewScreen extends Component{
     open_date: null
   }
 
-  openNoteScreen = () => {
-    this.props.navigation.navigate("NewItemScreen", { open_date: this.state.open_date })
+  openNoteScreen = (type) => {
+    this.props.navigation.navigate("NewItemScreen", { open_date: this.state.open_date, type: type })
   }
 
   componentDidMount(){
@@ -32,13 +32,15 @@ class NewScreen extends Component{
   render(){
     return (
       <View style={styles.NewScreen}>
-        <TouchableOpacity onPress={this.openNoteScreen}>
+        <TouchableOpacity onPress={() => this.openNoteScreen('note')}>
           <View style={styles.Option}>
             <Image style={styles.Icon} source={require("Collaap/src/images/add-note.png")} />
           </View>
-        </TouchableOpacity>
+        </TouchableOpacity >
         <View style={styles.Option}>
-          <Image style={styles.Icon} source={require("Collaap/src/images/add-list.png")} />
+          <TouchableOpacity onPress={() => this.openNoteScreen('list')}>
+            <Image style={styles.Icon} source={require("Collaap/src/images/add-list.png")} />
+          </TouchableOpacity>
         </View>
       </View>
     )

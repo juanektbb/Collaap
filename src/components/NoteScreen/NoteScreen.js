@@ -15,9 +15,18 @@ import colors from 'Collaap/src/data/colors.js'
 
 import NoteHeader from 'Collaap/src/components/NoteScreen/NoteHeader.js'
 import NoteOptions from 'Collaap/src/components/NoteScreen/NoteOptions.js'
+import InNote from 'Collaap/src/components/NoteScreen/InNote.js'
+import InList from 'Collaap/src/components/NoteScreen/InList.js'
 import Loading from 'Collaap/src/components/General/Loading'
 import NoteController from 'Collaap/src/utils/NoteController'
 import { withSafeAreaInsets } from 'react-native-safe-area-context'
+
+import { 
+  get_minimun_date,
+  compute_start_date,
+  compute_end_date,
+  crop_screen_title
+} from 'Collaap/src/helpers/note_screen_helpers.js'
 
 class NoteScreen extends Component{
 
@@ -33,23 +42,23 @@ class NoteScreen extends Component{
         title: "",
         category: "general",
         content: "",
-        list_stuff: [],
+        list_items: [],
+        list_bools: [],
         array_collaboratos: [],
-        is_everyday: false,                           //Priority 1
-        start_date: new Date(),                       //Priority 2
-        use_secondary: null,                          //Priority 3 (null, date, time)
-        end_date: this.get_minimun_date(new Date()),  //Priority 4
-        time: new Date(),                             //Priority 4 too
+        is_everyday: false,                      //Priority 1
+        start_date: new Date(),                  //Priority 2
+        use_secondary: null,                     //Priority 3 (null, date, time)
+        end_date: get_minimun_date(new Date()),  //Priority 4
+        time: new Date(),                        //Priority 4 too
       },
       min_end_date: null,
       loading: false,
       error: false,
-      error_msg: "",
-      keyboard_open: false
+      error_msg: ""
     }
   }
 
-  //Item 1: Change title
+  //ITEM 1: Change title
   onChangeTitle = (text) => {
     this.setState(prevState => ({
       item: {
@@ -58,19 +67,21 @@ class NoteScreen extends Component{
       }
     }))
 
+    //Change the title screen with the text given
     if(text !== ""){
-      this.props.navigation.setOptions({ title: this.modify_screen_title(text) })
+      this.props.navigation.setOptions({ title: crop_screen_title(text) })
       this.setState({
         error: false,
         error_msg: ""
       })
 
+    //Text not given, default title screen
     }else{
-      this.props.navigation.setOptions({ title: "Untitled Note" })
+      this.props.navigation.setOptions({ title: "Untitled " + this.state.item.type })
     }
   }
 
-  //Item 2: Change category
+  //ITEM 2: Change category
   onChangeCategory = (category) => {
     this.setState(prevState => ({
       item: {
@@ -80,7 +91,7 @@ class NoteScreen extends Component{
     }))
   }
 
-  //Item 3: Change everyday
+  //ITEM 3: Change everyday
   onChangeEveryday = () => {
     this.setState(prevState => ({
       item: {
@@ -90,16 +101,18 @@ class NoteScreen extends Component{
     }))
   }
 
-  //Item 4: Change start date
+  //ITEM 4: Change start date
   apply_start_date = (timestamp) => {
     let to_start_date = new Date(timestamp)
-    let to_min_end_date = this.get_minimun_date(to_start_date)
+    let to_min_end_date = get_minimun_date(to_start_date)
     let to_end_date = null
 
+    //The new min start date is greater than end date
     if(this.state.item.end_date < to_min_end_date){
       to_end_date = to_min_end_date
     }
 
+    //Update start, end and min end date
     this.setState(prevState => ({
       item: {
         ...prevState.item,
@@ -110,7 +123,7 @@ class NoteScreen extends Component{
     }))
   }
 
-  //Item 5: Change use secondary
+  //ITEM 5: Change use secondary
   change_use_secondary = (value) => {
     this.setState(prevState => ({
       item: {
@@ -120,7 +133,7 @@ class NoteScreen extends Component{
     }))
   }
 
-  //Item 6: Change end date
+  //ITEM 6: Change end date
   apply_end_date = (timestamp) => {
     this.setState(prevState => ({
       item: {
@@ -130,7 +143,7 @@ class NoteScreen extends Component{
     }))
   }
 
-  //Item 7: Change time
+  //ITEM 7: Change time
   apply_time = (timestamp) => {
     this.setState(prevState => ({
       item: {
@@ -140,7 +153,7 @@ class NoteScreen extends Component{
     }))
   }
 
-  //Item 8: Change array collaborators
+  //ITEM 8: Change array collaborators
   toggle_array_collaborators = (collaborator) => {
     let array = this.state.item.array_collaboratos
 
@@ -162,7 +175,7 @@ class NoteScreen extends Component{
     }))
   }
 
-  //Item 9: Change text body
+  //ITEM 9: Change text body
   apply_main_body = (text) => {
     this.setState(prevState => ({
       item: {
@@ -172,58 +185,29 @@ class NoteScreen extends Component{
     }))
   }
 
-  modify_screen_title = (title) => {
-    if(title.length <= 27)
-      return title
-    else
-      return title.substr(0, 24) + "..."
+  //ITEM 10: Change lists
+  apply_main_lists = (list_items, list_bools) => {
+    this.setState(prevState => ({
+      item: {
+        ...prevState.item,
+        list_items: list_items,
+        list_bools: list_bools
+      }
+    }))
   }
 
-  //FIND THE MINIMUN DATE FOR END_DATE
-  get_minimun_date = (on_start) => {
-    if(on_start === null)
-      return null
+  /***************************************************************************/
 
-    var plus_date = new Date(on_start)
-    plus_date.setDate(plus_date.getDate() + 1)
-
-    return plus_date
-  }
-
-  //FIND THE APPROPIATE DATE, WHEN NOTE EXISTS
-  compute_start_date = (is_everyday, start_date) => {
-    return is_everyday ? new Date() : new Date(start_date)
-  }
-
-  //FIND THE APPROPIATE DATE, WHEN NOTE EXISTS
-  compute_end_date = (is_everyday, start_date, end_date) => {
-    //If it is everyday, populate with day after
-    if(is_everyday){ 
-      return this.get_minimun_date(new Date())
-
-    //If end day exists, provide it
-    }else if(end_date !== null){
-      return new Date(end_date)
-    
-    //If it is only one day, provide its next day
-    }else{ 
-      return this.get_minimun_date(new Date(start_date))
-    }
-  }
-
-  loadResponseError = (msg) => {
-    this.setState({ error: true, error_msg: msg })
-  }
-
-  toggleLoading = (bool) => {
-    this.setState({ loading: bool })
-  }
+  //LOAD AN ERROR IN SCREEN
+  loadResponseError = (msg) => this.setState({ error: true, error_msg: msg })
+  
+  //LOADING ANIMATION TOGGLE
+  toggleLoading = (bool) => this.setState({ loading: bool })
 
   /*
     SUBMIT: ITEM IS READY TO BE SENT FOR POST/PUT
   */
   submitItem = async () => {
-
     //Get the emitters reload from SocketContext
     const { emitReloadMyCalendar, emitReloadOneCalendarById, emitReloadCollaapsCalendars } = this.context  
 
@@ -233,19 +217,23 @@ class NoteScreen extends Component{
       return false
     }
 
-    //Show reloading animation
+    //Show loading animation
     this.toggleLoading(true)
 
-    //NEW NOTE: POST - There is no item_id, so new item
+    //NEW NOTE: POST - There is no item_id, so it is a new item
     if(this.state.item_id === null){
+
+      //Create object and send to server
       const noteController = new NoteController(this.state.item)
       const response = await noteController.SaveNote()
 
+      //Server response is an error, show to user
       if(response['error']){
         this.loadResponseError(response['msg'])
         this.toggleLoading(false)
         return false
 
+      //Success from the server
       }else{
 
         //Get all collaaps in the note and reload their calendars
@@ -253,19 +241,26 @@ class NoteScreen extends Component{
         emitReloadMyCalendar()
         emitReloadCollaapsCalendars(collaapsInvolved)
         
+        //Take user to home screen
         this.toggleLoading(false)
         this.props.navigation.navigate('Home')
+
       }
 
-    //NEW NOTE: PUT - There is item_id, so update item
+    //UPDATE NOTE: PUT - There is item_id, so it is an existing item
     }else{
+
+      //Update object and send to server
       const noteController = new NoteController(this.state.item)
       const response = await noteController.UpdateNote(this.state.item_id)
 
+      //Server response is an error, show to user
       if(response['error']){
         this.loadResponseError(response['msg'])
+        this.toggleLoading(false)
         return false
 
+      //Success from the server
       }else{
 
         //Get all collaaps in the note and reload their calendars
@@ -274,13 +269,18 @@ class NoteScreen extends Component{
         emitReloadOneCalendarById(this.state.item_user_id)
         emitReloadCollaapsCalendars(collaapsInvolved)
 
+        //Take user to home screen
         this.toggleLoading(false)
         this.props.navigation.navigate('Home')
+
       }
+
     }
   }
 
-  //LOAD SOME DATA IN THIS NOTE
+  /*
+    LOAD SOME DATA IN THIS NOTE
+  */
   componentDidMount(){
     if(this.props.route.params !== undefined){
 
@@ -293,51 +293,48 @@ class NoteScreen extends Component{
           item_user_id: item.user,
           item: {
             ...prevState.item,
+            type: item.type,
             title: item.title,
             content: item.content,
+            list_items: item.list_items,
+            list_bools: item.list_bools,
             category: item.category,
             array_collaboratos: item.collaborators,
             is_everyday: item.is_everyday,
-            start_date: this.compute_start_date(item.is_everyday, item.start_date),
+            start_date: compute_start_date(item.is_everyday, item.start_date),
             use_secondary: item.use_secondary,
-            
-            //If it is everyday or null, create as next day 
-            end_date: this.compute_end_date(item.is_everyday, item.start_date, item.end_date),
-
-
+            end_date: compute_end_date(item.is_everyday, item.start_date, item.end_date),
             time: item.is_everyday ? new Date() : new Date(item.time)
           },
 
           //Compute the minimun end date
-          min_end_date: this.get_minimun_date(
-            this.compute_start_date(item.is_everyday, item.start_date)
+          min_end_date: get_minimun_date(
+            compute_start_date(item.is_everyday, item.start_date)
           )
         }))
         
         //Set the title 
         this.props.navigation.setOptions({
-          title: this.modify_screen_title(item.title)
+          title: crop_screen_title(item.title)
         })
       }
 
       //This is for opening new item on start date
-      const { open_date } = this.props.route.params
-      if(open_date !== undefined && open_date !== null){
+      const { open_date, type } = this.props.route.params
+      if(open_date !== undefined && open_date !== null && type !== undefined && type !== null){
+        this.props.navigation.setOptions({ title: "Untitled " + type })
+
         this.setState({
           item: {
             ...this.state.item,
+            type: type,
             start_date: new Date(open_date),
-            end_date: this.get_minimun_date(new Date(open_date))
+            end_date: get_minimun_date(new Date(open_date))
           },
-          min_end_date: this.get_minimun_date(new Date(open_date))
+          min_end_date: get_minimun_date(new Date(open_date))
         })
       }
 
-    //SET MINIMUN END DATE IN STATE
-    }else{
-      this.setState({
-        min_end_date: this.get_minimun_date(this.state.item.start_date)
-      })
     }
   }
 
@@ -357,33 +354,17 @@ class NoteScreen extends Component{
           <NoteHeader
             item={this.state.item}
             onChangeTitle={this.onChangeTitle}
-            onChangeCategory={this.onChangeCategory}/>
+            onChangeCategory={this.onChangeCategory} />
 
-          {this.state.keyboard_open &&
-            <View style={styles.DoneBox}>
-              <Pressable style={Platform.OS == "ios" ? styles.DoneButtonIOS : styles.DoneButtonAndroid} onPress={() => {
-                  this.mainTextInput.blur()
-                  this.setState({ keyboard_open: false })
-                }}>
-                <Text style={styles.DoneText}>Done</Text>
-              </Pressable>
-            </View>}
-
-          <Pressable style={styles.MainBody} onPress={() => this.mainTextInput.focus()}>
-            <TextInput
-              multiline={true}
-              style={styles.MainBodyInput}
-              placeholder="What is happening?"
+          {this.state.item.type === 'note' ?
+            <InNote 
               value={this.state.item.content}
-              ref={(input) => { this.mainTextInput = input }}
-              onChangeText={(text) => this.apply_main_body(text)}
-              selectionColor={'green'}
-              onSelectionChange={(event) => console.log(event.nativeEvent.selection)}
-              onFocus={() => {
-                this.setState({ keyboard_open: true })
-              }}
-            />
-          </Pressable>
+              apply_main_body={this.apply_main_body} />
+            :
+            <InList 
+              list_items={this.state.item.list_items}
+              list_bools={this.state.item.list_bools}
+              apply_main_lists={this.apply_main_lists} />}
 
           <NoteOptions
             item={this.state.item}
@@ -394,7 +375,7 @@ class NoteScreen extends Component{
             apply_time={this.apply_time}
             change_use_secondary={this.change_use_secondary}
             onChangeEveryday={this.onChangeEveryday}
-            min_end_date={this.state.min_end_date}/>
+            min_end_date={this.state.min_end_date} />
 
           <TouchableOpacity onPress={this.submitItem} style={styles.SubmitButton}>
             <Text style={styles.SubmitButtonText}>
@@ -412,43 +393,6 @@ const styles = StyleSheet.create({
   NoteScreen: {
     flex: 1,
     flexDirection: "column",
-  },
-  MainBody: {
-    flex: 1,
-    marginTop: 10,
-    borderWidth: 1,
-    borderColor: "#ddd",
-    marginHorizontal: 10
-  },
-  MainBodyInput: {
-    fontSize: 16,
-    lineHeight: 20,
-    paddingVertical: 0,
-    paddingHorizontal: 9
-  },
-  DoneBox:{
-    marginTop: 10,
-    marginBottom: -10,
-    paddingVertical: 5,
-    paddingHorizontal: 10,
-    alignItems: "flex-end"
-  },
-  DoneButtonIOS: {
-    borderRadius: 5,
-    paddingVertical: 3,
-    paddingHorizontal: 13,
-    backgroundColor: colors.calltoaction,
-  },
-  DoneButtonAndroid: {
-    borderRadius: 5,
-    paddingVertical: 2,
-    paddingHorizontal: 13,
-    backgroundColor: colors.calltoaction,
-  },
-  DoneText: {
-    color: "white",
-    fontSize: 15,
-    lineHeight: 18
   },
   MsgBox: {
     marginTop: 10,

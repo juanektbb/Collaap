@@ -7,28 +7,29 @@ import {
 } from 'react-native'
 
 import colors from 'Collaap/src/data/colors.js'
+import helpers from 'Collaap/src/shared/helpers.js'
 
 class HeaderPlus extends Component{
 
   openNewScreen = () => {
-    this.props.navigation.navigate('NewScreen')
+    this.props.navigation.navigate('NewScreen', { open_date: helpers.getToday() })
   }
 
   render(){
     return(
-        <Pressable onPress={this.openNewScreen}>
-            <View style={styles.Plus}>
-                <Text style={styles.PlusText}>+</Text>
-            </View>
-        </Pressable>
+      <Pressable onPress={this.openNewScreen}>
+        <View style={styles.Plus}>
+          <Text style={styles.PlusText}>+</Text>
+        </View>
+      </Pressable>
     )
   }
 }
 
 const styles = StyleSheet.create({
   Plus: {
-    width: 46,
     flex: 1,
+    width: 46,
     alignItems: 'center',
     justifyContent: "center"
   },

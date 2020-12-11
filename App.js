@@ -13,6 +13,8 @@ import {
   setCustomTextInput
 } from 'react-native-global-props'
 
+import colors from 'Collaap/src/data/colors.js'
+
 import Loading from 'Collaap/src/components/General/Loading'
 import Navigation from 'Collaap/src/components/Base/Navigation'
 import LoginController from 'Collaap/src/utils/LoginController'
@@ -26,8 +28,6 @@ const customTextInputProps = {
 
 setCustomText(customTextProps)
 setCustomTextInput(customTextInputProps)
-
-import colors from 'Collaap/src/data/colors.js'
 
 class App extends Component{
 
@@ -92,7 +92,7 @@ class App extends Component{
             persistor={persistor}>
             <PushNotifications />
             <StatusBar backgroundColor={colors.jalpha} barStyle='light-content' />
-            <Navigation onSaveProfile={this.onSaveProfile}/>
+            <Navigation onSaveProfile={this.onSaveProfile} />
           </PersistGate>
         </SocketProvider>
       </Provider>

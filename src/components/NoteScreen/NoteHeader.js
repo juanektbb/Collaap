@@ -38,7 +38,7 @@ class NoteHeader extends Component{
       <View style={styles.NoteHeader}>
         <TextInput
           maxLength={45}
-          placeholder="Title"
+          placeholder={"Untitled " + this.props.item.type}
           style={styles.Title}
           value={this.props.item.title}
           onChangeText={this.props.onChangeTitle}/>
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
   CategoryPicker: {
     width: 50,
     height: 50,
-    marginRight: 15,
+    marginRight: 10,
     marginTop: 10,
   },
   CategoryPickerImage: {

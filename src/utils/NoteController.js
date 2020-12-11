@@ -9,11 +9,27 @@ class NoteController{
 
     //An item is an existing note
     if(item !== null){
-      const { title, category, content, array_collaboratos, is_everyday, start_date, use_secondary, end_date, time } = item
+      const { 
+        type, 
+        title, 
+        category, 
+        content, 
+        list_items, 
+        list_bools, 
+        array_collaboratos, 
+        is_everyday, 
+        start_date, 
+        use_secondary, 
+        end_date, 
+        time 
+      } = item
 
-      this.title =  title
+      this.type = type
+      this.title = title
       this.category = category
       this.content = content
+      this.list_items = list_items
+      this.list_bools = list_bools
       this.array_collaboratos = array_collaboratos
       this.is_everyday = is_everyday
       this.start_date = start_date
@@ -27,10 +43,12 @@ class NoteController{
   //BUILD BODY FOR REQUEST
   contentBodyBuilder = () => {
     return {
-      "type": "note",
+      "type": this.type,
       "title": this.title,
       "category": this.category,
       "content": this.content,
+      "list_items": this.list_items,
+      "list_bools": this.list_bools,
       "array_collaboratos": this.array_collaboratos,
       "is_everyday": this.is_everyday,
       "start_date": this.start_date,

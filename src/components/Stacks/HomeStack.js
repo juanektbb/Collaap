@@ -36,7 +36,7 @@ const HomeStack = () => {
         name="NewScreen"
         component={NewScreen}
         options={{
-          title: "New Note",
+          title: "New item",
           headerBackTitle: "Back",
           headerTintColor: colors.igamma,
           headerTruncatedBackTitle: "Back"
@@ -47,7 +47,7 @@ const HomeStack = () => {
         name="NewItemScreen"
         component={NoteScreen}
         options={{
-          title: "Untitled Note",
+          title: "Untitled item",
           headerBackTitle: "Back",
           headerTintColor: colors.igamma,
           headerTruncatedBackTitle: "Back"
