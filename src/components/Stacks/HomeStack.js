@@ -18,6 +18,7 @@ const HomeStack = () => {
       screenOptions={{ 
         headerStyle: { 
           elevation: 0,
+          shadowColor: 'transparent',
           backgroundColor: colors.ialpha
         } 
       }}>

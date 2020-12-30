@@ -13,9 +13,12 @@ import {
 } from 'react-native'
 
 import { connect } from 'react-redux'
+import { store } from 'Collaap/src/redux/store'
 
 import characters from 'Collaap/src/data/characters.js'
 import colors from 'Collaap/src/data/colors.js'
+
+import { log_me_out } from 'Collaap/src/shared/log_me_out.js'
 
 function mapStateToProps(state){
   return {
@@ -51,11 +54,13 @@ class Profile extends Component{
     this.setState({ username: username })
   }
 
+
   render(){
     return(
       <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : null} style={{ flex: 1}}>
         <View style={styles.Container}>
           <View style={styles.ResponseBox}>
+
             {this.props.session_status === 'loading' &&
               <ActivityIndicator size="small" color={colors.ialpha}/>}
 
@@ -126,6 +131,10 @@ class Profile extends Component{
               </View>
             </Pressable>
           </View>
+
+          <Pressable onPress={() => log_me_out()}>
+            <Text>Log Out</Text>
+          </Pressable>
 
           <View style={{ flex : 1 }}/>
         </View>

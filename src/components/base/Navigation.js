@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 
 import { NavigationContainer } from '@react-navigation/native'
@@ -12,8 +12,7 @@ const Tabs = createBottomTabNavigator()
 
 function mapStateToProps(state){
   return {
-    icon_navigation: state.icon_image,
-    session_token: state.session_token
+    icon_navigation: state.icon_image
   }
 }
 
@@ -21,7 +20,7 @@ const Navigation = props => {
   return(
     <NavigationContainer>
       <Tabs.Navigator 
-        initialRouteName={props.session_token !== null ? "Home" : "Profile"}
+        initialRouteName={"Home"}
         tabBarOptions = {{
           showLabel: false,
           style: {
@@ -31,14 +30,14 @@ const Navigation = props => {
 
         <Tabs.Screen
           name="Profile"
-          children={() => <ProfileStack onSaveProfile={props.onSaveProfile}/>}
+          children={() => <ProfileStack/>}
           options={{
             tabBarIcon: ({focused}) => (
               <NavBarIcon focused={focused} icon_navigation={props.icon_navigation}/>
             )
-          }}/>
+          }}
+        />
 
-        {props.session_token !== null &&
         <Tabs.Screen
           name="Home"
           component={HomeStack}
@@ -46,7 +45,9 @@ const Navigation = props => {
             tabBarIcon: ({focused}) => (
               <NavBarIcon focused={focused} icon_navigation={require('Collaap/src/images/icon-calendar.png')}/>
             )
-          }}/>}
+          }}
+        />
+
       </Tabs.Navigator>
     </NavigationContainer>
   )

@@ -14,13 +14,14 @@ const ProfileStack = (props) => {
       screenOptions={{ 
         headerStyle: { 
           elevation: 0,
+          shadowColor: 'transparent',
           backgroundColor: colors.ialpha,
         } 
       }}>
 
       <Stack.Screen
         name="Profile"
-        children={() => <ProfileScreen onSaveProfile={props.onSaveProfile}/>}
+        children={() => <ProfileScreen />}
         options={({ navigation, route }) => ({
             headerTitle: props => <Header {...props} />,
             headerTitleAlign: 'center'

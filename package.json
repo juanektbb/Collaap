@@ -12,6 +12,7 @@
   "dependencies": {
     "@react-native-community/async-storage": "^1.12.0",
     "@react-native-community/checkbox": "^0.5.3",
+    "@react-native-community/clipboard": "^1.5.1",
     "@react-native-community/datetimepicker": "^3.0.2",
     "@react-native-community/masked-view": "^0.1.10",
     "@react-native-community/push-notification-ios": "^1.7.3",
@@ -24,6 +25,8 @@
     "native-base": "^2.13.14",
     "react": "16.13.1",
     "react-native": "0.63.2",
+    "react-native-dash": "^0.0.11",
+    "react-native-flash-message": "^0.1.18",
     "react-native-gesture-handler": "^1.8.0",
     "react-native-global-props": "^1.1.5",
     "react-native-keychain": "^6.2.0",

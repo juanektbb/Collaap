@@ -14,11 +14,10 @@ class LoginController{
   /*
     COMMUNICATION WITH THE SERVER
   */
-  Auth = async (username, password, icon_name) => {
+  Auth = async (username, password) => {
     const content_body = {
       "username": username,
-      "password": password,
-      "icon": icon_name
+      "password": password
     }
 
     const details = {
@@ -34,11 +33,11 @@ class LoginController{
   /* 
     TRIGGER GATHERING A NEW SESSION TOKEN
   */
-  LoginUser = async (username, password, icon_name, forced_status) => {
+  LoginUser = async (username, password) => {
     
     //Clearing the session token and make a new server request
     await AsyncStorage.removeItem('session_token')
-    const response = await this.Auth(username, password, icon_name)
+    const response = await this.Auth(username, password)
 
     //Server gave an error, like wrong username or password
     if(response['error']){
@@ -56,15 +55,14 @@ class LoginController{
 
     //Server provided a token
     }else{
-      await AsyncStorage.setItem('icon_name', icon_name)
-      return this.PersistSessionToken(response['token'], password, response['user'], forced_status)
+      return this.PersistSessionToken(response['token'], password, response['user'])
     }
   }
 
   /* 
     SAVE FINAL SESSION TOKEN IN REDUX STORE
   */
-  PersistSessionToken = async (session_token, password, user, forced_status) => {
+  PersistSessionToken = async (session_token, password, user) => {
     try{
       await AsyncStorage.setItem('session_token', session_token)
       await Keychain.setGenericPassword(user['username'], password, {storage: Keychain.STORAGE_TYPE.AES })
@@ -75,7 +73,7 @@ class LoginController{
       store.dispatch({
         type: "SET_SESSION_TOKEN",
         payload: {
-          session_status: forced_status, //This is [obtained, clicked] -> To show msg to the user
+          session_status: 'collaap',
           session_error: null,
           session_token: session_token
         }
@@ -94,16 +92,6 @@ class LoginController{
       })
 
       this.Loaders(session_token)
-
-      setTimeout(() => {
-        store.dispatch({
-          type: "SET_SESSION_TOKEN",
-          payload: {
-            session_status: 'collaap',
-          }
-        })
-      }, 5000)
-
       return true
 
     //An strange error happened
@@ -127,10 +115,9 @@ class LoginController{
   ObtainSessionToken = async () => {
     try{
       const credentials = await Keychain.getGenericPassword({storage: Keychain.STORAGE_TYPE.AES})
-      const icon_name = await AsyncStorage.getItem('icon_name')
 
       if(credentials){
-        return this.LoginUser(credentials.username, credentials.password, icon_name, 'obtained')
+        return this.LoginUser(credentials.username, credentials.password)
 
       }else{
         store.dispatch({

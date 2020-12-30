@@ -12,11 +12,12 @@ import {
   setCustomText,
   setCustomTextInput
 } from 'react-native-global-props'
+import FlashMessage from "react-native-flash-message"
 
 import colors from 'Collaap/src/data/colors.js'
 
 import Loading from 'Collaap/src/components/General/Loading'
-import Navigation from 'Collaap/src/components/Base/Navigation'
+import NavigationHall from 'Collaap/src/components/Base/NavigationHall'
 import LoginController from 'Collaap/src/utils/LoginController'
 
 const customTextProps = {
@@ -35,7 +36,6 @@ class App extends Component{
     console.log("APP STARTED")
 
     super(props)
-    this.loginController = new LoginController()
 
     store.dispatch({
       type: "SET_CALENDAR",
@@ -66,21 +66,8 @@ class App extends Component{
       }
     })
 
-    this.loginController.ObtainSessionToken()
-  }
-
-  //TRIGGER BUTTON SAVING PROFILE
-  onSaveProfile = async (username, icon_name) => {
-    store.dispatch({
-      type: "SET_SESSION_TOKEN",
-      payload: {
-        session_status: 'loading',
-        session_error: null,
-        session_token: null,
-      }
-    })
-
-    this.loginController.LoginUser(username, "123456", icon_name, 'clicked')
+    const loginController = new LoginController()
+    loginController.ObtainSessionToken()
   }
 
   render(){
@@ -92,7 +79,14 @@ class App extends Component{
             persistor={persistor}>
             <PushNotifications />
             <StatusBar backgroundColor={colors.jalpha} barStyle='light-content' />
-            <Navigation onSaveProfile={this.onSaveProfile} />
+            <NavigationHall />
+            <FlashMessage 
+              position="top" 
+              duration={2800}
+              animationDuration={400}
+              titleStyle={{ textAlign: "center" }}
+              textStyle={{ textAlign: "center" }}
+              style={{ backgroundColor: colors.ibeta }} />
           </PersistGate>
         </SocketProvider>
       </Provider>
