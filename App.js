@@ -33,8 +33,6 @@ setCustomTextInput(customTextInputProps)
 class App extends Component{
 
   constructor(props){
-    console.log("APP STARTED")
-
     super(props)
 
     store.dispatch({
@@ -56,18 +54,8 @@ class App extends Component{
   }
 
   async componentDidMount(){
-    console.log("APP MOUNTED")
-
-    store.dispatch({
-      type: "SET_SESSION_TOKEN",
-      payload: {
-        icon_name: 'neuter_1',
-        icon_image: require('Collaap/src/images/users/user-0.png')
-      }
-    })
-
     const loginController = new LoginController()
-    loginController.ObtainSessionToken()
+    await loginController.ObtainSessionToken()
   }
 
   render(){

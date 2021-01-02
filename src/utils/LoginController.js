@@ -86,6 +86,10 @@ class LoginController{
           user_id: user['id'],
           username: user['username'],
           first_name: user['first_name'],
+          last_name: user['last_name'],
+          email: user['email'],
+          group_name: user['group_name'],
+          group_code: user['group_code'],
           icon_name: user['icon'],
           icon_image: this_icon_image
         }

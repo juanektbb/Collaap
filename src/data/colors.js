@@ -13,6 +13,7 @@ const colors = {
   "softwhite": "#f9f9f9",
   "lightgrey": "#BABABA",
   
+  "success": "#209957",
   "danger": "#e22727",
   "softgrey": "#ccc",
   "white": "#fff"

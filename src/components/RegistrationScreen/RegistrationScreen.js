@@ -19,7 +19,7 @@ import colors from 'Collaap/src/data/colors.js'
 import Dash from 'react-native-dash'
 import Clipboard from '@react-native-community/clipboard'
 
-import { showMessage, hideMessage } from "react-native-flash-message"
+import { showMessage } from "react-native-flash-message"
 
 import LoginController from 'Collaap/src/utils/LoginController'
 import RegistrationController from 'Collaap/src/utils/RegistrationController'
