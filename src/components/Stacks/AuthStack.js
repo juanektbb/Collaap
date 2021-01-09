@@ -39,7 +39,7 @@ const AuthStack = (props) => {
             // headerTitle: props => <Header />,
             title: "",
             headerBackTitle: "Back",
-            headerTintColor: colors.igamma,
+            headerTintColor: colors.softestgrey,
             headerTruncatedBackTitle: "Back"
           }}
         />

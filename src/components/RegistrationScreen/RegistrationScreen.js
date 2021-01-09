@@ -189,109 +189,131 @@ class Registration extends Component{
 
   render(){
     return(
-      <KeyboardAvoidingView style={styles.FullBackground}>
-        <View style={styles.Content}>
-          <Text style={styles.MainText}>Your account</Text>
+      <View style={styles.FullBackground}>
+        <KeyboardAvoidingView 
+          behavior='position' 
+          keyboardVerticalOffset={Platform.OS === 'ios' ? 40 : 0}>
+          <View style={styles.Content}>
+            <Text style={styles.MainText}>Create your account</Text>
 
-          {this.state.registration_error !== null &&
-            <View style={styles.ResponseInner}>
-              <Text style={styles.ErrorText}>{this.state.registration_error}</Text>
-            </View>}
+            {this.state.registration_error !== null &&
+              <View style={styles.ResponseInner}>
+                <Text style={styles.ErrorText}>{this.state.registration_error}</Text>
+              </View>}
 
-          <Text style={styles.DoYouHaveGroup}>Do you have a group?</Text>
-          <View style={styles.ButtonBox}>
-            <Pressable style={styles.ButtonGroup} onPress={() => this.setState({group_type: "new"})}>
-              <Text>NEW</Text>
-            </Pressable>
-
-            <Pressable style={styles.ButtonGroup} onPress={() => this.setState({group_type: "existing"})}>
-              <Text>EXISTING</Text>
-            </Pressable>
-          </View>
-
-          {this.state.group_type === "existing" &&
-            <View style={styles.GroupType}>
-              <Text style={styles.GroupText}>Enter an existing group's code</Text>
-              <TextInput
-                value={this.state.given_group_code}
-                placeholder="Group's code"
-                style={[(Platform.OS == 'ios' ? styles.TextInputIOS : styles.TextInputAndroid), { marginBottom: 0 }]}
-                onChangeText={(given_group_code) => this.setState({ given_group_code, registration_error: null })}
-              />
-            </View>}
-
-          {this.state.group_type === "new" &&
-            <View style={styles.GroupType}>
-              <Text style={styles.GroupText}>
-                New freshly generated group code
-              </Text>
-              <Pressable style={styles.CodeGenerated} onPress={() => this.onCopyCode()}>
-                <Text style={styles.TextGenerated}>
-                  {this.state.generated_group_code}
-                </Text>
-              </Pressable>
-            </View>}
-        
-          <Dash dashColor={colors.igamma} style={styles.DashLine}/>
-
-          <View style={styles.DoubleLineInput}>
-            <TextInput
-              value={this.state.first_name}
-              placeholder="First name"
-              style={[(Platform.OS == 'ios' ? styles.TextInputIOS : styles.TextInputAndroid), styles.SingleInput]}
-              onChangeText={(first_name) => this.setState({ first_name, registration_error: null })}
-            />
-
-            <View style={styles.SpaceBetween}/>
-
-            <TextInput
-              value={this.state.last_name}
-              placeholder="Last name"
-              style={[(Platform.OS == 'ios' ? styles.TextInputIOS : styles.TextInputAndroid), styles.SingleInput]}
-              onChangeText={(last_name) => this.setState({ last_name, registration_error: null })}
-            />
-          </View>
-
-          <TextInput
-            value={this.state.email}
-            placeholder="Email"
-            style={Platform.OS == 'ios' ? styles.TextInputIOS : styles.TextInputAndroid}
-            onChangeText={(email) => this.setState({ email, registration_error: null })}
-          />
-
-          <TextInput
-            value={this.state.password}
-            placeholder="Password"
-            secureTextEntry={true}
-            textContentType="password"
-            style={Platform.OS == 'ios' ? styles.TextInputIOS : styles.TextInputAndroid}
-            onChangeText={(password) => this.setState({ password, registration_error: null })}
-          />
-
-          <TextInput
-            value={this.state.confirm_password}
-            placeholder="Confirm password"
-            secureTextEntry={true}
-            textContentType="password"
-            style={Platform.OS == 'ios' ? styles.TextInputIOS : styles.TextInputAndroid}
-            onChangeText={(confirm_password) => this.setState({ confirm_password, registration_error: null })}
-          />
-
-          {!this.state.loading &&  
-            <TouchableOpacity onPress={() => {
-                this.setState({registration_error: null, loading: true})
-                this.onRegisterUser()
-              }}>
-              <View style={styles.SubmitButton}>
-                  <Text style={styles.SubmitButtonText}>Sign Up</Text>
+            <View style={styles.ButtonsArea}>
+              <View style={styles.SingleButton}>   
+                <Text style={styles.ButtonLabel}>Create a group&hellip;</Text>       
+                <Pressable 
+                  onPress={() => this.setState({group_type: "new"})}
+                  style={[styles.ButtonGroup, (this.state.group_type === "new" && styles.Selected)]}>
+                  <Image source={require("Collaap/src/images/group_new.png")} style={styles.GroupIcon}/>
+                </Pressable>
               </View>
-            </TouchableOpacity>}
 
-          {this.state.loading &&  
-            <ActivityIndicator size="large" color={colors.igamma}/>}    
+              <View style={styles.SingleButton}>
+                <Text style={styles.ButtonLabel}>Join a group&hellip;</Text>     
+                <Pressable 
+                  onPress={() => this.setState({group_type: "existing"})}
+                  style={[styles.ButtonGroup, (this.state.group_type === "existing" && styles.Selected)]}>
+                  <Image source={require("Collaap/src/images/group_existing.png")} style={styles.GroupIcon}/>
+                </Pressable>
+              </View>
+            </View>
 
-        </View>
-      </KeyboardAvoidingView>
+            {this.state.group_type === "existing" &&
+              <View style={styles.GroupType}>
+                <Text style={styles.GroupText}>Enter an existing group's code</Text>
+                <TextInput
+                  value={this.state.given_group_code}
+                  placeholder="Group's code"
+                  style={[(Platform.OS == 'ios' ? styles.TextInputIOS : styles.TextInputAndroid), { marginBottom: 0 }]}
+                  onChangeText={(given_group_code) => this.setState({ given_group_code, registration_error: null })}
+                />
+              </View>}
+
+            {this.state.group_type === "new" &&
+              <View style={styles.GroupType}>
+                <Text style={styles.GroupText}>
+                  New freshly generated group code
+                </Text>
+                <Pressable style={styles.CodeGenerated} onPress={() => this.onCopyCode()}>
+                  <Text style={styles.TextGenerated}>
+                    {this.state.generated_group_code}
+                  </Text>
+                </Pressable>
+              </View>}
+          
+            <Dash dashGap={6} dashColor={colors.softestgrey} style={styles.DashLine}/>
+
+            <View style={styles.DoubleLineInput}>
+              <View style={styles.IndivLine}>
+                <Text style={styles.Label}>First name</Text>
+                <TextInput
+                  value={this.state.first_name}
+                  placeholder="John"
+                  style={[(Platform.OS == 'ios' ? styles.TextInputIOS : styles.TextInputAndroid), styles.SingleInput]}
+                  onChangeText={(first_name) => this.setState({ first_name, registration_error: null })}
+                />
+              </View>
+
+              <View style={styles.SpaceBetween}/>
+
+              <View style={styles.IndivLine}>
+                <Text style={styles.Label}>Last name</Text>
+                <TextInput
+                  value={this.state.last_name}
+                  placeholder="Doe"
+                  style={[(Platform.OS == 'ios' ? styles.TextInputIOS : styles.TextInputAndroid), styles.SingleInput]}
+                  onChangeText={(last_name) => this.setState({ last_name, registration_error: null })}
+                />
+              </View>
+            </View>
+
+            <Text style={styles.Label}>Email</Text>
+            <TextInput
+              value={this.state.email}
+              placeholder="john.doe@mail.com"
+              style={Platform.OS == 'ios' ? styles.TextInputIOS : styles.TextInputAndroid}
+              onChangeText={(email) => this.setState({ email, registration_error: null })}
+            />
+
+            <Text style={styles.Label}>Password</Text>
+            <TextInput
+              value={this.state.password}
+              placeholder="Password"
+              secureTextEntry={true}
+              textContentType="password"
+              style={Platform.OS == 'ios' ? styles.TextInputIOS : styles.TextInputAndroid}
+              onChangeText={(password) => this.setState({ password, registration_error: null })}
+            />
+
+            <Text style={styles.Label}>Confirm password</Text>
+            <TextInput
+              value={this.state.confirm_password}
+              placeholder="Confirm password"
+              secureTextEntry={true}
+              textContentType="password"
+              style={Platform.OS == 'ios' ? styles.TextInputIOS : styles.TextInputAndroid}
+              onChangeText={(confirm_password) => this.setState({ confirm_password, registration_error: null })}
+            />
+
+            {!this.state.loading &&  
+              <TouchableOpacity onPress={() => {
+                  this.setState({registration_error: null, loading: true})
+                  this.onRegisterUser()
+                }}>
+                <View style={styles.SubmitButton}>
+                    <Text style={styles.SubmitButtonText}>Sign Up</Text>
+                </View>
+              </TouchableOpacity>}
+
+            {this.state.loading &&  
+              <ActivityIndicator size="large" color={colors.softestgrey}/>}    
+
+          </View>
+        </KeyboardAvoidingView>
+      </View>
     )
   }
 
@@ -308,24 +330,40 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   MainText: {
-    fontSize: 20,
-    marginBottom: 20,
-    color: colors.igamma,
-  },
-  DoYouHaveGroup: {
+    fontSize: 21,
     marginBottom: 10,
-    color: colors.igamma,
+    color: colors.softestgrey,
   },
-  ButtonBox: {
+  ButtonsArea: {
     width: 300,
+    marginTop: 10,
     flexDirection: "row",
     justifyContent: "space-evenly",
   },
+  SingleButton: {
+    flexDirection: "column",
+  },
+  ButtonLabel: {
+    fontSize: 11,
+    marginBottom: 1,
+    textAlign: "center",
+    color: colors.softestgrey,
+  },
   ButtonGroup: {
-    width: 75,
-    height: 75,
-    borderRadius: 10,
-    backgroundColor: colors.igamma,
+    width: 90,
+    height: 90,
+    borderRadius: 7,
+    backgroundColor: colors.softestgrey,
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  Selected: {
+    borderWidth: 3,
+    borderColor: colors.calltoaction
+  },
+  GroupIcon: {
+    width: 74,
+    height: 74
   },
   GroupType: {
     height: 67,
@@ -335,7 +373,7 @@ const styles = StyleSheet.create({
   GroupText: {
     marginBottom: 5,
     textAlign: "center",
-    color: colors.igamma,
+    color: colors.softestgrey,
   },
   CodeGenerated: {
     height: 43,
@@ -364,46 +402,57 @@ const styles = StyleSheet.create({
   ErrorText: {
     fontSize: 16,
     textAlign: "center",
-    color: colors.danger
+    color: colors.danger,
   },
   DoubleLineInput: {
     width: 300,
     flexDirection: "row",
+  },
+  IndivLine: {
+    flex: 1,
+    width: "auto",
+  },
+  Label: {
+    padding: 0,
+    width: 300,
+    marginBottom: 2,
+    textAlign: "left",
+    color: colors.softestgrey
   },
   TextInputIOS: {
     width: 300,
     height: 42,
     fontSize: 16,
     borderRadius: 5,
-    marginBottom: 20,
+    marginBottom: 12,
     paddingHorizontal: 10,
-    backgroundColor: colors.igamma,
+    backgroundColor: colors.softestgrey,
   },
   TextInputAndroid: {
     width: 300,
     height: 42,
     fontSize: 15,
     borderRadius: 5,
-    marginBottom: 20,
+    marginBottom: 12,
     paddingHorizontal: 10,
-    backgroundColor: colors.igamma,
+    backgroundColor: colors.softestgrey,
   },
   SpaceBetween: {
     width: 20
   },
   SingleInput: {
-    flex: 1,
     width: "auto",
   },
   SubmitButton: {
     width: 300,
     padding: 10,
     borderRadius: 5,
+    marginTop: 18,
     backgroundColor: colors.calltoaction,
   },
   SubmitButtonText: {
     fontSize: 20,
-    color: "#f2f2f2",
+    color: colors.softestgrey,
     textAlign: "center",
   }, 
   FlashMessage: {

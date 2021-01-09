@@ -72,53 +72,57 @@ class Login extends Component{
 
   render(){
     return(
-      <KeyboardAvoidingView style={styles.FullBackground}>
-        <View style={styles.Content}>
-          <Text style={styles.MainText}>Welcome to Collaap</Text>
+      <View style={styles.FullBackground}>
+        <KeyboardAvoidingView 
+          behavior='position' 
+          keyboardVerticalOffset={Platform.OS === 'ios' ? 40 : 0}>
+          <View style={styles.Content}>
+            <Text style={styles.MainText}>Welcome to Collaap</Text>
 
-          <Image 
-            style={styles.MainLogo}
-            source={require('Collaap/src/images/logo.png')} />
+            <Image 
+              style={styles.MainLogo}
+              source={require('Collaap/src/images/logo.png')} />
 
-          {this.props.session_status === 'loading' &&
-            <View style={styles.ResponseInner}>
-              <ActivityIndicator size="small" color={colors.igamma}/>
-            </View>}
+            {this.props.session_status === 'loading' &&
+              <View style={styles.ResponseInner}>
+                <ActivityIndicator size="small" color={colors.igamma}/>
+              </View>}
 
-          {this.props.session_status === 'error' &&
-            <View style={styles.ResponseInner}>
-              <Text style={styles.ErrorText}>{this.props.session_error}</Text>
-            </View>}
+            {this.props.session_status === 'error' &&
+              <View style={styles.ResponseInner}>
+                <Text style={styles.ErrorText}>{this.props.session_error}</Text>
+              </View>}
 
-          <TextInput
-            value={this.state.username}
-            placeholder="Email address"
-            onSubmitEditing={() => this.passwordInput.focus()}
-            style={Platform.OS == 'ios' ? styles.TextInputIOS : styles.TextInputAndroid}
-            onChangeText={(username) => this.setState({ username })}
-          />
+            <TextInput
+              value={this.state.username}
+              placeholder="Email address"
+              onSubmitEditing={() => this.passwordInput.focus()}
+              style={Platform.OS == 'ios' ? styles.TextInputIOS : styles.TextInputAndroid}
+              onChangeText={(username) => this.setState({ username })}
+            />
 
-          <TextInput
-            value={this.state.password}
-            placeholder="Password"
-            secureTextEntry={true}
-            textContentType="password"
-            ref={(ref) => { this.passwordInput = ref }}
-            style={Platform.OS == 'ios' ? styles.TextInputIOS : styles.TextInputAndroid}
-            onChangeText={(password) => this.setState({ password })}
-          />
+            <TextInput
+              value={this.state.password}
+              placeholder="Password"
+              secureTextEntry={true}
+              textContentType="password"
+              ref={(ref) => { this.passwordInput = ref }}
+              style={Platform.OS == 'ios' ? styles.TextInputIOS : styles.TextInputAndroid}
+              onChangeText={(password) => this.setState({ password })}
+            />
 
-          <TouchableOpacity onPress={() => this.onLoginUser(this.state.username, this.state.password)}>
-            <View style={styles.SubmitButton}>
-              <Text style={styles.SubmitButtonText}>Sign In</Text>
-            </View>
-          </TouchableOpacity>
+            <TouchableOpacity onPress={() => this.onLoginUser(this.state.username, this.state.password)}>
+              <View style={styles.SubmitButton}>
+                <Text style={styles.SubmitButtonText}>Sign In</Text>
+              </View>
+            </TouchableOpacity>
 
-          <TouchableOpacity onPress={() => this.onOpenRegistation()}>
-            <Text style={styles.RegistrationLink}>Create an account</Text>
-          </TouchableOpacity>
-        </View>
-      </KeyboardAvoidingView>
+            <TouchableOpacity onPress={() => this.onOpenRegistation()}>
+              <Text style={styles.RegistrationLink}>Create an account</Text>
+            </TouchableOpacity>
+          </View>
+        </KeyboardAvoidingView>
+      </View>
     )
   }
 
@@ -137,7 +141,7 @@ const styles = StyleSheet.create({
   },
   MainText: {
     fontSize: 26,
-    color: colors.igamma
+    color: colors.softestgrey
   },
   MainLogo: {
     width: 60,
@@ -162,7 +166,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginBottom: 20,
     paddingHorizontal: 10,
-    backgroundColor: colors.igamma,
+    backgroundColor: colors.softestgrey,
   },
   TextInputAndroid: {
     width: 300,
@@ -171,7 +175,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginBottom: 20,
     paddingHorizontal: 10,
-    backgroundColor: colors.igamma,
+    backgroundColor: colors.softestgrey,
   },
   SubmitButton: {
     width: 300,
@@ -183,14 +187,14 @@ const styles = StyleSheet.create({
   },
   SubmitButtonText: {
     fontSize: 20,
-    color: "#f2f2f2",
+    color: colors.softestgrey,
     textAlign: "center",
   },
   RegistrationLink: {
     fontSize: 16,
     lineHeight: 16,
     paddingVertical: 10,
-    color: colors.igamma,
+    color: colors.softestgrey,
     textDecorationLine: 'underline',
   }, 
 })
