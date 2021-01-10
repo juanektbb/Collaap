@@ -88,7 +88,7 @@ class HomeElement extends Component{
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.OnDeleteCancel} onPress={() => this.setState({ on_delete: false })}>
-          <Text style={styles.OnDeleteCancelText}>&#10005;</Text>
+          <Text style={styles.OnDeleteCancelText}>Cancel</Text>
         </TouchableOpacity>
       </View>}
 
@@ -238,7 +238,7 @@ const styles = StyleSheet.create({
   },
   OnDeleteButton: {
     flex: 1,
-    backgroundColor: colors.calltoaction,
+    backgroundColor: colors.danger,
   },
   OnDeleteButtonText: {
     fontSize: 16,
@@ -248,12 +248,14 @@ const styles = StyleSheet.create({
   },
   OnDeleteCancel: {
     width: 78,
+    justifyContent: "center",
+    alignItems: "center"
   },
   OnDeleteCancelText: {
-    fontSize: 50,
+    fontSize: 15,
     color: colors.softgrey,
-    lineHeight: 76,
-    textAlign: "center",
+
+
   },
 })
 

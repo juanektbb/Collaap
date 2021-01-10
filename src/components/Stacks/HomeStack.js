@@ -39,7 +39,7 @@ const HomeStack = () => {
         options={{
           title: "New item",
           headerBackTitle: "Back",
-          headerTintColor: colors.igamma,
+          headerTintColor: colors.softestgrey,
           headerTruncatedBackTitle: "Back"
         }}
       />
@@ -50,7 +50,7 @@ const HomeStack = () => {
         options={{
           title: "Untitled item",
           headerBackTitle: "Back",
-          headerTintColor: colors.igamma,
+          headerTintColor: colors.softestgrey,
           headerTruncatedBackTitle: "Back"
         }}
       />

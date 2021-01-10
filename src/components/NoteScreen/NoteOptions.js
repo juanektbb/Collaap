@@ -5,6 +5,7 @@ import {
   Image,
   Switch,
   FlatList,
+  Pressable,
   ScrollView,
   StyleSheet,
   TouchableOpacity,
@@ -19,9 +20,13 @@ import OptionDate from 'Collaap/src/components/NoteScreen/Options/OptionDate'
 import OptionTime from 'Collaap/src/components/NoteScreen/Options/OptionTime'
 import ModalCustom from 'Collaap/src/components/General/ModalCustom'
 
+import Clipboard from '@react-native-community/clipboard'
+import { showMessage } from "react-native-flash-message"
+
 function mapStateToProps(state){
   return {
-    collaaps: state.collaaps
+    collaaps: state.collaaps,
+    group_code: state.group_code,
   }
 }
 
@@ -44,6 +49,32 @@ class NoteOptions extends Component{
     })
   }
 
+  //COPY TO CLIPBOARD
+  onCopyCode = () => {
+    this.toggle_collaborators()
+    Clipboard.setString(this.props.group_code)
+
+    showMessage({
+      message: "Code copied to clipboard",
+      description: "Share it with someone for them to join your group",
+      type: "info"
+    })
+  }
+
+  sharableCodeRender = () => {
+    return (
+      <View style={styles.GroupType}>
+        <Text style={styles.GroupText}>
+          Share your group's code for others to join
+        </Text>
+        <Pressable style={styles.CodeGenerated} onPress={() => this.onCopyCode()}>
+          <Text style={styles.TextGenerated}>
+            {this.props.group_code}
+          </Text>
+        </Pressable>
+      </View>)
+  }
+
   render(){
     return(
       <View style={styles.NoteOptions}>
@@ -62,10 +93,20 @@ class NoteOptions extends Component{
         <ModalCustom 
           is_open={this.state.is_collaborators_open} 
           toggle_modal={this.toggle_collaborators} 
-          title="Choose your collaaps?">
+          title="Choose your collaaps">
           <FlatList
             keyExtractor={(item) => item.username}
             data={this.props.collaaps}
+            ListEmptyComponent={
+              <View style={styles.EmptyComponent}>
+                <Text style={styles.EmptyTitle}>Oh no! You don't have collaaps yet</Text>
+                <Text style={styles.EmptySubtitle}>Invite someone to join your group now</Text>
+                {this.sharableCodeRender()}
+              </View>}
+            ListFooterComponent={
+              <View style={styles.EmptyComponent}>
+                {this.sharableCodeRender()}
+              </View>}
             renderItem={({item}) =>
               <View style={styles.SingleCollaborator}>
 
@@ -219,7 +260,45 @@ const styles = StyleSheet.create({
   },
   OpacityActive: {
     opacity: 0.1
-  }
+  },
+  EmptyComponent: {
+    alignItems: "center"
+  },
+  EmptyTitle: {
+    fontSize: 16, 
+    marginBottom: 2,
+    textAlign: "center", 
+    color: colors.charcoal
+  },
+  EmptySubtitle: {
+    color: colors.grey, 
+    textAlign: "center"
+  },
+  GroupType: {
+    height: 67,
+    marginTop: 25,
+    marginBottom: 15,
+    justifyContent: "center"
+  },
+  GroupText: {
+    marginBottom: 5,
+    textAlign: "center",
+    color: colors.smoothestgrey
+  },
+  CodeGenerated: {
+    height: 43,
+    width: 260,
+    borderWidth: 1,
+    borderRadius: 5,
+    borderStyle: "dashed",
+    justifyContent: "center",
+    borderColor: colors.calltoaction,
+  },
+  TextGenerated: {
+    fontSize: 20,
+    textAlign: "center",
+    color: colors.calltoaction,
+  },
 })
 
 export default connect(mapStateToProps)(NoteOptions)

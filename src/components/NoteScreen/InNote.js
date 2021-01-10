@@ -50,13 +50,13 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: 15,
     borderWidth: 1,
-    borderColor: "#ddd",
+    borderColor: colors.softergrey,
     marginHorizontal: 10
   },
   MainBodyInput: {
     fontSize: 16,
     lineHeight: 20,
-    paddingVertical: 0,
+    paddingVertical: Platform.OS == 'ios' ? 0 : 5,
     paddingHorizontal: 9
   },
   DoneBox:{
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.calltoaction,
   },
   DoneText: {
-    color: "white",
+    color: colors.white,
     fontSize: 15,
     lineHeight: 18
   }

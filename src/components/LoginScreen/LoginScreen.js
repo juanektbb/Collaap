@@ -74,7 +74,8 @@ class Login extends Component{
     return(
       <View style={styles.FullBackground}>
         <KeyboardAvoidingView 
-          behavior='position' 
+          behavior={Platform.OS === 'ios' ? 'position' : null}
+          automaticallyAdjustContentInsets={false}
           keyboardVerticalOffset={Platform.OS === 'ios' ? 40 : 0}>
           <View style={styles.Content}>
             <Text style={styles.MainText}>Welcome to Collaap</Text>

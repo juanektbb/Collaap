@@ -189,7 +189,7 @@ const styles = StyleSheet.create({
   },
   ListEmptyText: {
     textAlign: "center",
-    color: "#bbb",
+    color: colors.smoothestgrey,
   },
   ListEntry: {
     height: 40,
@@ -207,7 +207,7 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 16,
     borderBottomWidth: 1,
-    borderColor: "#ddd",
+    borderColor: colors.softergrey,
   },
   ListEntryDelete: {
     width: 40,
@@ -216,7 +216,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   ListEntryCross: {
-    color: colors.calltoaction,
+    color: colors.danger,
     fontSize: Platform.OS === "ios" ? 20 : 26,
   },
   DoneBox:{
@@ -239,7 +239,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.calltoaction,
   },
   DoneText: {
-    color: "white",
+    color: colors.white,
     fontSize: 15,
     lineHeight: 18
   }

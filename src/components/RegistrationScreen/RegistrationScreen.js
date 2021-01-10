@@ -4,10 +4,10 @@ import {
   View,
   Image,
   Platform,
-  FlatList,
   TextInput,
   Pressable,
   StyleSheet,
+  ScrollView,
   TouchableOpacity,
   ActivityIndicator,
   KeyboardAvoidingView
@@ -189,9 +189,10 @@ class Registration extends Component{
 
   render(){
     return(
-      <View style={styles.FullBackground}>
+      <ScrollView style={styles.FullBackground}>
         <KeyboardAvoidingView 
-          behavior='position' 
+          behavior={Platform.OS === 'ios' ? 'position' : null}
+          automaticallyAdjustContentInsets={false}
           keyboardVerticalOffset={Platform.OS === 'ios' ? 40 : 0}>
           <View style={styles.Content}>
             <Text style={styles.MainText}>Create your account</Text>
@@ -313,7 +314,7 @@ class Registration extends Component{
 
           </View>
         </KeyboardAvoidingView>
-      </View>
+      </ScrollView>
     )
   }
 
@@ -321,9 +322,6 @@ class Registration extends Component{
 
 const styles = StyleSheet.create({
   FullBackground: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "flex-start",
     backgroundColor: colors.ialpha,
   },
   Content: {
@@ -449,6 +447,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginTop: 18,
     backgroundColor: colors.calltoaction,
+    marginBottom: Platform.OS == 'ios' ? 0 : 20,
   },
   SubmitButtonText: {
     fontSize: 20,

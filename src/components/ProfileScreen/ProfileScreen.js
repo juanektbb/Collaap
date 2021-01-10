@@ -60,7 +60,7 @@ class Profile extends Component{
 
   //COPY TO CLIPBOARD
   onCopyCode = () => {
-    Clipboard.setString(this.state.generated_group_code)
+    Clipboard.setString(this.state.group_code)
 
     showMessage({
       message: "Code copied to clipboard",
@@ -155,7 +155,9 @@ class Profile extends Component{
   render(){
     return(
       <ScrollView>
-        <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : null} style={{ flex: 1}}>
+        <KeyboardAvoidingView 
+          behavior={Platform.OS === 'ios' ? 'position' : null}
+          automaticallyAdjustContentInsets={false}>
           <View style={styles.Container}>
             <View style={styles.ResponseBox}>
               {this.contentToShow()}
@@ -228,7 +230,7 @@ class Profile extends Component{
 
               <View style={styles.GroupType}>
                 <Text style={styles.GroupText}>
-                  Share your group's code for other to join
+                  Share your group's code for others to join
                 </Text>
                 <Pressable style={styles.CodeGenerated} onPress={() => this.onCopyCode()}>
                   <Text style={styles.TextGenerated}>
@@ -295,7 +297,7 @@ const styles = StyleSheet.create({
     width: 126,
     height: 126,
     borderWidth: 1,
-    borderColor: colors.softgrey,
+    borderColor: colors.softergrey,
     borderRadius: 60
   },
   MainIcon: {
@@ -308,8 +310,9 @@ const styles = StyleSheet.create({
     height: 124,
     borderWidth: 1,
     flexWrap: "wrap",
+    borderRadius: 5,
     flexDirection: "row",
-    borderColor: "#ddd"
+    borderColor: colors.softergrey
   },
   SlideIcon: {
     marginTop: 3,
@@ -326,7 +329,7 @@ const styles = StyleSheet.create({
     padding: 0,
     width: 317,
     textAlign: "left",
-    color: colors.softgrey
+    color: colors.smoothestgrey
   },
   DoubleLineInput: {
     width: 317,
@@ -343,7 +346,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 5,
     marginBottom: 12,
-    borderColor: "#ddd",
+    borderColor: colors.softergrey,
     paddingVertical: 10,
     paddingHorizontal: 10,
   },
@@ -356,7 +359,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginBottom: 12,
     paddingVertical: 6,
-    borderColor: "#ddd",
+    borderColor: colors.softergrey,
     paddingHorizontal: 10,
   },
   SingleInput: {
@@ -387,7 +390,7 @@ const styles = StyleSheet.create({
   GroupText: {
     marginBottom: 5,
     textAlign: "center",
-    color: colors.softgrey
+    color: colors.smoothestgrey
   },
   CodeGenerated: {
     height: 43,
