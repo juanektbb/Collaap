@@ -133,22 +133,22 @@ class Profile extends Component{
           <Text style={styles.WelcomeText}>Hey, {this.props.first_name_redux}</Text>
           <Text style={styles.InstructionsText}>You are logged in as {this.props.username_redux}</Text>
         </View>)
-      break;
+      break
       case 'error':
         return (<View style={styles.ResponseInner}>
           <Text style={styles.ErrorText}>{this.state.update_error}</Text>
         </View>)
-      break;
+      break
       case 'loading': 
         return (<ActivityIndicator size="small" color={colors.ialpha} style={styles.Loader} />)
-      break;
+      break
       case 'success': 
         return (<View style={styles.ResponseInner}>
           <Text style={styles.SuccessText}>
              Your profile was updated successfully!
           </Text>
         </View>)
-      break;
+      break
     }
   }
 

@@ -104,9 +104,10 @@ class NoteOptions extends Component{
                 {this.sharableCodeRender()}
               </View>}
             ListFooterComponent={
-              <View style={styles.EmptyComponent}>
-                {this.sharableCodeRender()}
-              </View>}
+              this.props.collaaps.length !== 0 ?
+                <View style={styles.EmptyComponent}>
+                  {this.sharableCodeRender()}
+                </View> : null}
             renderItem={({item}) =>
               <View style={styles.SingleCollaborator}>
 

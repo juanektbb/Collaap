@@ -275,6 +275,7 @@ class Registration extends Component{
             <TextInput
               value={this.state.email}
               placeholder="john.doe@mail.com"
+              autoCapitalize='none'
               style={Platform.OS == 'ios' ? styles.TextInputIOS : styles.TextInputAndroid}
               onChangeText={(email) => this.setState({ email, registration_error: null })}
             />

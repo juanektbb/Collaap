@@ -254,8 +254,6 @@ const styles = StyleSheet.create({
   OnDeleteCancelText: {
     fontSize: 15,
     color: colors.softgrey,
-
-
   },
 })
 

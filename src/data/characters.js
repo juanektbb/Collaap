@@ -39,8 +39,7 @@ const characters = [
   {
     name: "woman_3",
     icon: require('Collaap/src/images/users/user-6.png')
-  },
-
+  }
 ]
 
 export default characters

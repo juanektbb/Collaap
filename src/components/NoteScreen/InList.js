@@ -15,7 +15,7 @@ import colors from 'Collaap/src/data/colors.js'
 class InList extends Component{
 
   constructor(props) {
-    super(props);
+    super(props)
     this.listEntryInput = {}
 
     this.state = {

@@ -97,6 +97,7 @@ class Login extends Component{
             <TextInput
               value={this.state.username}
               placeholder="Email address"
+              autoCapitalize='none'
               onSubmitEditing={() => this.passwordInput.focus()}
               style={Platform.OS == 'ios' ? styles.TextInputIOS : styles.TextInputAndroid}
               onChangeText={(username) => this.setState({ username })}
