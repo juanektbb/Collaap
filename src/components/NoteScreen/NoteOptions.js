@@ -192,6 +192,8 @@ class NoteOptions extends Component{
   }
 }
 
+const sizeIcons = 38;
+
 const styles = StyleSheet.create({
   NoteOptions: {
     height: 61,
@@ -202,7 +204,7 @@ const styles = StyleSheet.create({
   OptionsBox: {
     flex: 1,
     flexDirection: "row",
-    height: 35,
+    height: sizeIcons,
     marginHorizontal: 10,
     justifyContent: "center"
   },
@@ -214,8 +216,8 @@ const styles = StyleSheet.create({
     textAlign: "center"
   },  
   OptionsImage: {
-    width: 35,
-    height: 35
+    width: sizeIcons,
+    height: sizeIcons
   },
   CollaboratorsCounter:{
     lineHeight: 37,
